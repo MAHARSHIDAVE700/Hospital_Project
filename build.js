@@ -57,4 +57,17 @@ for (let file of filesToCopy) {
   }
 }
 
-console.log('Build completed: PHP files copied to api/ directory successfully.');
+// Create public directory if it doesn't exist and copy assets
+const publicDir = path.join(__dirname, 'public');
+if (!fs.existsSync(publicDir)) {
+  fs.mkdirSync(publicDir);
+}
+
+const assetsSrc = path.join(__dirname, 'assets');
+const assetsDest = path.join(publicDir, 'assets');
+if (fs.existsSync(assetsSrc)) {
+  copyFolderRecursive(assetsSrc, assetsDest);
+}
+
+console.log('Build completed: PHP files copied to api/ and assets to public/ successfully.');
+

@@ -17,4 +17,4 @@ uploads/*
 # Vercel build folder
 api/*
 !api/index.php
-
+public/*
