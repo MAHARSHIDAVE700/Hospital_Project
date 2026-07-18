@@ -1,0 +1,10 @@
+{
+  "name": "hospital-management-system",
+  "version": "1.0.0",
+  "description": "Hospital Management System PHP deployment on Vercel",
+  "main": "index.php",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "dependencies": {}
+}

@@ -13,3 +13,7 @@ Thumbs.db
 sms_log.txt
 uploads/*
 !uploads/.gitkeep
+
+# Vercel build folder
+api/
+
