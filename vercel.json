@@ -11,20 +11,24 @@
       "dest": "/assets/$1"
     },
     {
-      "src": "/admin/(.*)",
+      "src": "/admin/(.*)\\.php",
       "dest": "/api/admin/$1"
     },
     {
-      "src": "/doctor/(.*)",
+      "src": "/doctor/(.*)\\.php",
       "dest": "/api/doctor/$1"
     },
     {
-      "src": "/patient/(.*)",
+      "src": "/patient/(.*)\\.php",
       "dest": "/api/patient/$1"
     },
     {
       "src": "/$",
-      "dest": "/api/index.php"
+      "dest": "/api/index"
+    },
+    {
+      "src": "/(.*)\\.php",
+      "dest": "/api/$1"
     },
     {
       "src": "/(.*)",
