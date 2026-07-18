@@ -1,0 +1,15 @@
+# IDEs and editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+.DS_Store
+Thumbs.db
+
+# Project logs and uploads
+sms_log.txt
+uploads/*
+!uploads/.gitkeep
