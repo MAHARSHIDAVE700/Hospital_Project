@@ -15,5 +15,6 @@ uploads/*
 !uploads/.gitkeep
 
 # Vercel build folder
-api/
+api/*
+!api/index.php
 

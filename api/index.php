@@ -1,0 +1,3 @@
+<?php
+// Vercel bootstrap placeholder
+?>
