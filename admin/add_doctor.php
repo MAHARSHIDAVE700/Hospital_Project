@@ -16,42 +16,69 @@ $departments = $conn->query("SELECT * FROM departments");
 // Save Doctor
 if(isset($_POST['save'])){
 
-    $full_name = $_POST['full_name'];
-    $department_id = $_POST['department_id'];
-    $specialization = $_POST['specialization'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
-    $experience = $_POST['experience'];
-    $qualification = $_POST['qualification'];
-    $consultation_fee = $_POST['consultation_fee'];
-    $available_days = $_POST['available_days'];
-    $available_time = $_POST['available_time'];
+    $full_name = trim($_POST['full_name']);
+    $department_id = intval($_POST['department_id']);
+    $specialization = trim($_POST['specialization']);
+    $phone = trim($_POST['phone']);
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+    $experience = intval($_POST['experience']);
+    $qualification = trim($_POST['qualification']);
+    $consultation_fee = floatval($_POST['consultation_fee']);
+    $available_days = trim($_POST['available_days']);
+    $available_time = trim($_POST['available_time']);
     $status = $_POST['status'];
 
-    $stmt = $conn->prepare("INSERT INTO doctors
-    (full_name,department_id,specialization,phone,email,experience,qualification,consultation_fee,available_days,available_time,status)
-    VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+    if (empty($email) || empty($password)) {
+        $message = "Email and Password are required for doctor account creation!";
+    } else {
+        // Check if user account already exists
+        $userCheck = $conn->prepare("SELECT id FROM users WHERE email = ?");
+        $userCheck->bind_param("s", $email);
+        $userCheck->execute();
+        $userResult = $userCheck->get_result();
 
-    $stmt->bind_param(
-        "sisssisssss",
-        $full_name,
-        $department_id,
-        $specialization,
-        $phone,
-        $email,
-        $experience,
-        $qualification,
-        $consultation_fee,
-        $available_days,
-        $available_time,
-        $status
-    );
+        if ($userResult && $userResult->num_rows > 0) {
+            // Update password & role if user already exists
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $updateUser = $conn->prepare("UPDATE users SET password = ?, role = 'doctor', full_name = ? WHERE email = ?");
+            $updateUser->bind_param("sss", $hashed_password, $full_name, $email);
+            $updateUser->execute();
+        } else {
+            // Create user account for doctor login
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $role = 'doctor';
+            $userStmt = $conn->prepare("INSERT INTO users (full_name, email, password, role) VALUES (?, ?, ?, ?)");
+            $userStmt->bind_param("ssss", $full_name, $email, $hashed_password, $role);
+            $userStmt->execute();
+        }
 
-    if($stmt->execute()){
-        header("Location: manage_doctors.php");
-        exit();
-    }else{
-        $message = "Error: ".$conn->error;
+        // Insert into doctors table
+        $stmt = $conn->prepare("INSERT INTO doctors
+        (full_name,department_id,specialization,phone,email,experience,qualification,consultation_fee,available_days,available_time,status)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+
+        $stmt->bind_param(
+            "sisssisssss",
+            $full_name,
+            $department_id,
+            $specialization,
+            $phone,
+            $email,
+            $experience,
+            $qualification,
+            $consultation_fee,
+            $available_days,
+            $available_time,
+            $status
+        );
+
+        if($stmt->execute()){
+            header("Location: manage_doctors.php");
+            exit();
+        }else{
+            $message = "Error inserting doctor record: ".$conn->error;
+        }
     }
 }
 ?>
@@ -127,7 +154,12 @@ while($row=($departments)->fetch_assoc()){
 
 <div class="col-md-6 mb-3">
 <label>Email</label>
-<input type="email" name="email" class="form-control">
+<input type="email" name="email" class="form-control" required>
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Account Login Password</label>
+<input type="password" name="password" class="form-control" placeholder="Enter password for doctor login" required>
 </div>
 
 <div class="col-md-6 mb-3">

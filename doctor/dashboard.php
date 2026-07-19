@@ -12,15 +12,28 @@ include_once "../includes/sms_helper.php";
 // Logged-in user's ID
 $userID = $_SESSION['doctor_id'];
 
-// Get doctor's email from users table
-$userQuery = $conn->query("SELECT email FROM users WHERE id='$userID'");
-$user = ($userQuery)->fetch_assoc();
-$email = $user['email'];
+// Get doctor's email from users table or session
+$email = $_SESSION['doctor_email'] ?? '';
+if (empty($email)) {
+    $userQuery = $conn->query("SELECT email FROM users WHERE id='$userID'");
+    $user = ($userQuery) ? $userQuery->fetch_assoc() : null;
+    $email = $user ? $user['email'] : '';
+}
 
 // Get doctor_id and details from doctors table
-$doctorQuery = $conn->query("SELECT * FROM doctors WHERE email='$email'");
-$doctor = ($doctorQuery)->fetch_assoc();
-$doctorID = $doctor['doctor_id'];
+$doctor = null;
+if (!empty($email)) {
+    $doctorQuery = $conn->query("SELECT * FROM doctors WHERE LOWER(email)=LOWER('$email')");
+    $doctor = ($doctorQuery) ? $doctorQuery->fetch_assoc() : null;
+}
+
+if (!$doctor) {
+    $docName = $conn->real_escape_string($_SESSION['doctor_name'] ?? '');
+    $doctorQuery = $conn->query("SELECT * FROM doctors WHERE LOWER(full_name) LIKE LOWER('%$docName%') LIMIT 1");
+    $doctor = ($doctorQuery) ? $doctorQuery->fetch_assoc() : null;
+}
+
+$doctorID = $doctor ? $doctor['doctor_id'] : 0;
 
 // Queue alerting function
 function checkAndAlertQueue($conn, $doctorID, $doctorName) {
