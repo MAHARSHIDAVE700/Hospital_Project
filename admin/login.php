@@ -81,6 +81,10 @@ if(isset($_POST['login'])){
                 </div>
             </div>
             
+            <div class="d-flex justify-content-end mb-3">
+                <a href="../forgot_password.php" class="text-decoration-none small text-muted"><i class="bi bi-question-circle"></i> Forgot Password?</a>
+            </div>
+            
             <button type="submit" name="login" class="btn-login-submit" style="background-color: var(--dark-color) !important;">
                 <i class="bi bi-box-arrow-in-right"></i> Login
             </button>
