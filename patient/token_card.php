@@ -398,12 +398,18 @@ $queueStatusColor = [
         </div>
 
         <!-- Action Buttons (non-printable) -->
-        <div class="action-bar">
+        <div class="action-bar flex-wrap">
             <button class="btn-token-print" onclick="window.print()">
                 <i class="bi bi-printer-fill"></i> Print Token Card
             </button>
+            <a href="download_receipt.php?id=<?= $appt['appointment_id'] ?>" target="_blank" class="btn btn-outline-success">
+                <i class="bi bi-receipt"></i> Print Receipt
+            </a>
+            <a href="add_to_calendar.php?id=<?= $appt['appointment_id'] ?>" target="_blank" class="btn btn-outline-primary">
+                <i class="bi bi-calendar-plus"></i> Google Calendar
+            </a>
             <a href="my_appointments.php" class="btn-back">
-                <i class="bi bi-arrow-left"></i> My Appointments
+                <i class="bi bi-arrow-left"></i> Appointments
             </a>
             <a href="../patient/dashboard.php" class="btn-back">
                 <i class="bi bi-house-fill"></i> Dashboard

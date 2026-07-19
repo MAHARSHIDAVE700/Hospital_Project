@@ -183,6 +183,22 @@ No Appointments Found
 
 </div>
 
+<script>
+// Live update the table every 5 seconds
+setInterval(() => {
+    fetch(window.location.href)
+        .then(res => res.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newTbody = doc.querySelector('tbody');
+            if (newTbody) {
+                document.querySelector('tbody').innerHTML = newTbody.innerHTML;
+            }
+        });
+}, 5000);
+</script>
+
 </body>
 
 </html>

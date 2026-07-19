@@ -99,6 +99,8 @@ Dashboard
 
 <th>Date</th>
 
+<th>Action</th>
+
 </tr>
 
 </thead>
@@ -126,6 +128,12 @@ while($row=($result)->fetch_assoc()){
 <td><?= nl2br(htmlspecialchars($row['notes'])); ?></td>
 
 <td><?= $row['created_at']; ?></td>
+
+<td>
+    <a href="download_prescription.php?id=<?= $row['prescription_id']; ?>" target="_blank" class="btn btn-outline-primary btn-sm">
+        📄 Print PDF
+    </a>
+</td>
 
 </tr>
 

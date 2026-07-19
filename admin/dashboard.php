@@ -413,13 +413,23 @@ $notifications = $conn->query("
             </a>
         </div>
         <div class="col-md-4 mb-3">
-            <a href="#" class="btn btn-modern btn-primary-modern w-100 py-3 d-flex justify-content-center" style="background-color: var(--dark-color);">
-                📝 Medical Records
+            <a href="analytics.php" class="btn btn-modern btn-primary-modern w-100 py-3 d-flex justify-content-center" style="background-color: #0d6efd;">
+                📊 Charts &amp; Analytics
             </a>
         </div>
         <div class="col-md-4 mb-3">
-            <a href="#" class="btn btn-modern btn-primary-modern w-100 py-3 d-flex justify-content-center" style="background-color: var(--text-secondary);">
-                📊 Reports & Logs
+            <a href="view_logs.php" class="btn btn-modern btn-primary-modern w-100 py-3 d-flex justify-content-center" style="background-color: #6c757d;">
+                🛡️ Audit Logs
+            </a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a href="blood_bank.php" class="btn btn-modern btn-primary-modern w-100 py-3 d-flex justify-content-center" style="background-color: #dc3545;">
+                🩸 Blood Bank
+            </a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a href="ambulance_requests.php" class="btn btn-modern btn-primary-modern w-100 py-3 d-flex justify-content-center" style="background-color: #ffc107; color: #000;">
+                🚨 Ambulance Requests
             </a>
         </div>
     </div>

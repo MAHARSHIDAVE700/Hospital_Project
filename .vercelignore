@@ -9,7 +9,12 @@
 .DS_Store
 Thumbs.db
 
-# Project logs and uploads
+# Project logs and temporary test files
 sms_log.txt
+email_log.txt
+whatsapp_log.txt
+test*.php
+check*.php
+migrate*.php
 uploads/*
 !uploads/.gitkeep

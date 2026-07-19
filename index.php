@@ -120,6 +120,18 @@ Contact
 </a>
 </li>
 
+<li class="nav-item">
+<a class="nav-link text-warning fw-bold" href="patient/symptom_checker.php">
+🤖 AI Symptoms
+</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link text-danger fw-bold" href="patient/ambulance.php">
+🚨 Ambulance
+</a>
+</li>
+
 <li class="nav-item dropdown ms-3">
 
 <a
@@ -1229,6 +1241,19 @@ Contact Info
 📧 narayanhospital@gmail.com
 
 </p>
+
+<!-- Google Maps Integration -->
+<div class="mt-3 rounded overflow-hidden shadow-sm" style="height: 140px;">
+    <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14691.018617180373!2d71.17144215!3d23.0135062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395995b0580970a9%3A0xb35a09bfd1a7cb6!2sHalvad%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+        width="100%" 
+        height="100%" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</div>
 
 <div class="mt-3">
 

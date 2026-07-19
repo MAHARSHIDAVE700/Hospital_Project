@@ -87,15 +87,20 @@ if (isset($_POST['book'])) {
                 </div>
             ";
 
-            // SMS notification
+            // SMS & Email notification
             try {
-                $patQuery = $conn->query("SELECT p.phone, u.full_name FROM patients p JOIN users u ON p.user_id=u.id WHERE p.patient_id='$patientID'");
+                $patQuery = $conn->query("SELECT p.phone, u.full_name, u.email FROM patients p JOIN users u ON p.user_id=u.id WHERE p.patient_id='$patientID'");
                 $pat = $patQuery ? $patQuery->fetch_assoc() : null;
                 $docQuery = $conn->query("SELECT full_name FROM doctors WHERE doctor_id='$doctor'");
                 $docName = ($docQuery && $drow = $docQuery->fetch_assoc()) ? $drow['full_name'] : '';
                 if ($pat) {
                     include_once "includes/sms_helper.php";
                     SMSHelper::sendBookingSMS($pat['phone'], $pat['full_name'], $docName, $date, $time, $bookedAppointmentId ?? '-');
+
+                    if (!empty($pat['email'])) {
+                        include_once "includes/email_helper.php";
+                        EmailHelper::sendBookingConfirmation($pat['email'], $pat['full_name'], $docName, $date, $time, $bookedAppointmentId ?? '-');
+                    }
                 }
             } catch (Exception $e) { /* silently ignore */ }
         } else {

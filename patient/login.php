@@ -38,7 +38,10 @@ if(isset($_POST['login'])){
         $message = "<div class='alert alert-danger'><i class='bi bi-exclamation-triangle-fill'></i> Patient Not Found</div>";
 
     }
+}
 
+if (isset($_GET['registered'])) {
+    $message = "<div class='alert alert-success'><i class='bi bi-check-circle-fill'></i> Account created successfully! A verification email has been logged in <code>email_log.txt</code> for local testing.</div>";
 }
 ?>
 
@@ -80,6 +83,10 @@ if(isset($_POST['login'])){
                         <i class="bi bi-eye"></i>
                     </button>
                 </div>
+            </div>
+            
+            <div class="d-flex justify-content-end mb-3">
+                <a href="../forgot_password.php" class="text-decoration-none small text-muted"><i class="bi bi-question-circle"></i> Forgot Password?</a>
             </div>
             
             <button type="submit" name="login" class="btn-login-submit">

@@ -22,26 +22,61 @@ class FileSMSProvider implements SMSProviderInterface {
 // In the future, other providers can be configured simply by defining class e.g.:
 // class TwilioSMSProvider implements SMSProviderInterface { ... }
 
+class FileWhatsAppProvider {
+    private $logFile;
+    
+    public function __construct() {
+        $this->logFile = dirname(__DIR__) . '/whatsapp_log.txt';
+    }
+    
+    public function send($to, $message) {
+        $timestamp = date('Y-m-d H:i:s');
+        $logEntry = "[{$timestamp}] WHATSAPP TO: {$to} | MSG: {$message}\n----------------------------------------\n";
+        file_put_contents($this->logFile, $logEntry, FILE_APPEND);
+        return true;
+    }
+}
+
 class SMSHelper {
     private static $provider = null;
+    private static $waProvider = null;
     
     private static function getProvider() {
         if (self::$provider === null) {
-            // Default to File Logging provider for local simulation.
-            // Easily swap out with a different provider here.
             self::$provider = new FileSMSProvider();
         }
         return self::$provider;
+    }
+
+    private static function getWhatsAppProvider() {
+        if (self::$waProvider === null) {
+            self::$waProvider = new FileWhatsAppProvider();
+        }
+        return self::$waProvider;
     }
     
     public static function sendSMS($to, $message) {
         if (empty($to)) return false;
         return self::getProvider()->send($to, $message);
     }
+
+    public static function sendWhatsApp($to, $message) {
+        if (empty($to)) return false;
+        return self::getWhatsAppProvider()->send($to, $message);
+    }
     
     public static function sendBookingSMS($to, $patientName, $doctorName, $date, $time, $tokenId) {
         $msg = "Dear {$patientName}, your appointment with Dr. {$doctorName} is confirmed for {$date} at {$time}. Your queue Token ID is #{$tokenId}. Thank you!";
-        return self::sendSMS($to, $msg);
+        self::sendSMS($to, $msg);
+        self::sendWhatsApp($to, $msg);
+        return true;
+    }
+    
+    public static function sendReminderNotification($to, $patientName, $doctorName, $date, $time) {
+        $msg = "Reminder: Dear {$patientName}, your appointment with Dr. {$doctorName} is scheduled for tomorrow at {$time} ({$date}). Please arrive on time.";
+        self::sendSMS($to, $msg);
+        self::sendWhatsApp($to, $msg);
+        return true;
     }
     
     public static function sendQueuePositionAlert($to, $patientName, $doctorName, $positionsAhead) {

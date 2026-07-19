@@ -400,6 +400,42 @@ if ($patientID) {
                 </a>
             </div>
         </div>
+
+        <div class="col-lg-2.4 col-md-4 col-sm-6 mb-4">
+            <div class="card-modern text-center p-4 h-100">
+                <a href="symptom_checker.php" class="text-decoration-none d-block">
+                    <div class="widget-icon mx-auto bg-purple text-white" style="background-color: #6f42c1;">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <h5 class="text-dark">AI Symptoms</h5>
+                    <p class="text-secondary small mb-0">Smart doctor suggest</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-2.4 col-md-4 col-sm-6 mb-4">
+            <div class="card-modern text-center p-4 h-100">
+                <a href="feedback.php" class="text-decoration-none d-block">
+                    <div class="widget-icon mx-auto bg-warning text-dark">
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <h5 class="text-dark">Feedback</h5>
+                    <p class="text-secondary small mb-0">Rate your doctor</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-2.4 col-md-4 col-sm-6 mb-4">
+            <div class="card-modern text-center p-4 h-100">
+                <a href="ambulance.php" class="text-decoration-none d-block">
+                    <div class="widget-icon mx-auto bg-danger text-white">
+                        <i class="bi bi-truck-front-fill"></i>
+                    </div>
+                    <h5 class="text-dark">Ambulance</h5>
+                    <p class="text-secondary small mb-0">24x7 Emergency</p>
+                </a>
+            </div>
+        </div>
     </div>
 
 </div>

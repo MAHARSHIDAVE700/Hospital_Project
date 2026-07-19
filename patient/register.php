@@ -24,10 +24,11 @@ if (isset($_POST['register'])) {
         $message = "<div class='alert alert-danger'>Email already registered.</div>";
     } else {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $verifyToken = bin2hex(random_bytes(32));
 
         // Insert into users
-        $stmt = $conn->prepare("INSERT INTO users (full_name, email, password, role) VALUES (?, ?, ?, 'patient') RETURNING id");
-        $stmt->bind_param("sss", $full_name, $email, $hashedPassword);
+        $stmt = $conn->prepare("INSERT INTO users (full_name, email, password, role, is_email_verified, email_verification_token) VALUES (?, ?, ?, 'patient', 0, ?) RETURNING id");
+        $stmt->bind_param("ssss", $full_name, $email, $hashedPassword, $verifyToken);
         
         if ($stmt->execute()) {
             $user_row = $stmt->get_result()->fetch_assoc();
@@ -38,7 +39,16 @@ if (isset($_POST['register'])) {
             $stmt2->bind_param("issis", $user_id, $phone, $gender, $age, $address);
 
             if ($stmt2->execute()) {
-                header("Location: login.php");
+                // Send verification email
+                try {
+                    include_once "../includes/email_helper.php";
+                    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+                    $domain = $_SERVER['HTTP_HOST'];
+                    $verifyUrl = $protocol . $domain . dirname(dirname($_SERVER['PHP_SELF'])) . "/verify_email.php?token=" . $verifyToken;
+                    EmailHelper::sendVerificationEmail($email, $full_name, $verifyUrl);
+                } catch (Exception $e) { /* ignore */ }
+
+                header("Location: login.php?registered=1");
                 exit();
             } else {
                 $message = "<div class='alert alert-danger'>Patient profile registration failed.</div>";

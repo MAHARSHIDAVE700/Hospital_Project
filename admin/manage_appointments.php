@@ -90,26 +90,26 @@ $result = $conn->query($query);
 
 <td>
 
+<?php if($row['status'] == 'Pending'): ?>
 <a href="update_appointment.php?id=<?= $row['appointment_id']; ?>&status=Confirmed"
 class="btn btn-success btn-sm">
-
 Confirm
-
 </a>
+<?php endif; ?>
 
+<?php if($row['status'] == 'Confirmed'): ?>
 <a href="update_appointment.php?id=<?= $row['appointment_id']; ?>&status=Completed"
 class="btn btn-primary btn-sm">
-
 Complete
-
 </a>
+<?php endif; ?>
 
+<?php if($row['status'] != 'Cancelled' && $row['status'] != 'Completed'): ?>
 <a href="update_appointment.php?id=<?= $row['appointment_id']; ?>&status=Cancelled"
 class="btn btn-danger btn-sm">
-
 Cancel
-
 </a>
+<?php endif; ?>
 
 </td>
 
@@ -128,6 +128,22 @@ Cancel
 </a>
 
 </div>
+
+<script>
+// Live update the table every 5 seconds
+setInterval(() => {
+    fetch(window.location.href)
+        .then(res => res.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newTbody = doc.querySelector('tbody');
+            if (newTbody) {
+                document.querySelector('tbody').innerHTML = newTbody.innerHTML;
+            }
+        });
+}, 5000);
+</script>
 
 </body>
 

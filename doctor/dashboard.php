@@ -300,6 +300,9 @@ $todayProgress = $todayTotal > 0 ? round(($todayCompleted / $todayTotal) * 100) 
                         <?php } ?>
                         
                         <?php if ($currentApptId) { ?>
+                            <a href="../patient/video_consult.php?id=<?= $currentApptId ?>" target="_blank" class="btn btn-sm btn-info text-white btn-modern px-3 py-2">
+                                <i class="bi bi-camera-video-fill"></i> Video Call
+                            </a>
                             <a href="write_prescription.php?id=<?= $currentApptId ?>" class="btn btn-sm btn-success btn-modern px-3 py-2">
                                 <i class="bi bi-file-earmark-medical"></i> Complete
                             </a>

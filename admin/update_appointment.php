@@ -68,6 +68,34 @@ if ($stmt->execute()) {
         $conn->query("UPDATE appointments SET queue_status = 'Skipped' WHERE appointment_id = $id");
     }
 
+    // Fetch details for email & in-app notification
+    try {
+        $detailsQuery = $conn->query("
+            SELECT u.id AS user_id, u.email, u.full_name AS patient_name, d.full_name AS doctor_name, a.appointment_date, a.appointment_time, a.token_number
+            FROM appointments a
+            JOIN patients p ON a.patient_id = p.patient_id
+            JOIN users u ON p.user_id = u.id
+            JOIN doctors d ON a.doctor_id = d.doctor_id
+            WHERE a.appointment_id = $id
+        ");
+        if ($detailsQuery && $row = $detailsQuery->fetch_assoc()) {
+            include_once "../includes/notification_helper.php";
+            if ($status === 'Confirmed') {
+                NotificationHelper::add($row['user_id'], 'Appointment Confirmed', 'Your appointment with Dr. ' . $row['doctor_name'] . ' has been approved. Token #' . ($row['token_number'] ?? 'N/A'));
+                if (!empty($row['email'])) {
+                    include_once "../includes/email_helper.php";
+                    EmailHelper::sendAppointmentApproval($row['email'], $row['patient_name'], $row['doctor_name'], $row['appointment_date'], $row['appointment_time'], $row['token_number'] ?? '-');
+                }
+            } elseif ($status === 'Cancelled') {
+                NotificationHelper::add($row['user_id'], 'Appointment Cancelled', 'Your appointment with Dr. ' . $row['doctor_name'] . ' has been cancelled.');
+                if (!empty($row['email'])) {
+                    include_once "../includes/email_helper.php";
+                    EmailHelper::sendAppointmentCancellation($row['email'], $row['patient_name'], $row['doctor_name'], $row['appointment_date'], $row['appointment_time']);
+                }
+            }
+        }
+    } catch (Exception $e) { /* ignore notification errors */ }
+
     header("Location: manage_appointments.php?updated=1");
     exit();
 } else {
