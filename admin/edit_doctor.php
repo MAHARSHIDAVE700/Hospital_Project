@@ -32,16 +32,17 @@ $departments = $conn->query("SELECT * FROM departments");
 // Update doctor
 if(isset($_POST['update'])){
 
-    $name = $_POST['full_name'];
-    $department = $_POST['department'];
-    $specialization = $_POST['specialization'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
-    $experience = $_POST['experience'];
-    $qualification = $_POST['qualification'];
-    $fee = $_POST['consultation_fee'];
-    $days = $_POST['available_days'];
-    $time = $_POST['available_time'];
+    $name = trim($_POST['full_name']);
+    $department = intval($_POST['department']);
+    $specialization = trim($_POST['specialization']);
+    $phone = trim($_POST['phone']);
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password'] ?? '');
+    $experience = intval($_POST['experience']);
+    $qualification = trim($_POST['qualification']);
+    $fee = floatval($_POST['consultation_fee']);
+    $days = trim($_POST['available_days']);
+    $time = trim($_POST['available_time']);
     $status = $_POST['status'];
 
     $stmt = $conn->prepare("
@@ -77,6 +78,18 @@ if(isset($_POST['update'])){
     );
 
     if($stmt->execute()){
+        // Update user table password if provided
+        if (!empty($password)) {
+            $hashed = password_hash($password, PASSWORD_DEFAULT);
+            $uStmt = $conn->prepare("UPDATE users SET password = ?, full_name = ? WHERE LOWER(email) = LOWER(?)");
+            $uStmt->bind_param("sss", $hashed, $name, $email);
+            $uStmt->execute();
+        } else {
+            $uStmt = $conn->prepare("UPDATE users SET full_name = ? WHERE LOWER(email) = LOWER(?)");
+            $uStmt->bind_param("ss", $name, $email);
+            $uStmt->execute();
+        }
+
         header("Location: manage_doctors.php");
         exit();
     }else{
@@ -157,6 +170,11 @@ if($message!=""){
 <div class="col-md-6 mb-3">
 <label>Email</label>
 <input type="email" name="email" class="form-control" value="<?= $doctor['email']; ?>">
+</div>
+
+<div class="col-md-6 mb-3">
+<label>New Password (Leave blank to keep existing)</label>
+<input type="password" name="password" class="form-control" placeholder="Enter new password to change">
 </div>
 
 <div class="col-md-6 mb-3">
