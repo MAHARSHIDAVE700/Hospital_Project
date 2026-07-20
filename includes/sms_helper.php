@@ -8,13 +8,18 @@ class FileSMSProvider implements SMSProviderInterface {
     private $logFile;
     
     public function __construct() {
-        $this->logFile = dirname(__DIR__) . '/sms_log.txt';
+        $filePath = dirname(__DIR__) . '/sms_log.txt';
+        if (is_writable(file_exists($filePath) ? $filePath : dirname($filePath))) {
+            $this->logFile = $filePath;
+        } else {
+            $this->logFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'sms_log.txt';
+        }
     }
     
     public function send($to, $message) {
         $timestamp = date('Y-m-d H:i:s');
         $logEntry = "[{$timestamp}] TO: {$to} | MSG: {$message}\n----------------------------------------\n";
-        file_put_contents($this->logFile, $logEntry, FILE_APPEND);
+        @file_put_contents($this->logFile, $logEntry, FILE_APPEND);
         return true;
     }
 }
@@ -26,13 +31,18 @@ class FileWhatsAppProvider {
     private $logFile;
     
     public function __construct() {
-        $this->logFile = dirname(__DIR__) . '/whatsapp_log.txt';
+        $filePath = dirname(__DIR__) . '/whatsapp_log.txt';
+        if (is_writable(file_exists($filePath) ? $filePath : dirname($filePath))) {
+            $this->logFile = $filePath;
+        } else {
+            $this->logFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'whatsapp_log.txt';
+        }
     }
     
     public function send($to, $message) {
         $timestamp = date('Y-m-d H:i:s');
         $logEntry = "[{$timestamp}] WHATSAPP TO: {$to} | MSG: {$message}\n----------------------------------------\n";
-        file_put_contents($this->logFile, $logEntry, FILE_APPEND);
+        @file_put_contents($this->logFile, $logEntry, FILE_APPEND);
         return true;
     }
 }

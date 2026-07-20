@@ -8,7 +8,12 @@ class StandardEmailProvider implements EmailProviderInterface {
     private $logFile;
     
     public function __construct() {
-        $this->logFile = dirname(__DIR__) . '/email_log.txt';
+        $filePath = dirname(__DIR__) . '/email_log.txt';
+        if (is_writable(file_exists($filePath) ? $filePath : dirname($filePath))) {
+            $this->logFile = $filePath;
+        } else {
+            $this->logFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'email_log.txt';
+        }
     }
     
     public function send($to, $subject, $bodyHtml) {
@@ -19,7 +24,7 @@ class StandardEmailProvider implements EmailProviderInterface {
         // Log locally for debugging/testing
         $timestamp = date('Y-m-d H:i:s');
         $logEntry = "[{$timestamp}] TO: {$to} | SUBJECT: {$subject}\nBODY:\n{$bodyHtml}\n----------------------------------------\n";
-        file_put_contents($this->logFile, $logEntry, FILE_APPEND);
+        @file_put_contents($this->logFile, $logEntry, FILE_APPEND);
         
         // Attempt native PHP mail send (suppressing errors if SMTP is unconfigured locally)
         @mail($to, $subject, $bodyHtml, $headers);
