@@ -60,7 +60,7 @@
 <body class="bg-light">
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark landing-navbar sticky-top shadow-sm py-3">
+<nav class="navbar navbar-dark landing-navbar sticky-top shadow-sm py-3">
     <div class="container">
         <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.php">
             <span style="font-size: 24px;">🏥</span>
