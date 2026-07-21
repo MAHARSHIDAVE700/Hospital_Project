@@ -14,23 +14,25 @@ if (isset($_GET['search'])) {
     $search = trim($_GET['search']);
 
     $stmt = $conn->prepare("
-        SELECT id, full_name, email
-        FROM users
-        WHERE role='patient'
-        AND (full_name LIKE ? OR email LIKE ?)
+        SELECT u.id AS user_id, p.patient_id, u.full_name, u.email, p.phone
+        FROM users u
+        LEFT JOIN patients p ON u.id = p.user_id
+        WHERE u.role='patient'
+        AND (u.full_name LIKE ? OR u.email LIKE ? OR p.phone LIKE ?)
     ");
 
     $like = "%".$search."%";
-    $stmt->bind_param("ss", $like, $like);
+    $stmt->bind_param("sss", $like, $like, $like);
     $stmt->execute();
     $patients = $stmt->get_result();
 
 } else {
 
     $patients = $conn->query("
-        SELECT id, full_name, email
-        FROM users
-        WHERE role='patient'
+        SELECT u.id AS user_id, p.patient_id, u.full_name, u.email, p.phone
+        FROM users u
+        LEFT JOIN patients p ON u.id = p.user_id
+        WHERE u.role='patient'
     ");
 }
 ?>
@@ -47,7 +49,12 @@ if (isset($_GET['search'])) {
 
 <div class="container mt-5">
 
-<h2>Manage Patients</h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Manage Patients</h2>
+    <a href="add_patient.php" class="btn btn-primary">
+        <i class="bi bi-person-plus"></i> Add New Patient
+    </a>
+</div>
 
 <form method="GET" class="mb-4">
 
@@ -57,7 +64,7 @@ if (isset($_GET['search'])) {
 type="text"
 name="search"
 class="form-control"
-placeholder="Search by Name or Email"
+placeholder="Search by Name, Email or Phone"
 value="<?= htmlspecialchars($search) ?>">
 
 <button class="btn btn-primary">
@@ -76,6 +83,8 @@ Search
 <th>ID</th>
 <th>Name</th>
 <th>Email</th>
+<th>Phone</th>
+<th>Actions</th>
 </tr>
 
 </thead>
@@ -86,11 +95,24 @@ Search
 
 <tr>
 
-<td><?= $row['id']; ?></td>
+<td><?= $row['user_id']; ?></td>
 
 <td><?= htmlspecialchars($row['full_name']); ?></td>
 
 <td><?= htmlspecialchars($row['email']); ?></td>
+
+<td><?= htmlspecialchars($row['phone'] ?? 'N/A'); ?></td>
+
+<td>
+    <?php if (!empty($row['patient_id'])): ?>
+        <a href="book_appointment.php?patient_id=<?= $row['patient_id']; ?>" class="btn btn-sm btn-success me-1">
+            <i class="bi bi-calendar-plus"></i> Book Appointment
+        </a>
+    <?php endif; ?>
+    <a href="view_patient.php?id=<?= $row['user_id']; ?>" class="btn btn-sm btn-info text-white">
+        <i class="bi bi-eye"></i> View Details
+    </a>
+</td>
 
 </tr>
 

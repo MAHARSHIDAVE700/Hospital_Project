@@ -47,7 +47,29 @@ $result = $conn->query($query);
 
 <div class="container mt-5">
 
-<h2>Manage Appointments</h2>
+<?php if (isset($_GET['updated']) && isset($_GET['appt_id'])): ?>
+    <div class="alert alert-success alert-dismissible fade show d-flex justify-content-between align-items-center" role="alert">
+        <div>
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <strong>Appointment Booked Successfully!</strong> The patient's token has been generated.
+        </div>
+        <a href="../patient/token_card.php?id=<?= (int)$_GET['appt_id'] ?>" target="_blank" class="btn btn-success btn-sm">
+            <i class="bi bi-printer"></i> View &amp; Print Token Card
+        </a>
+    </div>
+<?php elseif (isset($_GET['updated'])): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <strong>Status Updated Successfully!</strong>
+    </div>
+<?php endif; ?>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Manage Appointments</h2>
+    <a href="book_appointment.php" class="btn btn-primary">
+        <i class="bi bi-calendar-plus"></i> Book New Appointment
+    </a>
+</div>
 
 <table class="table table-bordered table-striped">
 

@@ -72,39 +72,68 @@ $notifications = $conn->query("
 </head>
 <body class="bg-light">
 
-<div class="container mt-4">
+<div class="hms-layout">
+    <!-- Sidebar -->
+    <aside class="hms-sidebar" id="sidebar">
+        <div class="hms-sidebar-brand">
+            <span>🏥</span>
+            <strong>Narayan Clinic</strong>
+        </div>
+        <div class="hms-sidebar-menu">
+            <div class="hms-sidebar-group-title">Main Dashboard</div>
+            <a href="dashboard.php" class="hms-sidebar-item active">
+                <i class="bi bi-grid-1x2-fill"></i> Dashboard
+            </a>
+            
+            <div class="hms-sidebar-group-title">Operations</div>
+            <a href="manage_doctors.php" class="hms-sidebar-item">
+                <i class="bi bi-person-badge"></i> Doctors
+            </a>
+            <a href="manage_patients.php" class="hms-sidebar-item">
+                <i class="bi bi-people"></i> Patients
+            </a>
+            <a href="manage_departments.php" class="hms-sidebar-item">
+                <i class="bi bi-hospital"></i> Departments
+            </a>
+            <a href="manage_appointments.php" class="hms-sidebar-item">
+                <i class="bi bi-calendar2-check"></i> Appointments
+            </a>
+            
+            <div class="hms-sidebar-group-title">Analytics</div>
+            <a href="analytics.php" class="hms-sidebar-item">
+                <i class="bi bi-bar-chart-line"></i> Analytics
+            </a>
+            <a href="view_logs.php" class="hms-sidebar-item">
+                <i class="bi bi-shield-check"></i> Audit Logs
+            </a>
+        </div>
+        <div class="hms-sidebar-footer">
+            <a href="../logout.php" class="hms-sidebar-item text-danger">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+        </div>
+    </aside>
 
-    <!-- Premium Enterprise Header Section -->
-    <header class="premium-hero-card">
-        <!-- Header Top Row -->
-        <div class="hero-top-row">
-            <div class="hero-brand">
-                <span class="brand-icon">🏥</span>
-                <div class="brand-text">
-                    <span class="brand-name">Narayan Hospital</span>
-                    <span class="brand-sub">OPD Dashboard</span>
+    <!-- Main Content -->
+    <main class="hms-main" id="main-content">
+        <!-- Topbar -->
+        <header class="hms-topbar">
+            <div class="hms-topbar-left">
+                <button class="hms-sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="hms-breadcrumb">
+                    <span>Narayan Administration</span>
+                    <span><i class="bi bi-chevron-right text-muted fs-8"></i></span>
+                    <span class="hms-breadcrumb-item-active">OPD Control Centre</span>
                 </div>
             </div>
-            
-            <div class="hero-search-bar">
-                <i class="bi bi-search search-icon"></i>
-                <input type="text" placeholder="Search patients, doctors, records..." class="search-input">
-            </div>
-            
-            <div class="hero-right-actions">
-                <div class="live-clock-widget d-none d-lg-flex">
+            <div class="hms-topbar-right">
+                <div class="live-clock-widget d-none d-lg-flex me-3">
                     <i class="bi bi-clock"></i>
                     <span><?= date('D, M d, Y · h:i A') ?></span>
                 </div>
-                
-                <div class="notification-widget">
-                    <button class="notification-btn position-relative">
-                        <i class="bi bi-bell"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="width: 8px; height: 8px; border-radius: 50%;"></span>
-                    </button>
-                </div>
-                
-                <div class="user-profile-widget">
+                <div class="hms-topbar-profile">
                     <div class="avatar-circle">
                         <?php 
                             $nameParts = explode(' ', $_SESSION['admin_name']);
@@ -115,52 +144,44 @@ $notifications = $conn->query("
                             echo htmlspecialchars(substr($initials, 0, 2));
                         ?>
                     </div>
-                    <div class="user-info-text d-none d-md-block">
-                        <strong class="user-name-display"><?php echo htmlspecialchars($_SESSION['admin_name']); ?></strong>
-                        <span class="badge role-badge role-badge-admin">Admin</span>
+                    <div class="d-none d-md-block">
+                        <strong class="d-block text-dark small"><?php echo htmlspecialchars($_SESSION['admin_name']); ?></strong>
+                        <span class="text-secondary small" style="font-size: 11px;">OPD Controller</span>
                     </div>
                 </div>
-                
-                <a href="../logout.php" class="btn-logout-header" title="Logout">
-                    <i class="bi bi-box-arrow-right"></i>
-                </a>
             </div>
-        </div>
-        
-        <!-- Divider -->
-        <div class="hero-divider"></div>
-        
-        <!-- Header Content Row -->
-        <div class="hero-content-row">
-            <div class="hero-left-content">
-                <div class="hero-breadcrumbs">
-                    <span>Narayan Administration</span>
-                    <i class="bi bi-chevron-right"></i>
-                    <span class="active">OPD Control Centre</span>
+        </header>
+
+        <!-- Body Content -->
+        <div class="hms-content">
+
+            <!-- Premium Enterprise Header Section -->
+            <header class="premium-hero-card">
+                <div class="hero-content-row">
+                    <div class="hero-left-content">
+                        <h2 class="hero-welcome-title">👋 Good Morning, System Administrator</h2>
+                        <div class="hero-description-block">
+                            <span class="hero-subtitle">Today's Overview</span>
+                            <span class="hero-desc-sep">·</span>
+                            <span class="hero-description">Manage doctors, patients, appointments and hospital operations.</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-right-content">
+                        <div class="hero-quick-actions">
+                            <a href="add_patient.php" class="btn btn-primary" style="background-color: var(--primary-color) !important;">
+                                <i class="bi bi-person-plus"></i> Add Patient
+                            </a>
+                            <a href="book_appointment.php" class="btn btn-outline-primary">
+                                <i class="bi bi-calendar-event"></i> Create Appointment
+                            </a>
+                            <a href="#" class="btn btn-light border border-light-subtle bg-white">
+                                <i class="bi bi-file-earmark-bar-graph"></i> Generate Report
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="hero-welcome-title">👋 Good Morning, System Administrator</h2>
-                <div class="hero-description-block">
-                    <span class="hero-subtitle">Today's Overview</span>
-                    <span class="hero-desc-sep">·</span>
-                    <span class="hero-description">Manage doctors, patients, appointments and hospital operations.</span>
-                </div>
-            </div>
-            
-            <div class="hero-right-content">
-                <div class="hero-quick-actions">
-                    <a href="manage_patients.php" class="btn btn-primary" style="background-color: var(--primary-color) !important;">
-                        <i class="bi bi-person-plus"></i> Add Patient
-                    </a>
-                    <a href="manage_appointments.php" class="btn btn-outline-primary">
-                        <i class="bi bi-calendar-event"></i> Create Appointment
-                    </a>
-                    <a href="#" class="btn btn-light border border-light-subtle bg-white">
-                        <i class="bi bi-file-earmark-bar-graph"></i> Generate Report
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
+            </header>
 
     <!-- Smart Hospital Admin Widgets -->
     <div class="row mb-5">
@@ -434,11 +455,20 @@ $notifications = $conn->query("
         </div>
     </div>
 
-</div>
+        </div> <!-- Close hms-content -->
+        <footer class="text-center py-4 mt-5 text-secondary border-top">
+            Narayan Hospital OPD Management System &copy; <?= date('Y') ?>
+        </footer>
+    </main> <!-- Close hms-main -->
+</div> <!-- Close hms-layout -->
 
-<footer class="text-center py-4 mt-5 text-secondary border-top">
-    Narayan Hospital OPD Management System &copy; <?= date('Y') ?>
-</footer>
+<!-- Responsive Toggle JavaScript -->
+<script>
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
+</script>
 
 </body>
 </html>

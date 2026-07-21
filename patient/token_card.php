@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['patient_id'])) {
+if (!isset($_SESSION['patient_id']) && !isset($_SESSION['admin_id'])) {
     header("Location: login.php");
     exit();
 }
@@ -14,37 +14,61 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 
 $apptId = intval($_GET['id']);
-$userID = $_SESSION['patient_id'];
 
-// Get patient record
-$patientQuery = $conn->query("SELECT patient_id FROM patients WHERE user_id='$userID'");
-$patient = $patientQuery->fetch_assoc();
-$patientID = $patient ? $patient['patient_id'] : null;
+if (isset($_SESSION['admin_id'])) {
+    // Admin access: bypass patient ownership checks
+    $apptQuery = $conn->query("
+        SELECT 
+            a.appointment_id, a.appointment_date, a.appointment_time,
+            a.status, a.token_number, a.queue_position, a.queue_status,
+            COALESCE(a.opd_fee_paid, 0) AS opd_fee_paid,
+            COALESCE(a.fee_status, 'Pending') AS fee_status,
+            COALESCE(u.full_name, 'Patient') AS patient_name,
+            u.email AS patient_email,
+            p.phone AS patient_phone,
+            p.age,
+            COALESCE(d.full_name, 'Doctor') AS doctor_name,
+            d.specialization,
+            COALESCE(dep.department_name, 'General') AS department_name
+        FROM appointments a
+        LEFT JOIN patients p ON a.patient_id = p.patient_id
+        LEFT JOIN users u ON p.user_id = u.id
+        LEFT JOIN doctors d ON a.doctor_id = d.doctor_id
+        LEFT JOIN departments dep ON d.department_id = dep.department_id
+        WHERE a.appointment_id='$apptId'
+        LIMIT 1
+    ");
+} else {
+    // Patient access
+    $userID = $_SESSION['patient_id'];
+    $patientQuery = $conn->query("SELECT patient_id FROM patients WHERE user_id='$userID'");
+    $patient = $patientQuery->fetch_assoc();
+    $patientID = $patient ? $patient['patient_id'] : null;
 
-if (!$patientID) die("Patient not found.");
+    if (!$patientID) die("Patient not found.");
 
-// Fetch full appointment details — ensure patient owns it (use LEFT JOIN so missing dept/users don't block result)
-$apptQuery = $conn->query("
-    SELECT 
-        a.appointment_id, a.appointment_date, a.appointment_time,
-        a.status, a.token_number, a.queue_position, a.queue_status,
-        COALESCE(a.opd_fee_paid, 0) AS opd_fee_paid,
-        COALESCE(a.fee_status, 'Pending') AS fee_status,
-        COALESCE(u.full_name, 'Patient') AS patient_name,
-        u.email AS patient_email,
-        p.phone AS patient_phone,
-        p.age,
-        COALESCE(d.full_name, 'Doctor') AS doctor_name,
-        d.specialization,
-        COALESCE(dep.department_name, 'General') AS department_name
-    FROM appointments a
-    LEFT JOIN patients p ON a.patient_id = p.patient_id
-    LEFT JOIN users u ON p.user_id = u.id
-    LEFT JOIN doctors d ON a.doctor_id = d.doctor_id
-    LEFT JOIN departments dep ON d.department_id = dep.department_id
-    WHERE a.appointment_id='$apptId' AND a.patient_id='$patientID'
-    LIMIT 1
-");
+    $apptQuery = $conn->query("
+        SELECT 
+            a.appointment_id, a.appointment_date, a.appointment_time,
+            a.status, a.token_number, a.queue_position, a.queue_status,
+            COALESCE(a.opd_fee_paid, 0) AS opd_fee_paid,
+            COALESCE(a.fee_status, 'Pending') AS fee_status,
+            COALESCE(u.full_name, 'Patient') AS patient_name,
+            u.email AS patient_email,
+            p.phone AS patient_phone,
+            p.age,
+            COALESCE(d.full_name, 'Doctor') AS doctor_name,
+            d.specialization,
+            COALESCE(dep.department_name, 'General') AS department_name
+        FROM appointments a
+        LEFT JOIN patients p ON a.patient_id = p.patient_id
+        LEFT JOIN users u ON p.user_id = u.id
+        LEFT JOIN doctors d ON a.doctor_id = d.doctor_id
+        LEFT JOIN departments dep ON d.department_id = dep.department_id
+        WHERE a.appointment_id='$apptId' AND a.patient_id='$patientID'
+        LIMIT 1
+    ");
+}
 
 $appt = $apptQuery ? $apptQuery->fetch_assoc() : null;
 
