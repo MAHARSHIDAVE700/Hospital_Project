@@ -177,39 +177,70 @@ if ($patientID) {
 </head>
 <body class="bg-light">
 
-<div class="container mt-4">
+<div class="hms-layout">
+    <!-- Sidebar -->
+    <aside class="hms-sidebar" id="sidebar">
+        <div class="hms-sidebar-brand">
+            <span>🏥</span>
+            <strong>Narayan Clinic</strong>
+        </div>
+        <div class="hms-sidebar-menu">
+            <div class="hms-sidebar-group-title">Patient Portal</div>
+            <a href="dashboard.php" class="hms-sidebar-item active">
+                <i class="bi bi-grid-1x2-fill"></i> Dashboard
+            </a>
+            
+            <div class="hms-sidebar-group-title">OPD Appointments</div>
+            <a href="../appointment.php" class="hms-sidebar-item">
+                <i class="bi bi-calendar-plus"></i> Book Appointment
+            </a>
+            <a href="my_appointments.php" class="hms-sidebar-item">
+                <i class="bi bi-calendar3"></i> My Bookings
+            </a>
+            <a href="live_queue.php" class="hms-sidebar-item">
+                <i class="bi bi-clock-history"></i> Live OPD Queue
+            </a>
+            
+            <div class="hms-sidebar-group-title">Medical Records</div>
+            <a href="my_prescriptions.php" class="hms-sidebar-item">
+                <i class="bi bi-file-earmark-medical"></i> Prescriptions
+            </a>
+            <a href="symptom_checker.php" class="hms-sidebar-item">
+                <i class="bi bi-activity"></i> Symptom Checker
+            </a>
+            
+            <div class="hms-sidebar-group-title">Emergency Services</div>
+            <a href="ambulance.php" class="hms-sidebar-item text-danger">
+                <i class="bi bi-truck"></i> Request Ambulance
+            </a>
+        </div>
+        <div class="hms-sidebar-footer">
+            <a href="../logout.php" class="hms-sidebar-item text-danger">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+        </div>
+    </aside>
 
-    <!-- Premium Enterprise Header Section -->
-    <header class="premium-hero-card">
-        <!-- Header Top Row -->
-        <div class="hero-top-row">
-            <div class="hero-brand">
-                <span class="brand-icon">🏥</span>
-                <div class="brand-text">
-                    <span class="brand-name">Narayan Hospital</span>
-                    <span class="brand-sub">Patient Portal</span>
+    <!-- Main Content -->
+    <main class="hms-main" id="main-content">
+        <!-- Topbar -->
+        <header class="hms-topbar">
+            <div class="hms-topbar-left">
+                <button class="hms-sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="hms-breadcrumb">
+                    <span>Patient Portal</span>
+                    <span><i class="bi bi-chevron-right text-muted fs-8"></i></span>
+                    <span class="hms-breadcrumb-item-active">My Dashboard</span>
                 </div>
             </div>
-            
-            <div class="hero-search-bar">
-                <i class="bi bi-search search-icon"></i>
-                <input type="text" placeholder="Search my records, prescriptions..." class="search-input">
-            </div>
-            
-            <div class="hero-right-actions">
-                <div class="live-clock-widget d-none d-lg-flex">
+            <div class="hms-topbar-right">
+                <div class="live-clock-widget me-3">
                     <i class="bi bi-clock"></i>
                     <span><?= date('D, M d, Y · h:i A') ?></span>
                 </div>
-                
-                <div class="notification-widget">
-                    <button class="notification-btn position-relative">
-                        <i class="bi bi-bell"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="width: 8px; height: 8px; border-radius: 50%;"></span>
-                    </button>
-                </div>
-                
-                <div class="user-profile-widget">
+                <div class="hms-topbar-profile">
                     <div class="avatar-circle">
                         <?php 
                             $nameParts = explode(' ', $_SESSION['patient_name']);
@@ -220,55 +251,52 @@ if ($patientID) {
                             echo htmlspecialchars(substr($initials, 0, 2));
                         ?>
                     </div>
-                    <div class="user-info-text d-none d-md-block">
-                        <strong class="user-name-display"><?php echo htmlspecialchars($_SESSION['patient_name']); ?></strong>
-                        <span class="badge role-badge role-badge-patient">Patient</span>
+                    <div class="d-none d-md-block text-start">
+                        <strong class="d-block text-dark small" style="line-height: 1.2;"><?php echo htmlspecialchars($_SESSION['patient_name']); ?></strong>
+                        <span class="badge role-badge role-badge-patient" style="font-size: 9px !important; padding: 2px 4px !important;">Patient</span>
                     </div>
                 </div>
-                
-                <a href="../logout.php" class="btn-logout-header" title="Logout">
-                    <i class="bi bi-box-arrow-right"></i>
-                </a>
             </div>
-        </div>
-        
-        <!-- Divider -->
-        <div class="hero-divider"></div>
-        
-        <!-- Header Content Row -->
-        <div class="hero-content-row">
-            <div class="hero-left-content">
-                <div class="hero-breadcrumbs">
-                    <span>Patient Portal</span>
-                    <i class="bi bi-chevron-right"></i>
-                    <span class="active">My Dashboard</span>
+        </header>
+
+        <!-- Body Content -->
+        <div class="hms-content">
+
+            <!-- Premium Enterprise Header Section -->
+            <header class="premium-hero-card">
+                <div class="hero-content-row">
+                    <div class="hero-left-content">
+                        <div class="hero-breadcrumbs">
+                            <span>Patient Portal</span>
+                            <i class="bi bi-chevron-right"></i>
+                            <span class="active">My Dashboard</span>
+                        </div>
+                        <h2 class="hero-welcome-title">👋 Welcome Back, <?= htmlspecialchars($_SESSION['patient_name']); ?></h2>
+                        <div class="hero-description-block">
+                            <span class="hero-subtitle">Your next appointment:</span>
+                            <span class="hero-desc-sep">·</span>
+                            <span class="hero-description">
+                                <?php if ($hasAppointmentToday) { ?>
+                                    Dr. <?= htmlspecialchars($activeDoctorName) ?> · Token: <?= htmlspecialchars($myToken) ?> · Today
+                                <?php } else { ?>
+                                    No appointments scheduled today
+                                <?php } ?>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-right-content">
+                        <div class="hero-quick-actions">
+                            <a href="../appointment.php" class="btn btn-primary" style="background-color: var(--primary-color) !important;">
+                                <i class="bi bi-calendar-plus"></i> Book Appointment
+                            </a>
+                            <a href="my_prescriptions.php" class="btn btn-outline-primary">
+                                <i class="bi bi-prescription"></i> View Prescription
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="hero-welcome-title">👋 Welcome Back, <?= htmlspecialchars($_SESSION['patient_name']); ?></h2>
-                <div class="hero-description-block">
-                    <span class="hero-subtitle">Your next appointment:</span>
-                    <span class="hero-desc-sep">·</span>
-                    <span class="hero-description">
-                        <?php if ($hasAppointmentToday) { ?>
-                            Dr. <?= htmlspecialchars($activeDoctorName) ?> · Token: <?= htmlspecialchars($myToken) ?> · Today
-                        <?php } else { ?>
-                            No appointments scheduled today
-                        <?php } ?>
-                    </span>
-                </div>
-            </div>
-            
-            <div class="hero-right-content">
-                <div class="hero-quick-actions">
-                    <a href="../appointment.php" class="btn btn-primary" style="background-color: var(--primary-color) !important;">
-                        <i class="bi bi-calendar-plus"></i> Book Appointment
-                    </a>
-                    <a href="my_prescriptions.php" class="btn btn-outline-primary">
-                        <i class="bi bi-prescription"></i> View Prescription
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
+            </header>
 
     <!-- Smart Healthcare Widgets Section -->
     <div class="row mb-5">
@@ -508,8 +536,20 @@ function escapeHTML(str) {
     );
 }
 
+        </div> <!-- Close hms-content -->
+        <footer class="text-center py-4 mt-5 text-secondary border-top">
+            Narayan Hospital OPD Management System &copy; <?= date('Y') ?>
+        </footer>
+    </main> <!-- Close hms-main -->
+</div> <!-- Close hms-layout -->
+
 // Set up interval to refresh queue status every 5 seconds without page reload
 setInterval(refreshQueueStatus, 5000);
+
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
 </script>
 
 </body>

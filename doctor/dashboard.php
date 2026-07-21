@@ -192,28 +192,56 @@ $todayProgress = $todayTotal > 0 ? round(($todayCompleted / $todayTotal) * 100) 
 </head>
 <body class="bg-light">
 
-<div class="container mt-4">
+<div class="hms-layout">
+    <!-- Sidebar -->
+    <aside class="hms-sidebar" id="sidebar">
+        <div class="hms-sidebar-brand">
+            <span>🏥</span>
+            <strong>Narayan Clinic</strong>
+        </div>
+        <div class="hms-sidebar-menu">
+            <div class="hms-sidebar-group-title">Doctor Portal</div>
+            <a href="dashboard.php" class="hms-sidebar-item active">
+                <i class="bi bi-grid-1x2-fill"></i> Consultation Hub
+            </a>
+            
+            <div class="hms-sidebar-group-title">OPD Queue</div>
+            <a href="todays_appointments.php" class="hms-sidebar-item">
+                <i class="bi bi-calendar2-check"></i> Today's Schedule
+            </a>
+            <a href="my_appointments.php" class="hms-sidebar-item">
+                <i class="bi bi-calendar-event"></i> All Appointments
+            </a>
+            
+            <div class="hms-sidebar-group-title">Settings</div>
+            <a href="profile.php" class="hms-sidebar-item">
+                <i class="bi bi-person-fill"></i> My Profile
+            </a>
+        </div>
+        <div class="hms-sidebar-footer">
+            <a href="../logout.php" class="hms-sidebar-item text-danger">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+        </div>
+    </aside>
 
-    <!-- Premium Enterprise Header Section -->
-    <header class="premium-hero-card">
-        <!-- Header Top Row -->
-        <div class="hero-top-row">
-            <div class="hero-brand">
-                <span class="brand-icon">🏥</span>
-                <div class="brand-text">
-                    <span class="brand-name">Narayan Hospital</span>
-                    <span class="brand-sub">Doctor Portal</span>
+    <!-- Main Content -->
+    <main class="hms-main" id="main-content">
+        <!-- Topbar -->
+        <header class="hms-topbar">
+            <div class="hms-topbar-left">
+                <button class="hms-sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="hms-breadcrumb">
+                    <span>Narayan Clinician</span>
+                    <span><i class="bi bi-chevron-right text-muted fs-8"></i></span>
+                    <span class="hms-breadcrumb-item-active">Consultation Hub</span>
                 </div>
             </div>
-            
-            <div class="hero-search-bar">
-                <i class="bi bi-search search-icon"></i>
-                <input type="text" placeholder="Search patients, records, schedule..." class="search-input">
-            </div>
-            
-            <div class="hero-right-actions">
+            <div class="hms-topbar-right">
                 <!-- Status Toggle -->
-                <div class="live-clock-widget d-none d-lg-flex" style="padding: 4px 8px;">
+                <div class="live-clock-widget me-3" style="padding: 4px 8px;">
                     <span class="text-secondary small me-1 fw-bold">My Status:</span>
                     <form method="POST" class="d-inline-flex align-items-center gap-2 m-0">
                         <select name="status" class="form-select form-select-sm border-0 bg-transparent p-0 fw-bold" style="font-size: 13px !important; outline: none; box-shadow: none; height: auto !important; width: auto !important; color: var(--text-primary) !important;" onchange="this.form.submit()">
@@ -227,15 +255,7 @@ $todayProgress = $todayTotal > 0 ? round(($todayCompleted / $todayTotal) * 100) 
                         <input type="hidden" name="update_status" value="1">
                     </form>
                 </div>
-                
-                <div class="notification-widget">
-                    <button class="notification-btn position-relative">
-                        <i class="bi bi-bell"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="width: 8px; height: 8px; border-radius: 50%;"></span>
-                    </button>
-                </div>
-                
-                <div class="user-profile-widget">
+                <div class="hms-topbar-profile">
                     <div class="avatar-circle">
                         <?php 
                             $nameParts = explode(' ', $_SESSION['doctor_name']);
@@ -246,51 +266,48 @@ $todayProgress = $todayTotal > 0 ? round(($todayCompleted / $todayTotal) * 100) 
                             echo htmlspecialchars(substr($initials, 0, 2));
                         ?>
                     </div>
-                    <div class="user-info-text d-none d-md-block">
-                        <strong class="user-name-display">Dr. <?php echo htmlspecialchars($_SESSION['doctor_name']); ?></strong>
-                        <span class="badge role-badge role-badge-doctor"><?= htmlspecialchars($doctor['specialization'] ?? 'Clinician') ?></span>
+                    <div class="d-none d-md-block text-start">
+                        <strong class="d-block text-dark small" style="line-height: 1.2;">Dr. <?php echo htmlspecialchars($_SESSION['doctor_name']); ?></strong>
+                        <span class="text-secondary small" style="font-size: 11px;"><?= htmlspecialchars($doctor['specialization'] ?? 'Clinician') ?></span>
                     </div>
                 </div>
-                
-                <a href="../logout.php" class="btn-logout-header" title="Logout">
-                    <i class="bi bi-box-arrow-right"></i>
-                </a>
             </div>
-        </div>
-        
-        <!-- Divider -->
-        <div class="hero-divider"></div>
-        
-        <!-- Header Content Row -->
-        <div class="hero-content-row">
-            <div class="hero-left-content">
-                <div class="hero-breadcrumbs">
-                    <span>Narayan Clinician</span>
-                    <i class="bi bi-chevron-right"></i>
-                    <span class="active">Consultation Hub</span>
+        </header>
+
+        <!-- Body Content -->
+        <div class="hms-content">
+
+            <!-- Premium Enterprise Header Section -->
+            <header class="premium-hero-card">
+                <div class="hero-content-row">
+                    <div class="hero-left-content">
+                        <div class="hero-breadcrumbs">
+                            <span>Narayan Clinician</span>
+                            <i class="bi bi-chevron-right"></i>
+                            <span class="active">Consultation Hub</span>
+                        </div>
+                        <h2 class="hero-welcome-title">👋 Good Morning, Dr. <?= htmlspecialchars($_SESSION['doctor_name']); ?></h2>
+                        <div class="hero-description-block">
+                            <span class="hero-subtitle">Today's Schedule</span>
+                            <span class="hero-desc-sep">·</span>
+                            <span class="hero-description">You have <?= $todayTotal ?> appointments today.</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-right-content">
+                        <div class="hero-quick-actions">
+                            <?php if ($todayPending > 0) { ?>
+                                <a href="dashboard.php?action=call_next" class="btn btn-primary" style="background-color: var(--primary-color) !important;">
+                                    <i class="bi bi-bell-fill"></i> Call Next Patient
+                                </a>
+                            <?php } ?>
+                            <a href="write_prescription.php" class="btn btn-outline-primary">
+                                <i class="bi bi-prescription"></i> Write Prescription
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="hero-welcome-title">👋 Good Morning, Dr. <?= htmlspecialchars($_SESSION['doctor_name']); ?></h2>
-                <div class="hero-description-block">
-                    <span class="hero-subtitle">Today's Schedule</span>
-                    <span class="hero-desc-sep">·</span>
-                    <span class="hero-description">You have <?= $todayTotal ?> appointments today.</span>
-                </div>
-            </div>
-            
-            <div class="hero-right-content">
-                <div class="hero-quick-actions">
-                    <?php if ($todayPending > 0) { ?>
-                        <a href="dashboard.php?action=call_next" class="btn btn-primary" style="background-color: var(--primary-color) !important;">
-                            <i class="bi bi-bell-fill"></i> Call Next Patient
-                        </a>
-                    <?php } ?>
-                    <a href="write_prescription.php" class="btn btn-outline-primary">
-                        <i class="bi bi-prescription"></i> Write Prescription
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
+            </header>
 
     <!-- Live Queue Controls & Status Widgets -->
     <div class="row mb-5">
@@ -466,11 +483,20 @@ $todayProgress = $todayTotal > 0 ? round(($todayCompleted / $todayTotal) * 100) 
         </div>
     </div>
 
-</div>
+        </div> <!-- Close hms-content -->
+        <footer class="text-center py-4 mt-5 text-secondary border-top">
+            Narayan Hospital OPD Management System &copy; <?= date('Y') ?>
+        </footer>
+    </main> <!-- Close hms-main -->
+</div> <!-- Close hms-layout -->
 
-<footer class="text-center py-4 mt-5 text-secondary border-top">
-    Narayan Hospital OPD Management System &copy; <?= date('Y') ?>
-</footer>
+<!-- Responsive Toggle JavaScript -->
+<script>
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
+</script>
 
 </body>
 </html>
