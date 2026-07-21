@@ -96,7 +96,11 @@ if ($stmt->execute()) {
         }
     } catch (Exception $e) { /* ignore notification errors */ }
 
-    header("Location: manage_appointments.php?updated=1");
+    if (isset($_SESSION['doctor_id'])) {
+        header("Location: ../doctor/my_appointments.php?updated=1");
+    } else {
+        header("Location: manage_appointments.php?updated=1");
+    }
     exit();
 } else {
     echo "Failed to update appointment.";

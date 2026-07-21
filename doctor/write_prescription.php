@@ -8,12 +8,12 @@ if(!isset($_SESSION['doctor_id'])){
 
 include "../includes/config.php";
 
-if(!isset($_GET['id'])){
+$from_my_appointments = isset($_GET['appointment_id']);
+$appointment_id = $_GET['id'] ?? $_GET['appointment_id'] ?? null;
+if (!$appointment_id) {
     header("Location: todays_appointments.php");
     exit();
 }
-
-$appointment_id = $_GET['id'];
 
 // Get appointment details
 $query = "
@@ -98,7 +98,11 @@ if(isset($_POST['save'])){
             }
         }
 
-        header("Location: todays_appointments.php");
+        if ($from_my_appointments) {
+            header("Location: my_appointments.php?updated=1");
+        } else {
+            header("Location: todays_appointments.php");
+        }
         exit();
     }
 }

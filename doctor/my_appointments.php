@@ -79,6 +79,13 @@ Dashboard
 
 <div class="container mt-5">
 
+<?php if (isset($_GET['updated'])): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <strong>Success!</strong> The appointment status has been updated.
+    </div>
+<?php endif; ?>
+
 <div class="card shadow">
 
 <div class="card-header bg-primary text-white">
