@@ -14,12 +14,47 @@ if (isset($_GET['get_slots']) && isset($_GET['doctor_id'])) {
     $docId = intval($_GET['doctor_id']);
     $date  = trim($_GET['date'] ?? '');
     
-    $slotsResult = $conn->query("SELECT slot_id, slot_time, slot_label FROM opd_slots WHERE doctor_id='$docId' AND is_active=1 ORDER BY slot_time ASC");
-    $slots = [];
-    
     date_default_timezone_set('Asia/Kolkata');
     $currentDate = date('Y-m-d');
     $cutoffTime = date('H:i:s', strtotime('+1 hour'));
+    
+    // Check doctor live status
+    $docStatusQuery = $conn->query("SELECT status FROM doctors WHERE doctor_id = '$docId'");
+    $docStatusRow = $docStatusQuery ? $docStatusQuery->fetch_assoc() : null;
+    $docStatus = $docStatusRow ? $docStatusRow['status'] : 'Active';
+    
+    // If today, hide slots if doctor is Break, Emergency, Offline, or Leave
+    if ($date === $currentDate) {
+        if (in_array($docStatus, ['Break', 'Emergency', 'Offline', 'Leave'])) {
+            echo json_encode([]);
+            exit();
+        }
+    }
+    
+    // Check if slots exist for this doctor
+    $checkSlots = $conn->query("SELECT COUNT(*) AS total FROM opd_slots WHERE doctor_id = '$docId'");
+    $totalSlots = $checkSlots ? $checkSlots->fetch_assoc()['total'] : 0;
+    if ($totalSlots == 0) {
+        // Automatically insert 10 default slots
+        $defaultSlots = [
+            ['09:00:00', '9:00 AM'],
+            ['09:30:00', '9:30 AM'],
+            ['10:00:00', '10:00 AM'],
+            ['10:30:00', '10:30 AM'],
+            ['11:00:00', '11:00 AM'],
+            ['11:30:00', '11:30 AM'],
+            ['14:00:00', '2:00 PM'],
+            ['14:30:00', '2:30 PM'],
+            ['15:00:00', '3:00 PM'],
+            ['15:30:00', '3:30 PM']
+        ];
+        foreach ($defaultSlots as $s) {
+            $conn->query("INSERT INTO opd_slots (doctor_id, slot_time, slot_label, max_patients, is_active) VALUES ('$docId', '{$s[0]}', '{$s[1]}', 5, 1)");
+        }
+    }
+    
+    $slotsResult = $conn->query("SELECT slot_id, slot_time, slot_label FROM opd_slots WHERE doctor_id='$docId' AND is_active=1 ORDER BY slot_time ASC");
+    $slots = [];
     
     if ($slotsResult) {
         while ($slot = $slotsResult->fetch_assoc()) {
