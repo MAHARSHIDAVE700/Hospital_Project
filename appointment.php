@@ -25,10 +25,22 @@ $patientID = $patientRow['patient_id'];
 if (isset($_GET['get_slots']) && isset($_GET['doctor_id'])) {
     header('Content-Type: application/json');
     $docId = intval($_GET['doctor_id']);
+    $date  = trim($_GET['date'] ?? '');
+    
     $slotsResult = $conn->query("SELECT slot_id, slot_time, slot_label FROM opd_slots WHERE doctor_id='$docId' AND is_active=1 ORDER BY slot_time ASC");
     $slots = [];
+    
+    date_default_timezone_set('Asia/Kolkata');
+    $currentDate = date('Y-m-d');
+    $cutoffTime = date('H:i:s', strtotime('+1 hour'));
+    
     if ($slotsResult) {
         while ($slot = $slotsResult->fetch_assoc()) {
+            if ($date === $currentDate) {
+                if ($slot['slot_time'] < $cutoffTime) {
+                    continue;
+                }
+            }
             $slots[] = $slot;
         }
     }
@@ -411,13 +423,14 @@ function selectPayment(mode) {
 
 /* ── Time slot loading ── */
 function loadTimeSlots(doctorId) {
+    const date = document.getElementById('dateInput').value;
     const wrapper = document.getElementById('slotsWrapper');
     if (!doctorId) {
         wrapper.innerHTML = '<p class="text-secondary small"><i class="bi bi-arrow-up-circle"></i> Select a doctor first.</p>';
         return;
     }
     wrapper.innerHTML = '<div class="d-flex align-items-center gap-2 text-secondary"><div class="spinner-border spinner-border-sm"></div> Loading slots...</div>';
-    fetch(`appointment.php?get_slots=1&doctor_id=${doctorId}`)
+    fetch(`appointment.php?get_slots=1&doctor_id=${doctorId}&date=${date}`)
         .then(r => r.json())
         .then(slots => {
             if (!slots.length) {
