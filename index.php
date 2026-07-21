@@ -72,16 +72,16 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav mx-auto">
+            <ul class="navbar-nav mx-auto align-items-center">
                 <li class="nav-item"><a class="nav-link active fw-semibold" href="index.php">Home</a></li>
                 <li class="nav-item"><a class="nav-link fw-semibold" href="#about">About</a></li>
                 <li class="nav-item"><a class="nav-link fw-semibold" href="#departments">Departments</a></li>
                 <li class="nav-item"><a class="nav-link fw-semibold" href="#doctors">Doctors</a></li>
                 <li class="nav-item"><a class="nav-link fw-semibold" href="#contact">Contact</a></li>
+                <li class="nav-item"><a class="nav-link text-warning fw-bold px-3" href="patient/symptom_checker.php">🤖 AI Symptom Checker</a></li>
+                <li class="nav-item"><a class="nav-link text-danger fw-bold px-3" href="patient/ambulance.php">🚨 Emergency Pickups</a></li>
             </ul>
-            <ul class="navbar-nav align-items-center gap-2">
-                <li class="nav-item"><a class="nav-link text-warning fw-bold px-2" href="patient/symptom_checker.php">🤖 AI Symptom Checker</a></li>
-                <li class="nav-item"><a class="nav-link text-danger fw-bold px-2" href="patient/ambulance.php">🚨 Emergency Pickups</a></li>
+            <ul class="navbar-nav align-items-center">
                 <li class="nav-item dropdown">
                     <a class="btn btn-primary px-4 py-2 fw-semibold shadow-sm dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" style="background-color: var(--primary-color) !important; border-color: var(--primary-color) !important; border-radius: 10px;">
                         Portal Access
