@@ -1,3 +1,4 @@
+<?php require_once 'includes/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,19 +81,9 @@
                 <li class="nav-item"><a class="nav-link fw-semibold" href="#contact">Contact</a></li>
                 <li class="nav-item"><a class="nav-link text-warning fw-bold px-3" href="patient/symptom_checker.php">🤖 AI Symptom Checker</a></li>
                 <li class="nav-item"><a class="nav-link text-danger fw-bold px-3" href="patient/ambulance.php">🚨 Emergency Pickups</a></li>
-            </ul>
-            <ul class="navbar-nav align-items-center">
-                <li class="nav-item dropdown">
-                    <a class="btn btn-primary px-4 py-2 fw-semibold shadow-sm dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" style="background-color: var(--primary-color) !important; border-color: var(--primary-color) !important; border-radius: 10px;">
-                        Portal Access
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow mt-2" style="border-radius: 12px;">
-                        <li><a class="dropdown-item py-2 fw-semibold" href="patient/login.php"><i class="bi bi-person-fill text-teal-accent"></i> Patient Login</a></li>
-                        <li><a class="dropdown-item py-2 fw-semibold" href="doctor/login.php"><i class="bi bi-person-badge text-primary"></i> Doctor Login</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item py-2 fw-semibold text-danger" href="admin/login.php"><i class="bi bi-shield-fill-check"></i> Admin Dashboard</a></li>
-                    </ul>
-                </li>
+                <li class="nav-item"><a class="nav-link fw-semibold px-3" href="patient/login.php"><i class="bi bi-person-fill text-teal-accent"></i> Patient Portal</a></li>
+                <li class="nav-item"><a class="nav-link fw-semibold px-3" href="doctor/login.php"><i class="bi bi-person-badge text-primary"></i> Doctor Portal</a></li>
+                <li class="nav-item"><a class="nav-link fw-semibold text-danger px-3" href="admin/login.php"><i class="bi bi-shield-fill-check"></i> Admin Dashboard</a></li>
             </ul>
         </div>
     </div>
@@ -257,39 +248,63 @@
         <p class="text-secondary" style="max-width: 600px; margin: 0 auto;">Our OPD is staffed by highly qualified practitioners across every specialization.</p>
     </div>
     <div class="row g-4 justify-content-center">
-        <div class="col-md-4 col-sm-6">
-            <div class="card-modern h-100">
-                <img src="assets/images/doctor1.jpg" class="card-img-top w-100" style="height: 280px; object-fit: cover;" alt="Dr. Amit Sharma">
-                <div class="p-4 text-center">
-                    <h5 class="fw-bold mb-1">Dr. Amit Sharma</h5>
-                    <span class="badge bg-danger-subtle text-danger mb-3">Cardiologist</span>
-                    <p class="text-secondary small mb-3">10+ Years clinical experience in invasive and non-invasive cardiac care.</p>
-                    <a href="patient/login.php" class="btn btn-outline-primary btn-sm w-100 py-2" style="border-radius: 8px;">Book Appointment</a>
+        <?php 
+        $docsQuery = $conn->query("SELECT * FROM doctors ORDER BY doctor_id ASC");
+        if ($docsQuery && $docsQuery->num_rows > 0) {
+            $imgIdx = 1;
+            while ($doc = $docsQuery->fetch_assoc()) {
+                $img = "assets/images/doctor" . $imgIdx . ".jpg";
+                $imgIdx = ($imgIdx % 3) + 1;
+        ?>
+                <div class="col-md-4 col-sm-6">
+                    <div class="card-modern h-100">
+                        <img src="<?= $img ?>" class="card-img-top w-100" style="height: 280px; object-fit: cover;" alt="Dr. <?= htmlspecialchars($doc['full_name']) ?>">
+                        <div class="p-4 text-center">
+                            <h5 class="fw-bold mb-1">Dr. <?= htmlspecialchars($doc['full_name']) ?></h5>
+                            <span class="badge bg-primary-subtle text-primary mb-3"><?= htmlspecialchars($doc['specialization'] ?: 'General Practice') ?></span>
+                            <p class="text-secondary small mb-3"><?= htmlspecialchars($doc['qualification'] ?: 'MD') ?> · <?= htmlspecialchars($doc['experience'] ?: '5') ?>+ Years Experience</p>
+                            <a href="patient/login.php" class="btn btn-outline-primary btn-sm w-100 py-2" style="border-radius: 8px;">Book Appointment</a>
+                        </div>
+                    </div>
+                </div>
+        <?php 
+            }
+        } else {
+        ?>
+            <div class="col-md-4 col-sm-6">
+                <div class="card-modern h-100">
+                    <img src="assets/images/doctor1.jpg" class="card-img-top w-100" style="height: 280px; object-fit: cover;" alt="Dr. Amit Sharma">
+                    <div class="p-4 text-center">
+                        <h5 class="fw-bold mb-1">Dr. Amit Sharma</h5>
+                        <span class="badge bg-danger-subtle text-danger mb-3">Cardiologist</span>
+                        <p class="text-secondary small mb-3">10+ Years clinical experience in invasive and non-invasive cardiac care.</p>
+                        <a href="patient/login.php" class="btn btn-outline-primary btn-sm w-100 py-2" style="border-radius: 8px;">Book Appointment</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="card-modern h-100">
-                <img src="assets/images/doctor2.jpg" class="card-img-top w-100" style="height: 280px; object-fit: cover;" alt="Dr. Sarah Johnson">
-                <div class="p-4 text-center">
-                    <h5 class="fw-bold mb-1">Dr. Sarah Johnson</h5>
-                    <span class="badge bg-primary-subtle text-primary mb-3">Neurologist</span>
-                    <p class="text-secondary small mb-3">8+ Years treating complex stroke conditions and neuro-system diagnostics.</p>
-                    <a href="patient/login.php" class="btn btn-outline-primary btn-sm w-100 py-2" style="border-radius: 8px;">Book Appointment</a>
+            <div class="col-md-4 col-sm-6">
+                <div class="card-modern h-100">
+                    <img src="assets/images/doctor2.jpg" class="card-img-top w-100" style="height: 280px; object-fit: cover;" alt="Dr. Sarah Johnson">
+                    <div class="p-4 text-center">
+                        <h5 class="fw-bold mb-1">Dr. Sarah Johnson</h5>
+                        <span class="badge bg-primary-subtle text-primary mb-3">Neurologist</span>
+                        <p class="text-secondary small mb-3">8+ Years treating complex stroke conditions and neuro-system diagnostics.</p>
+                        <a href="patient/login.php" class="btn btn-outline-primary btn-sm w-100 py-2" style="border-radius: 8px;">Book Appointment</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="card-modern h-100">
-                <img src="assets/images/doctor3.jpg" class="card-img-top w-100" style="height: 280px; object-fit: cover;" alt="Dr. David Brown">
-                <div class="p-4 text-center">
-                    <h5 class="fw-bold mb-1">Dr. David Brown</h5>
-                    <span class="badge bg-success-subtle text-success mb-3">Orthopedic Surgeon</span>
-                    <p class="text-secondary small mb-3">12+ Years in surgical joint reconstruction, sports injuries, and trauma rehabilitation.</p>
-                    <a href="patient/login.php" class="btn btn-outline-primary btn-sm w-100 py-2" style="border-radius: 8px;">Book Appointment</a>
+            <div class="col-md-4 col-sm-6">
+                <div class="card-modern h-100">
+                    <img src="assets/images/doctor3.jpg" class="card-img-top w-100" style="height: 280px; object-fit: cover;" alt="Dr. David Brown">
+                    <div class="p-4 text-center">
+                        <h5 class="fw-bold mb-1">Dr. David Brown</h5>
+                        <span class="badge bg-success-subtle text-success mb-3">Orthopedic Surgeon</span>
+                        <p class="text-secondary small mb-3">12+ Years in surgical joint reconstruction, sports injuries, and trauma rehabilitation.</p>
+                        <a href="patient/login.php" class="btn btn-outline-primary btn-sm w-100 py-2" style="border-radius: 8px;">Book Appointment</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php } ?>
     </div>
 </section>
 
