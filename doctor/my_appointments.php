@@ -136,24 +136,14 @@ while($row=($result)->fetch_assoc()){
 <td><?= $row['status']; ?></td>
 
 <td>
-
-<a href="view_patient_records.php?patient_id=<?= $row['patient_id']; ?>" class="btn btn-info text-white btn-sm">
-    Medical History
-</a>
-<a href="../admin/update_appointment.php?id=<?= $row['appointment_id']; ?>&status=Confirmed"
-class="btn btn-success btn-sm">
-
-Confirm
-
-</a>
-
-<a href="write_prescription.php?appointment_id=<?= $row['appointment_id']; ?>"
-class="btn btn-warning btn-sm">
-
-Prescription
-
-</a>
-
+    <a href="view_patient_records.php?patient_id=<?= $row['patient_id']; ?>" class="btn btn-info text-white btn-sm me-1">
+        Medical History
+    </a>
+    <?php if ($row['status'] == 'Confirmed' || $row['status'] == 'Pending'): ?>
+        <a href="write_prescription.php?appointment_id=<?= $row['appointment_id']; ?>" class="btn btn-success btn-sm">
+            Complete
+        </a>
+    <?php endif; ?>
 </td>
 
 </tr>
