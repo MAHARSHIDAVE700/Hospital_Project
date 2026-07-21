@@ -63,6 +63,23 @@ if (isset($_GET['get_slots']) && isset($_GET['doctor_id'])) {
                     continue;
                 }
             }
+            
+            // Check booking count for this slot on this date (skip if >= 10)
+            $slotTime = $slot['slot_time'];
+            $countQuery = $conn->query("
+                SELECT COUNT(*) AS total 
+                FROM appointments 
+                WHERE doctor_id = '$docId' 
+                AND appointment_date = '$date' 
+                AND appointment_time = '$slotTime' 
+                AND status != 'Cancelled'
+            ");
+            $bookedCount = $countQuery ? $countQuery->fetch_assoc()['total'] : 0;
+            
+            if ($bookedCount >= 10) {
+                continue;
+            }
+            
             $slots[] = $slot;
         }
     }
@@ -142,15 +159,29 @@ if (isset($_POST['book'])) {
         if (empty($patient_id) || empty($doctor_id) || empty($date) || empty($time)) {
             $message = "Please complete all fields and select a time slot.";
         } else {
-            $status = ($appt_status === 'Confirmed') ? 'Confirmed' : 'Pending';
-
-            $stmt = $conn->prepare("
-                INSERT INTO appointments
-                (patient_id, doctor_id, appointment_date, appointment_time, status, opd_fee_paid, fee_status)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-                RETURNING appointment_id
+            // Check slot capacity limit (max 10)
+            $countQuery = $conn->query("
+                SELECT COUNT(*) AS total 
+                FROM appointments 
+                WHERE doctor_id = '$doctor_id' 
+                AND appointment_date = '$date' 
+                AND appointment_time = '$time' 
+                AND status != 'Cancelled'
             ");
-            $stmt->bind_param("iisssds", $patient_id, $doctor_id, $date, $time, $status, $fee_paid, $fee_status);
+            $bookedCount = $countQuery ? $countQuery->fetch_assoc()['total'] : 0;
+            
+            if ($bookedCount >= 10) {
+                $message = "This time slot is fully booked. Please select another time slot.";
+            } else {
+                $status = ($appt_status === 'Confirmed') ? 'Confirmed' : 'Pending';
+
+                $stmt = $conn->prepare("
+                    INSERT INTO appointments
+                    (patient_id, doctor_id, appointment_date, appointment_time, status, opd_fee_paid, fee_status)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    RETURNING appointment_id
+                ");
+                $stmt->bind_param("iisssds", $patient_id, $doctor_id, $date, $time, $status, $fee_paid, $fee_status);
 
             if ($stmt->execute()) {
                 $row = $stmt->get_result()->fetch_assoc();
@@ -187,6 +218,7 @@ if (isset($_POST['book'])) {
             }
         }
     }
+}
 }
 
 // Fetch patients & doctors

@@ -143,7 +143,7 @@ $doctorStatus = $statusQuery ? $statusQuery->fetch_assoc()['status'] : 'Availabl
 
 // Fetch current token details
 $currentApptQuery = $conn->query("
-    SELECT a.appointment_id, u.full_name AS patient_name, a.token_number 
+    SELECT a.appointment_id, a.patient_id, u.full_name AS patient_name, a.token_number 
     FROM appointments a
     JOIN patients p ON a.patient_id=p.patient_id
     JOIN users u ON p.user_id=u.id
@@ -313,6 +313,9 @@ $todayProgress = $todayTotal > 0 ? round(($todayCompleted / $todayTotal) * 100) 
                         <?php } ?>
                         
                         <?php if ($currentApptId) { ?>
+                            <a href="view_patient_records.php?patient_id=<?= $currentAppt['patient_id'] ?>" class="btn btn-sm btn-dark btn-modern px-3 py-2">
+                                <i class="bi bi-folder2-open"></i> Medical History
+                            </a>
                             <a href="../patient/video_consult.php?id=<?= $currentApptId ?>" target="_blank" class="btn btn-sm btn-info text-white btn-modern px-3 py-2">
                                 <i class="bi bi-camera-video-fill"></i> Video Call
                             </a>

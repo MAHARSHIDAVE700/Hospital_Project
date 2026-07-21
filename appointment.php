@@ -76,6 +76,23 @@ if (isset($_GET['get_slots']) && isset($_GET['doctor_id'])) {
                     continue;
                 }
             }
+            
+            // Check booking count for this slot on this date (skip if >= 10)
+            $slotTime = $slot['slot_time'];
+            $countQuery = $conn->query("
+                SELECT COUNT(*) AS total 
+                FROM appointments 
+                WHERE doctor_id = '$docId' 
+                AND appointment_date = '$date' 
+                AND appointment_time = '$slotTime' 
+                AND status != 'Cancelled'
+            ");
+            $bookedCount = $countQuery ? $countQuery->fetch_assoc()['total'] : 0;
+            
+            if ($bookedCount >= 10) {
+                continue;
+            }
+            
             $slots[] = $slot;
         }
     }
@@ -98,14 +115,28 @@ if (isset($_POST['book'])) {
     } elseif (empty($time)) {
         $message = "<div class='alert alert-danger'><i class='bi bi-exclamation-triangle'></i> Please select a time slot.</div>";
     } else {
-        $status = "Pending";
-
-        $stmt = $conn->prepare("
-            INSERT INTO appointments
-            (patient_id, doctor_id, appointment_date, appointment_time, status, opd_fee_paid, fee_status)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+        // Check slot capacity limit (max 10)
+        $countQuery = $conn->query("
+            SELECT COUNT(*) AS total 
+            FROM appointments 
+            WHERE doctor_id = '$doctor' 
+            AND appointment_date = '$date' 
+            AND appointment_time = '$time' 
+            AND status != 'Cancelled'
         ");
-        $stmt->bind_param("iisssds", $patientID, $doctor, $date, $time, $status, $fee_paid, $fee_status);
+        $bookedCount = $countQuery ? $countQuery->fetch_assoc()['total'] : 0;
+        
+        if ($bookedCount >= 10) {
+            $message = "<div class='alert alert-danger'><i class='bi bi-exclamation-triangle'></i> This time slot is fully booked. Please select another time slot.</div>";
+        } else {
+            $status = "Pending";
+
+            $stmt = $conn->prepare("
+                INSERT INTO appointments
+                (patient_id, doctor_id, appointment_date, appointment_time, status, opd_fee_paid, fee_status)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            ");
+            $stmt->bind_param("iisssds", $patientID, $doctor, $date, $time, $status, $fee_paid, $fee_status);
 
         if ($stmt->execute()) {
             $newApptQuery = $conn->query("
@@ -154,6 +185,7 @@ if (isset($_POST['book'])) {
             $message = "<div class='alert alert-danger'><i class='bi bi-exclamation-triangle'></i> Failed to Book Appointment. Please try again.</div>";
         }
     }
+}
 }
 
 // Departments + Doctors

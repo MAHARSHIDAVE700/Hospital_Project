@@ -13,6 +13,7 @@ $doctorId = $_SESSION['doctor_id'];
 $query = "
 SELECT
 a.appointment_id,
+a.patient_id,
 u.full_name AS patient_name,
 p.phone,
 a.appointment_date,
@@ -141,6 +142,9 @@ echo "<span class='badge bg-danger'>Cancelled</span>";
 
 <td>
 
+<a href="view_patient_records.php?patient_id=<?= $row['patient_id']; ?>" class="btn btn-info text-white btn-sm">
+    Medical History
+</a>
 <a
 href="write_prescription.php?id=<?= $row['appointment_id']; ?>"
 class="btn btn-success btn-sm">

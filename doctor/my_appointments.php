@@ -130,6 +130,9 @@ while($row=($result)->fetch_assoc()){
 
 <td>
 
+<a href="view_patient_records.php?patient_id=<?= $row['patient_id']; ?>" class="btn btn-info text-white btn-sm">
+    Medical History
+</a>
 <a href="../admin/update_appointment.php?id=<?= $row['appointment_id']; ?>&status=Confirmed"
 class="btn btn-success btn-sm">
 
