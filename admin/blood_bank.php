@@ -17,6 +17,7 @@ if (isset($_POST['update_stock'])) {
     $stmt->bind_param("is", $units, $bg);
 
     if ($stmt->execute()) {
+        ActivityLogger::log($_SESSION['admin_id'], 'admin', 'Update Blood Bank', 'Updated blood group ' . $bg . ' stock to ' . $units . ' units.');
         $message = "<div class='alert alert-success'><i class='bi bi-check-circle-fill'></i> Blood bank stock updated!</div>";
     } else {
         $message = "<div class='alert alert-danger'>Failed to update stock.</div>";

@@ -16,7 +16,7 @@ $query = "
     SELECT p.*, d.full_name AS doctor_name, dep.department_name, u.full_name AS patient_name, pat.phone, pat.age, pat.gender
     FROM prescriptions p
     JOIN doctors d ON p.doctor_id = d.doctor_id
-    JOIN departments dep ON d.department_id = dep.department_id
+    LEFT JOIN departments dep ON d.department_id = dep.department_id
     JOIN patients pat ON p.patient_id = pat.patient_id
     JOIN users u ON pat.user_id = u.id
     WHERE p.prescription_id = $id

@@ -24,6 +24,8 @@ if(isset($_POST['login'])){
             $_SESSION['patient_id'] = $patient['id'];
             $_SESSION['patient_name'] = $patient['full_name'];
 
+            ActivityLogger::log($patient['id'], 'patient', 'Login', 'Patient logged in successfully');
+
             header("Location: dashboard.php");
             exit();
 

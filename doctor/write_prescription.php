@@ -65,6 +65,8 @@ if(isset($_POST['save'])){
         WHERE appointment_id=$appointment_id
         ");
 
+        ActivityLogger::log($_SESSION['doctor_id'], 'doctor', 'Complete Consultation', 'Completed appointment ID #' . $appointment_id . ' with prescription entry.');
+
         // Trigger SMS alert for 3rd patient in queue
         include_once "../includes/sms_helper.php";
         $docQuery = $conn->query("

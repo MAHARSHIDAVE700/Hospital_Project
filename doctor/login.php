@@ -22,6 +22,8 @@ if(isset($_POST['login'])){
             $_SESSION['doctor_email'] = $doctorUser['email'];
             $_SESSION['doctor_name'] = $doctorUser['full_name'];
 
+            ActivityLogger::log($doctorUser['id'], 'doctor', 'Login', 'Doctor logged in successfully');
+
             header("Location: dashboard.php");
             exit();
         } else {
@@ -52,6 +54,8 @@ if(isset($_POST['login'])){
                 $_SESSION['doctor_id'] = $uRow['id'];
                 $_SESSION['doctor_email'] = $email;
                 $_SESSION['doctor_name'] = $name;
+
+                ActivityLogger::log($uRow['id'], 'doctor', 'Login', 'Doctor logged in successfully after user provisioning');
 
                 header("Location: dashboard.php");
                 exit();

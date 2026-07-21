@@ -20,33 +20,48 @@ $queues = [];
 while ($doc = $query->fetch_assoc()) {
     $doctorID = $doc['doctor_id'];
     
-    // Count pending appointments today
-    $pendingQuery = $conn->query("SELECT COUNT(*) AS total FROM appointments WHERE doctor_id='$doctorID' AND appointment_date=CURRENT_DATE AND status='Pending'")->fetch_assoc()['total'];
+    // Count waiting patients today
+    $pendingQuery = $conn->query("SELECT COUNT(*) AS total FROM appointments WHERE doctor_id='$doctorID' AND appointment_date=CURRENT_DATE AND queue_status='Waiting'")->fetch_assoc()['total'];
     
-    // Get live token (oldest pending)
+    // Get live token (currently serving)
     $liveQuery = $conn->query("
-        SELECT appointment_id 
+        SELECT token_number 
         FROM appointments 
         WHERE doctor_id='$doctorID' 
         AND appointment_date=CURRENT_DATE 
-        AND status='Pending'
-        ORDER BY appointment_time ASC, appointment_id ASC LIMIT 1
+        AND queue_status='Called' 
+        LIMIT 1
     ");
     $liveAppt = $liveQuery ? $liveQuery->fetch_assoc() : null;
     $liveToken = '-';
-    if ($liveAppt) {
-        $liveToken = $liveAppt['appointment_id'];
+    if ($liveAppt && !empty($liveAppt['token_number'])) {
+        $liveToken = $liveAppt['token_number'];
     } else {
-        $lastCompletedQuery = $conn->query("
-            SELECT appointment_id 
+        // Fallback to next waiting
+        $waitingQuery = $conn->query("
+            SELECT token_number 
             FROM appointments 
             WHERE doctor_id='$doctorID' 
             AND appointment_date=CURRENT_DATE 
-            AND status='Completed'
-            ORDER BY appointment_id DESC LIMIT 1
+            AND queue_status='Waiting' 
+            ORDER BY queue_position ASC LIMIT 1
         ");
-        $lastComp = $lastCompletedQuery ? $lastCompletedQuery->fetch_assoc() : null;
-        $liveToken = $lastComp ? $lastComp['appointment_id'] : '-';
+        $waitAppt = $waitingQuery ? $waitingQuery->fetch_assoc() : null;
+        if ($waitAppt && !empty($waitAppt['token_number'])) {
+            $liveToken = $waitAppt['token_number'];
+        } else {
+            // Get last completed today
+            $lastCompletedQuery = $conn->query("
+                SELECT token_number 
+                FROM appointments 
+                WHERE doctor_id='$doctorID' 
+                AND appointment_date=CURRENT_DATE 
+                AND queue_status='Completed'
+                ORDER BY queue_position DESC LIMIT 1
+            ");
+            $lastComp = $lastCompletedQuery ? $lastCompletedQuery->fetch_assoc() : null;
+            $liveToken = ($lastComp && !empty($lastComp['token_number'])) ? $lastComp['token_number'] : '-';
+        }
     }
     
     $queues[] = [

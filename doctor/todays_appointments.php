@@ -8,7 +8,11 @@ if(!isset($_SESSION['doctor_id'])){
 
 include "../includes/config.php";
 
-$doctorId = $_SESSION['doctor_id'];
+$userID = $_SESSION['doctor_id'];
+$user = $conn->query("SELECT email FROM users WHERE id='$userID'")->fetch_assoc();
+$email = $user ? $user['email'] : '';
+$doctor = $conn->query("SELECT doctor_id FROM doctors WHERE LOWER(email)=LOWER('$email')")->fetch_assoc();
+$doctorID = $doctor ? $doctor['doctor_id'] : 0;
 
 $query = "
 SELECT
@@ -29,12 +33,13 @@ JOIN users u
 ON p.user_id = u.id
 
 WHERE a.doctor_id=?
+AND a.appointment_date = CURRENT_DATE
 
-ORDER BY a.appointment_date,a.appointment_time
+ORDER BY a.appointment_time ASC
 ";
 
 $stmt=$conn->prepare($query);
-$stmt->bind_param("i",$doctorId);
+$stmt->bind_param("i",$doctorID);
 $stmt->execute();
 
 $result=$stmt->get_result();

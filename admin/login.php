@@ -24,6 +24,8 @@ if(isset($_POST['login'])){
             $_SESSION['admin_id'] = $admin['id'];
             $_SESSION['admin_name'] = $admin['full_name'];
 
+            ActivityLogger::log($admin['id'], 'admin', 'Login', 'Administrator logged in successfully');
+
             header("Location: dashboard.php");
             exit();
 

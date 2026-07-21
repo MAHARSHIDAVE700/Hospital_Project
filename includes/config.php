@@ -13,4 +13,5 @@ try {
     die("Database Connection Failed: " . $e->getMessage());
 }
 
+require_once __DIR__ . '/activity_logger.php';
 ?>
