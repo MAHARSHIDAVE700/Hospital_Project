@@ -34,7 +34,7 @@ $a = $res->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <title>OPD Receipt #<?= $a['appointment_id']; ?> | Narayan Hospital</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
         .receipt-card { max-width: 650px; margin: 30px auto; background: #fff; padding: 35px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-top: 5px solid #198754; }

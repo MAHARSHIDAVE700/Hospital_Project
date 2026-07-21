@@ -37,7 +37,7 @@ $displayName = isset($_SESSION['doctor_id']) ? "Dr. " . $appt['doctor_name'] : $
 <head>
     <meta charset="UTF-8">
     <title>Video Consultation #<?= $apptId ?> | Narayan Hospital</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://meet.jit.si/external_api.js"></script>
     <style>
         body { background: #1a1a2e; color: #fff; margin: 0; font-family: 'Segoe UI', sans-serif; }

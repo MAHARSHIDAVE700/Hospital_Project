@@ -45,7 +45,7 @@ if (isset($_POST['razorpay_payment_id'])) {
 <head>
     <meta charset="UTF-8">
     <title>Razorpay OPD Payment | Narayan Hospital</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <style>
         body { background: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
