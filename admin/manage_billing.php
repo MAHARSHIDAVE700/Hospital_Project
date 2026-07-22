@@ -185,12 +185,24 @@ if (isset($_GET['pay_invoice_id'])) {
     $stmt = $conn->prepare("UPDATE invoices SET status = 'Paid', payment_method = ? WHERE invoice_id = ?");
     $stmt->bind_param("si", $method, $invoice_id);
     if ($stmt->execute()) {
+        // Log activity
         ActivityLogger::log($_SESSION['admin_id'], 'admin', 'Settle Invoice', "Settle invoice ID {$invoice_id} via {$method}");
+        // Fetch patient email and name for email notification
+        $invDetails = $conn->query("SELECT inv.invoice_number, inv.total_amount, u.email, u.full_name FROM invoices inv JOIN patients p ON inv.patient_id = p.patient_id JOIN users u ON p.user_id = u.id WHERE inv.invoice_id = {$invoice_id}")->fetch_assoc();
+        if ($invDetails) {
+            $subject = "Your Invoice #{$invDetails['invoice_number']} - Payment Received";
+            $content = "<p>Dear <strong>{$invDetails['full_name']}</strong>,</p>"
+                     . "<p>We have received your payment of <strong>{$invDetails['total_amount']}</strong> for invoice <strong>#{$invDetails['invoice_number']}</strong>. Thank you for your prompt payment.</p>"
+                     . "<p>If you have any questions, feel free to contact us.</p>";
+            $bodyHtml = EmailHelper::getTemplate('Invoice Paid', $invDetails['full_name'], $content);
+            EmailHelper::sendEmail($invDetails['email'], $subject, $bodyHtml);
+        }
         $message = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
             <strong>Success:</strong> Invoice settled and marked Paid.
             <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
         </div>";
     }
+
 }
 
 // ------------------------------
