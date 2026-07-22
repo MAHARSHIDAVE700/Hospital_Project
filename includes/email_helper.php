@@ -1,7 +1,7 @@
 <?php
 
 interface EmailProviderInterface {
-    public function send($to, $subject, $bodyHtml);
+    public function send($to, $subject, $bodyHtml, $attachments = []);
 }
 
 class StandardEmailProvider implements EmailProviderInterface {
@@ -16,14 +16,20 @@ class StandardEmailProvider implements EmailProviderInterface {
         }
     }
     
-    public function send($to, $subject, $bodyHtml) {
+    public function send($to, $subject, $bodyHtml, $attachments = []) {
         $headers  = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $headers .= "From: Narayan Hospital <noreply@narayanhospital.com>" . "\r\n";
         
+        $attachmentNames = [];
+        foreach ($attachments as $att) {
+            $attachmentNames[] = $att['filename'];
+        }
+        $attStr = count($attachmentNames) > 0 ? " | ATTACHMENTS: " . implode(', ', $attachmentNames) : "";
+
         // Log locally for debugging/testing
         $timestamp = date('Y-m-d H:i:s');
-        $logEntry = "[{$timestamp}] TO: {$to} | SUBJECT: {$subject}\nBODY:\n{$bodyHtml}\n----------------------------------------\n";
+        $logEntry = "[{$timestamp}] TO: {$to} | SUBJECT: {$subject}{$attStr}\nBODY:\n{$bodyHtml}\n----------------------------------------\n";
         @file_put_contents($this->logFile, $logEntry, FILE_APPEND);
         
         // Attempt native PHP mail send (suppressing errors if SMTP is unconfigured locally)
@@ -32,22 +38,114 @@ class StandardEmailProvider implements EmailProviderInterface {
     }
 }
 
+class ResendEmailProvider implements EmailProviderInterface {
+    private $apiKey;
+    private $fromEmail;
+    private $logFile;
+
+    public function __construct($apiKey, $fromEmail = 'onboarding@resend.dev') {
+        $this->apiKey = $apiKey;
+        $this->fromEmail = $fromEmail;
+        $filePath = dirname(__DIR__) . '/email_log.txt';
+        if (is_writable(file_exists($filePath) ? $filePath : dirname($filePath))) {
+            $this->logFile = $filePath;
+        } else {
+            $this->logFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'email_log.txt';
+        }
+    }
+
+    public function send($to, $subject, $bodyHtml, $attachments = []) {
+        $timestamp = date('Y-m-d H:i:s');
+        $url = 'https://api.resend.com/emails';
+        
+        $data = [
+            'from'    => $this->fromEmail,
+            'to'      => [$to],
+            'subject' => $subject,
+            'html'    => $bodyHtml
+        ];
+
+        if (!empty($attachments)) {
+            $data['attachments'] = $attachments;
+        }
+
+        $attachmentNames = [];
+        foreach ($attachments as $att) {
+            $attachmentNames[] = $att['filename'];
+        }
+        $attStr = count($attachmentNames) > 0 ? " | ATTACHMENTS: " . implode(', ', $attachmentNames) : "";
+
+        // Log locally for transparency
+        $logEntry = "[{$timestamp}] (RESEND SENDING) TO: {$to} | FROM: {$this->fromEmail} | SUBJECT: {$subject}{$attStr}\n";
+        @file_put_contents($this->logFile, $logEntry, FILE_APPEND);
+
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_POST           => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER     => [
+                'Authorization: Bearer ' . $this->apiKey,
+                'Content-Type: application/json'
+            ],
+            CURLOPT_POSTFIELDS     => json_encode($data)
+        ]);
+
+        $response = curl_exec($ch);
+        $error = curl_error($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($error) {
+            $errEntry = "[{$timestamp}] (RESEND ERROR) cURL Error: {$error}\n----------------------------------------\n";
+            @file_put_contents($this->logFile, $errEntry, FILE_APPEND);
+            return false;
+        } else {
+            $resDecoded = json_decode($response, true);
+            if ($httpCode >= 200 && $httpCode < 300 && isset($resDecoded['id'])) {
+                $successEntry = "[{$timestamp}] (RESEND SUCCESS) ID: {$resDecoded['id']}\n----------------------------------------\n";
+                @file_put_contents($this->logFile, $successEntry, FILE_APPEND);
+                return true;
+            } else {
+                $failEntry = "[{$timestamp}] (RESEND FAILED) HTTP Code: {$httpCode} | Response: {$response}\n----------------------------------------\n";
+                @file_put_contents($this->logFile, $failEntry, FILE_APPEND);
+                return false;
+            }
+        }
+    }
+}
+
 class EmailHelper {
     private static $provider = null;
     
     private static function getProvider() {
         if (self::$provider === null) {
-            self::$provider = new StandardEmailProvider();
+            $apiKey = getenv('RESEND_API_KEY');
+            if (empty($apiKey) && defined('RESEND_API_KEY')) {
+                $apiKey = RESEND_API_KEY;
+            }
+            
+            if (!empty($apiKey)) {
+                $fromEmail = getenv('RESEND_FROM_EMAIL');
+                if (empty($fromEmail) && defined('RESEND_FROM_EMAIL')) {
+                    $fromEmail = RESEND_FROM_EMAIL;
+                }
+                if (empty($fromEmail)) {
+                    $fromEmail = 'onboarding@resend.dev';
+                }
+                self::$provider = new ResendEmailProvider($apiKey, $fromEmail);
+            } else {
+                self::$provider = new StandardEmailProvider();
+            }
         }
         return self::$provider;
     }
     
-    public static function sendEmail($to, $subject, $bodyHtml) {
+    public static function sendEmail($to, $subject, $bodyHtml, $attachments = []) {
         if (empty($to)) return false;
-        return self::getProvider()->send($to, $subject, $bodyHtml);
+        return self::getProvider()->send($to, $subject, $bodyHtml, $attachments);
     }
     
-    private static function getTemplate($title, $patientName, $contentHtml) {
+    public static function getTemplate($title, $patientName, $contentHtml) {
         return "
         <!DOCTYPE html>
         <html>
@@ -147,6 +245,21 @@ class EmailHelper {
             <p style='font-size:12px; color:#777;'>Or copy and paste this link in your browser: <br>{$verifyUrl}</p>
         ";
         $bodyHtml = self::getTemplate("Email Verification", $userName, $content);
+        return self::sendEmail($to, $subject, $bodyHtml);
+    }
+
+    public static function sendReminderEmail($to, $patientName, $doctorName, $date, $time) {
+        $subject = "Appointment Reminder - Narayan Hospital";
+        $content = "
+            <p>This is a friendly reminder that you have an appointment scheduled for tomorrow.</p>
+            <ul>
+                <li><strong>Doctor:</strong> Dr. {$doctorName}</li>
+                <li><strong>Date:</strong> {$date}</li>
+                <li><strong>Time:</strong> {$time}</li>
+            </ul>
+            <p>Please arrive at least 15 minutes before your scheduled slot. If you need to reschedule, please log in to the patient portal or contact support.</p>
+        ";
+        $bodyHtml = self::getTemplate("Appointment Tomorrow", $patientName, $content);
         return self::sendEmail($to, $subject, $bodyHtml);
     }
 }

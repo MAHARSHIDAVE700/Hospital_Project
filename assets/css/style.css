@@ -198,6 +198,45 @@ h1, h2, h3, h4, h5, h6 {
     border-style: solid;
 }
 
+/* Modern Button Styles */
+.btn-modern {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+/* Primary Variant */
+.btn-primary-modern {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+}
+
+.btn-primary-modern:hover {
+    background: var(--primary-hover);
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Secondary Variant (used via inline style) */
+.btn-secondary-modern {
+    background: var(--secondary-color);
+    color: #fff;
+    border: none;
+}
+
+.btn-secondary-modern:hover {
+    background: var(--secondary-hover);
+    color: #fff;
+    text-decoration: none;
+}
+
+
 .notification-btn:hover {
     background: var(--border-color);
     color: var(--dark-color);

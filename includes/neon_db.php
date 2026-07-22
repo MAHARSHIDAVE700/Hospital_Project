@@ -14,6 +14,7 @@ class NeonDB {
             $this->pdo = new PDO($dsn, $user, $pass);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
         } catch (PDOException $e) {
             try {
                 // Attempt connection with endpoint prefixed in username
@@ -22,6 +23,7 @@ class NeonDB {
                 $this->pdo = new PDO($dsn, $prefixed_user, $pass);
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
             } catch (PDOException $e2) {
                 $this->connect_error = $e2->getMessage();
                 $this->error = $e2->getMessage();
@@ -55,6 +57,13 @@ class NeonDB {
     
     public function real_escape_string($str) {
         return addslashes($str);
+    }
+
+    public function __get($name) {
+        if ($name === 'insert_id') {
+            return $this->pdo->lastInsertId();
+        }
+        return null;
     }
 
     public static function connect_error() {
@@ -127,8 +136,12 @@ class NeonDBResult {
         $this->stmt = $stmt;
         if ($stmt) {
             try {
-                $this->rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                $this->num_rows = count($this->rows);
+                if ($stmt->columnCount() > 0) {
+                    $this->rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    $this->num_rows = count($this->rows);
+                } else {
+                    $this->num_rows = $stmt->rowCount();
+                }
             } catch (PDOException $e) {
                 // If it's an UPDATE or INSERT statement that doesn't return rows
                 $this->num_rows = $stmt->rowCount();
@@ -143,6 +156,11 @@ class NeonDBResult {
         return null;
     }
     
+    public function data_seek($offset) {
+        $this->index = intval($offset);
+        return true;
+    }
+
     public function __get($name) {
         if ($name === 'num_rows') {
             return $this->num_rows;

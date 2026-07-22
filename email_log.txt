@@ -338,3 +338,15 @@ BODY:
         </html>
         
 ----------------------------------------
+[2026-07-22 19:07:14] (RESEND SENDING) TO: patient@example.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Test Resend Integration
+[2026-07-22 19:07:14] (RESEND FAILED) HTTP Code: 401 | Response: {"statusCode":401,"name":"validation_error","message":"API key is invalid"}
+----------------------------------------
+[2026-07-22 19:09:20] (RESEND SENDING) TO: dmamu8419@gmail.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Test Resend Integration
+[2026-07-22 19:09:20] (RESEND SUCCESS) ID: 3ca92b0f-177c-43c4-b08b-ce902e740e7e
+----------------------------------------
+[2026-07-22 19:24:23] (RESEND SENDING) TO: dmamu8419@gmail.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Verify PDF Attachments - Narayan Hospital | ATTACHMENTS: Prescription_Test.pdf, OPD_Bill_Test.pdf
+[2026-07-22 19:24:23] (RESEND SUCCESS) ID: 891919e3-256b-42f7-899b-64f1e2c6e737
+----------------------------------------
+[2026-07-22 19:24:48] (RESEND SENDING) TO: patient@hospital.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Appointment Reminder - Narayan Hospital
+[2026-07-22 19:24:48] (RESEND FAILED) HTTP Code: 403 | Response: {"statusCode":403,"name":"validation_error","message":"You can only send testing emails to your own email address (dmamu8419@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain."}
+----------------------------------------

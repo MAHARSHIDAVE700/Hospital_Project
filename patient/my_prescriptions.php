@@ -1,12 +1,41 @@
 <?php
 session_start();
 
+include "../includes/config.php";
+
+// Allow pharmacist/admin to fetch raw patient prescriptions
+if (isset($_GET['fetch_raw_patient_id'])) {
+    if (!isset($_SESSION['admin_id'])) {
+        http_response_code(403);
+        echo json_encode(["error" => "Unauthorized"]);
+        exit();
+    }
+    
+    $pId = intval($_GET['fetch_raw_patient_id']);
+    $query = "
+        SELECT p.prescription_id, p.diagnosis, p.medicines, p.created_at, d.full_name
+        FROM prescriptions p
+        JOIN doctors d ON p.doctor_id = d.doctor_id
+        WHERE p.patient_id = ?
+        ORDER BY p.created_at DESC
+    ";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $pId);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $list = [];
+    while ($row = $res->fetch_assoc()) {
+        $list[] = $row;
+    }
+    header('Content-Type: application/json');
+    echo json_encode($list);
+    exit();
+}
+
 if(!isset($_SESSION['patient_id'])){
     header("Location: login.php");
     exit();
 }
-
-include "../includes/config.php";
 
 $userID = $_SESSION['patient_id'];
 

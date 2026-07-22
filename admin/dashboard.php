@@ -98,7 +98,21 @@ $notifications = $conn->query("
             <a href="manage_appointments.php" class="hms-sidebar-item">
                 <i class="bi bi-calendar2-check"></i> Appointments
             </a>
-            
+            <a href="manage_beds.php" class="hms-sidebar-item">
+                <i class="bi bi-bed"></i> Bed Management
+            </a>
+            <a href="manage_ipd.php" class="hms-sidebar-item">
+                <i class="bi bi-person-workspace"></i> IPD Admissions
+            </a>
+            <a href="manage_laboratory.php" class="hms-sidebar-item">
+                <i class="bi bi-virus2"></i> Laboratory
+            </a>
+            <a href="manage_pharmacy.php" class="hms-sidebar-item">
+                <i class="bi bi-prescription"></i> Pharmacy
+            </a>
+            <a href="manage_billing.php" class="hms-sidebar-item">
+                <i class="bi bi-wallet2"></i> Billing Center
+            </a>
             <div class="hms-sidebar-group-title">Analytics</div>
             <a href="analytics.php" class="hms-sidebar-item">
                 <i class="bi bi-bar-chart-line"></i> Analytics
@@ -370,43 +384,51 @@ $notifications = $conn->query("
     <h3 class="mb-4">Narayan Clinic Overview</h3>
     <div class="row mb-5">
         <div class="col-md-3 mb-4">
-            <div class="card-modern bg-primary text-white p-4 text-center">
-                <div class="widget-icon mx-auto bg-white text-primary mb-3">
-                    <i class="bi bi-people"></i>
+            <a href="manage_patients.php" class="text-decoration-none d-block h-100">
+                <div class="card-modern bg-primary text-white p-4 text-center h-100">
+                    <div class="widget-icon mx-auto bg-white text-primary mb-3">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h5>Total Patients</h5>
+                    <h2 class="fw-bold mb-0"><?php echo $totalPatients; ?></h2>
                 </div>
-                <h5>Total Patients</h5>
-                <h2 class="fw-bold mb-0"><?php echo $totalPatients; ?></h2>
-            </div>
+            </a>
         </div>
 
         <div class="col-md-3 mb-4">
-            <div class="card-modern bg-success text-white p-4 text-center">
-                <div class="widget-icon mx-auto bg-white text-success mb-3">
-                    <i class="bi bi-person-badge"></i>
+            <a href="manage_doctors.php" class="text-decoration-none d-block h-100">
+                <div class="card-modern bg-success text-white p-4 text-center h-100">
+                    <div class="widget-icon mx-auto bg-white text-success mb-3">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+                    <h5>Total Doctors</h5>
+                    <h2 class="fw-bold mb-0"><?php echo $totalDoctors; ?></h2>
                 </div>
-                <h5>Total Doctors</h5>
-                <h2 class="fw-bold mb-0"><?php echo $totalDoctors; ?></h2>
-            </div>
+            </a>
         </div>
 
         <div class="col-md-3 mb-4">
-            <div class="card-modern bg-warning text-dark p-4 text-center">
-                <div class="widget-icon mx-auto bg-white text-warning mb-3">
-                    <i class="bi bi-tags"></i>
+            <a href="manage_departments.php" class="text-decoration-none d-block h-100">
+                <div class="card-modern bg-warning text-dark p-4 text-center h-100">
+                    <div class="widget-icon mx-auto bg-white text-warning mb-3">
+                        <i class="bi bi-tags"></i>
+                    </div>
+                    <h5>Total Departments</h5>
+                    <h2 class="fw-bold mb-0"><?php echo $totalDepartments; ?></h2>
                 </div>
-                <h5>Total Departments</h5>
-                <h2 class="fw-bold mb-0"><?php echo $totalDepartments; ?></h2>
-            </div>
+            </a>
         </div>
 
         <div class="col-md-3 mb-4">
-            <div class="card-modern bg-danger text-white p-4 text-center">
-                <div class="widget-icon mx-auto bg-white text-danger mb-3">
-                    <i class="bi bi-calendar2-check"></i>
+            <a href="manage_appointments.php" class="text-decoration-none d-block h-100">
+                <div class="card-modern bg-danger text-white p-4 text-center h-100">
+                    <div class="widget-icon mx-auto bg-white text-danger mb-3">
+                        <i class="bi bi-calendar2-check"></i>
+                    </div>
+                    <h5>Total Appointments</h5>
+                    <h2 class="fw-bold mb-0"><?php echo $totalAppointments; ?></h2>
                 </div>
-                <h5>Total Appointments</h5>
-                <h2 class="fw-bold mb-0"><?php echo $totalAppointments; ?></h2>
-            </div>
+            </a>
         </div>
     </div>
 
@@ -436,6 +458,26 @@ $notifications = $conn->query("
         <div class="col-md-4 mb-3">
             <a href="analytics.php" class="btn btn-modern btn-primary-modern w-100 py-3 d-flex justify-content-center" style="background-color: #0d6efd;">
                 📊 Charts &amp; Analytics
+            </a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a href="manage_beds.php" class="btn btn-modern btn-primary-modern w-100 py-3 d-flex justify-content-center">
+                🛏️ Bed Management
+            </a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a href="manage_laboratory.php" class="btn btn-modern btn-primary-modern w-100 py-3 d-flex justify-content-center">
+                🧪 Laboratory
+            </a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a href="manage_pharmacy.php" class="btn btn-modern btn-primary-modern w-100 py-3 d-flex justify-content-center">
+                💊 Pharmacy
+            </a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a href="manage_billing.php" class="btn btn-modern btn-primary-modern w-100 py-3 d-flex justify-content-center">
+                🧾 Billing
             </a>
         </div>
         <div class="col-md-4 mb-3">

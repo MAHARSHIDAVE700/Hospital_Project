@@ -67,6 +67,68 @@ if(isset($_POST['save'])){
 
         ActivityLogger::log($_SESSION['doctor_id'], 'doctor', 'Complete Consultation', 'Completed appointment ID #' . $appointment_id . ' with prescription entry.');
 
+        // Generate and email prescription & bill PDFs as attachments
+        try {
+            $prescription_query = $conn->query("
+                SELECT p.*, d.full_name AS doctor_name, dep.department_name, u.full_name AS patient_name, u.email, pat.phone, pat.age, pat.gender
+                FROM prescriptions p
+                JOIN doctors d ON p.doctor_id = d.doctor_id
+                LEFT JOIN departments dep ON d.department_id = dep.department_id
+                JOIN patients pat ON p.patient_id = pat.patient_id
+                JOIN users u ON pat.user_id = u.id
+                WHERE p.appointment_id = $appointment_id
+                ORDER BY p.prescription_id DESC LIMIT 1
+            ");
+            
+            $appointment_query = $conn->query("
+                SELECT a.*, d.full_name AS doctor_name, dep.department_name, u.full_name AS patient_name, pat.phone
+                FROM appointments a
+                JOIN doctors d ON a.doctor_id = d.doctor_id
+                JOIN departments dep ON d.department_id = dep.department_id
+                JOIN patients pat ON a.patient_id = pat.patient_id
+                JOIN users u ON pat.user_id = u.id
+                WHERE a.appointment_id = $appointment_id
+            ");
+
+            if ($prescription_query && $appointment_query) {
+                $prescription_data = $prescription_query->fetch_assoc();
+                $appointment_data = $appointment_query->fetch_assoc();
+
+                if ($prescription_data && $appointment_data) {
+                    include_once "../includes/pdf_helper.php";
+                    include_once "../includes/email_helper.php";
+
+                    $prescription_pdf = PDFHelper::generatePrescriptionPDF($prescription_data);
+                    $bill_pdf = PDFHelper::generateBillPDF($appointment_data);
+
+                    $attachments = [
+                        [
+                            'filename' => 'Prescription_' . $appointment_id . '.pdf',
+                            'content' => base64_encode($prescription_pdf)
+                        ],
+                        [
+                            'filename' => 'OPD_Bill_' . $appointment_id . '.pdf',
+                            'content' => base64_encode($bill_pdf)
+                        ]
+                    ];
+
+                    $patient_email = trim($prescription_data['email']);
+                    if (!empty($patient_email)) {
+                        $subject = "Consultation Summary & OPD Bill - Narayan Hospital";
+                        $body = "
+                            <p>Your consultation with <strong>Dr. " . htmlspecialchars($prescription_data['doctor_name']) . "</strong> is complete.</p>
+                            <p>We have attached your digital prescription and OPD payment receipt to this email.</p>
+                            <p>Thank you for choosing Narayan Hospital.</p>
+                        ";
+                        $bodyHtml = EmailHelper::getTemplate("Consultation Complete", $prescription_data['patient_name'], $body);
+                        EmailHelper::sendEmail($patient_email, $subject, $bodyHtml, $attachments);
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            error_log("Failed to generate and email PDF prescription/bill: " . $e->getMessage());
+        }
+
         // Trigger SMS alert for 3rd patient in queue
         include_once "../includes/sms_helper.php";
         $docQuery = $conn->query("

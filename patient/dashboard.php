@@ -162,6 +162,19 @@ if ($patientID) {
     if ($prescriptionQuery && $presc = $prescriptionQuery->fetch_assoc()) {
         $notificationText = "New prescription has been added by Dr. " . $presc['doctor_name'] . " on " . date('M d, Y', strtotime($presc['created_at'])) . ".";
     }
+    
+    // Check active bed allocation
+    $bedAllocation = null;
+    $bedQuery = $conn->query("
+        SELECT ba.*, b.bed_number, b.bed_type, b.price_per_day
+        FROM bed_allocations ba
+        JOIN beds b ON ba.bed_id = b.bed_id
+        WHERE ba.patient_id = '$patientID' AND ba.status = 'Active'
+        LIMIT 1
+    ");
+    if ($bedQuery && $bedQuery->num_rows > 0) {
+        $bedAllocation = $bedQuery->fetch_assoc();
+    }
 }
 ?>
 
@@ -204,6 +217,18 @@ if ($patientID) {
             <div class="hms-sidebar-group-title">Medical Records</div>
             <a href="my_prescriptions.php" class="hms-sidebar-item">
                 <i class="bi bi-file-earmark-medical"></i> Prescriptions
+            </a>
+            <a href="my_lab_reports.php" class="hms-sidebar-item">
+                <i class="bi bi-virus2"></i> Lab Reports
+            </a>
+            <a href="my_pharmacy_bills.php" class="hms-sidebar-item">
+                <i class="bi bi-receipt"></i> Pharmacy Bills
+            </a>
+            <a href="my_bills.php" class="hms-sidebar-item">
+                <i class="bi bi-wallet2"></i> Invoices & Bills
+            </a>
+            <a href="my_admissions.php" class="hms-sidebar-item">
+                <i class="bi bi-hospital"></i> Clinical Admissions
             </a>
             <a href="symptom_checker.php" class="hms-sidebar-item">
                 <i class="bi bi-activity"></i> Symptom Checker
@@ -365,6 +390,26 @@ if ($patientID) {
             </div>
         </div>
     </div>
+
+    <?php if ($bedAllocation): ?>
+    <!-- Admitted Bed Allocation Status Card -->
+    <div class="card border-0 shadow-sm p-4 rounded-4 mb-5" style="border-left: 5px solid var(--success-color) !important; background: #ffffff;">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="d-flex align-items-center gap-3 mb-2">
+                    <span class="badge bg-success px-3 py-1.5 rounded-pill fs-7">Currently Admitted</span>
+                    <span class="text-muted small">Admitted on: <?= date('d M Y, h:i A', strtotime($bedAllocation['admission_date'])) ?></span>
+                </div>
+                <h4 class="fw-bold mb-1">Admitted to Bed: <?= htmlspecialchars($bedAllocation['bed_number']) ?></h4>
+                <p class="text-secondary mb-0"><strong>Bed Type:</strong> <?= htmlspecialchars($bedAllocation['bed_type']) ?> | <strong>Daily Rate:</strong> INR <?= number_format($bedAllocation['price_per_day'], 2) ?></p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <div class="text-teal fw-bold fs-5">Active Admission</div>
+                <small class="text-muted">Smart Bed Management System</small>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
 
     <!-- Quick Navigation / Standard Actions -->
     <h3 class="mb-4">Quick Actions</h3>
