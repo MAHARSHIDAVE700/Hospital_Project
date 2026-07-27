@@ -7,6 +7,7 @@ if (!isset($_SESSION['patient_id'])) {
 }
 
 include "includes/config.php";
+require_once __DIR__ . '/ai_hode/patient_flow/patient_flow_engine.php';
 
 $message = "";
 $bookedAppointmentId = null;
@@ -147,6 +148,11 @@ if (isset($_POST['book'])) {
             ");
             $newApptRow = $newApptQuery ? $newApptQuery->fetch_assoc() : null;
             $bookedAppointmentId = $newApptRow ? $newApptRow['appointment_id'] : null;
+
+            if ($bookedAppointmentId) {
+                // AI-HODE Integration: Automatically insert patient_flow record
+                PatientFlowEngine::createFlowForAppointment($conn, $patientID, $bookedAppointmentId, $doctor);
+            }
 
             $modeLabel = ($payment_mode === 'online') ? '✅ Paid Online (₹200)' : '💵 Pay ₹200 at OPD Counter';
             $message   = "
