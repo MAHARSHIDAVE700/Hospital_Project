@@ -113,9 +113,12 @@ $notifications = $conn->query("
             <a href="manage_billing.php" class="hms-sidebar-item">
                 <i class="bi bi-wallet2"></i> Billing Center
             </a>
-            <div class="hms-sidebar-group-title">Analytics</div>
+            <div class="hms-sidebar-group-title">Analytics & AI</div>
             <a href="analytics.php" class="hms-sidebar-item">
                 <i class="bi bi-bar-chart-line"></i> Analytics
+            </a>
+            <a href="ai_intelligence.php" class="hms-sidebar-item">
+                <i class="bi bi-cpu-fill text-info"></i> 🤖 AI Intelligence
             </a>
             <a href="view_logs.php" class="hms-sidebar-item">
                 <i class="bi bi-shield-check"></i> Audit Logs
@@ -458,6 +461,11 @@ $notifications = $conn->query("
         <div class="col-md-4 mb-3">
             <a href="analytics.php" class="btn btn-modern btn-primary-modern w-100 py-3 d-flex justify-content-center" style="background-color: #0d6efd;">
                 📊 Charts &amp; Analytics
+            </a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a href="ai_intelligence.php" class="btn btn-modern btn-primary-modern w-100 py-3 d-flex justify-content-center text-white" style="background-color: #6f42c1;">
+                🤖 AI Intelligence Center
             </a>
         </div>
         <div class="col-md-4 mb-3">
