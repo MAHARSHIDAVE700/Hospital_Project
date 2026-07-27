@@ -137,4 +137,22 @@ class WorkloadBalancer {
         }
         return $doctors;
     }
+
+    /**
+     * Batch recalculates workload for all doctors.
+     *
+     * @param NeonDB|mysqli $conn
+     * @return int Count of doctors recalculated
+     */
+    public static function batchRecalculateAllWorkloads($conn) {
+        $docRes = $conn->query("SELECT doctor_id FROM doctors");
+        $count = 0;
+        if ($docRes) {
+            while ($row = $docRes->fetch_assoc()) {
+                self::recalculateDoctorWorkload($conn, intval($row['doctor_id']));
+                $count++;
+            }
+        }
+        return $count;
+    }
 }
