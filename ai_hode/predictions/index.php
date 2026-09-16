@@ -9,7 +9,7 @@ require_once __DIR__ . '/predictive_analytics.php';
 require_once __DIR__ . '/prediction_logger.php';
 
 // Handle test trigger for manual prediction testing
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'run_test_prediction') {
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['action']) && $_POST['action'] === 'run_test_prediction') {
     header('Content-Type: application/json');
     $targetType = trim($_POST['target_type'] ?? 'WAIT_TIME');
     $dept = trim($_POST['department'] ?? 'General OPD');

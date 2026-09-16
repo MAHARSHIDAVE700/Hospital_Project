@@ -35,6 +35,10 @@ if (!$doctor) {
 
 $doctorID = $doctor ? $doctor['doctor_id'] : 0;
 
+if ($doctorID > 0) {
+    $conn->query("UPDATE doctors SET last_active_at = CURRENT_TIMESTAMP WHERE doctor_id = '$doctorID'");
+}
+
 // Queue alerting function
 function checkAndAlertQueue($conn, $doctorID, $doctorName) {
     $pendingQuery = $conn->query("
@@ -91,6 +95,25 @@ if (isset($_GET['action'])) {
     $action = $_GET['action'];
     
     if ($action === 'call_next') {
+        // Check if currently called patient has a prescription written
+        $calledQuery = $conn->query("
+            SELECT appointment_id 
+            FROM appointments 
+            WHERE doctor_id='$doctorID' 
+            AND appointment_date=CURRENT_DATE 
+            AND queue_status='Called'
+            LIMIT 1
+        ");
+        if ($calledQuery && $calledAppt = $calledQuery->fetch_assoc()) {
+            $calledId = $calledAppt['appointment_id'];
+            $rxCheck = $conn->query("SELECT prescription_id FROM prescriptions WHERE appointment_id='$calledId'");
+            if (!$rxCheck || $rxCheck->num_rows == 0) {
+                // Must write prescription first before completing current patient!
+                header("Location: write_prescription.php?id=$calledId&error=rx_required");
+                exit();
+            }
+        }
+
         // Complete currently called if any
         $conn->query("
             UPDATE appointments 
@@ -213,7 +236,10 @@ $todayProgress = $todayTotal > 0 ? round(($todayCompleted / $todayTotal) * 100) 
                 <i class="bi bi-calendar-event"></i> All Appointments
             </a>
             
-            <div class="hms-sidebar-group-title">Settings</div>
+            <div class="hms-sidebar-group-title">Settings & Leave</div>
+            <a href="request_leave.php" class="hms-sidebar-item">
+                <i class="bi bi-calendar2-range"></i> Leave Requests
+            </a>
             <a href="profile.php" class="hms-sidebar-item">
                 <i class="bi bi-person-fill"></i> My Profile
             </a>
@@ -490,12 +516,20 @@ $todayProgress = $todayTotal > 0 ? round(($todayCompleted / $todayTotal) * 100) 
     </main> <!-- Close hms-main -->
 </div> <!-- Close hms-layout -->
 
-<!-- Responsive Toggle JavaScript -->
+<!-- Responsive Toggle JavaScript & Live Dashboard Heartbeat -->
 <script>
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     sidebar.classList.toggle('open');
 }
+
+// Live Dashboard Heartbeat Ping every 30 seconds
+function sendDoctorHeartbeat() {
+    fetch('ping.php')
+        .then(res => res.json())
+        .catch(err => console.log('Heartbeat failed', err));
+}
+setInterval(sendDoctorHeartbeat, 30000);
 </script>
 
 </body>

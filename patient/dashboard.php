@@ -31,7 +31,7 @@ $doctorStatus = 'Offline';
 if ($patientID) {
     // Get the patient's earliest pending/confirmed appointment today
     $apptQuery = $conn->query("
-        SELECT a.appointment_id, a.doctor_id, d.full_name AS doctor_name, a.appointment_time, d.status AS doctor_status, a.token_number, a.queue_position
+        SELECT a.appointment_id, a.doctor_id, d.full_name AS doctor_name, a.appointment_time, d.status AS doctor_status, d.last_active_at, a.token_number, a.queue_position
         FROM appointments a
         JOIN doctors d ON a.doctor_id = d.doctor_id
         WHERE a.patient_id='$patientID' 
@@ -45,7 +45,12 @@ if ($patientID) {
         $myApptID = $appt['appointment_id'];
         $activeDoctorName = $appt['doctor_name'];
         $doctorStatus = $appt['doctor_status'];
-        $doctorAvailability = "Dr. " . $activeDoctorName . " is currently " . $doctorStatus;
+        
+        $lastActive = $appt['last_active_at'] ?? null;
+        $isLiveOnline = (!empty($lastActive) && (time() - strtotime($lastActive)) <= 300);
+        $liveBadge = $isLiveOnline ? "🟢 Live Dashboard Active" : "⚫ Dashboard Inactive";
+        
+        $doctorAvailability = "Dr. " . $activeDoctorName . " · Status: " . $doctorStatus . " (" . $liveBadge . ")";
         
         $myToken = $appt['token_number'] ?: 'Pending Confirmation';
         $myPosition = $appt['queue_position'] ?: '-';
@@ -153,9 +158,11 @@ $activeDoctorsCount = $activeDoctorsQuery ? $activeDoctorsQuery->fetch_assoc()['
 $notificationText = "Welcome to your Patient Portal! You can book appointments and view prescriptions here.";
 if ($patientID) {
     $prescriptionQuery = $conn->query("
-        SELECT p.created_at, d.full_name AS doctor_name 
+        SELECT p.created_at, COALESCE(d.full_name, d_by_user.full_name, 'Doctor') AS doctor_name 
         FROM prescriptions p
-        JOIN doctors d ON p.doctor_id = d.doctor_id
+        LEFT JOIN doctors d ON p.doctor_id = d.doctor_id
+        LEFT JOIN users u ON p.doctor_id = u.id
+        LEFT JOIN doctors d_by_user ON LOWER(u.email) = LOWER(d_by_user.email)
         WHERE p.patient_id='$patientID'
         ORDER BY p.created_at DESC LIMIT 1
     ");

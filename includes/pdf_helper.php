@@ -257,4 +257,78 @@ class PDFHelper {
         
         return $pdf->Output('S');
     }
+
+    public static function generateInvoicePDF($inv) {
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        
+        // Header
+        $pdf->SetFont('Arial', 'B', 20);
+        $pdf->SetTextColor(15, 23, 42);
+        $pdf->Cell(0, 10, 'Narayan Hospital', 0, 1, 'C');
+        
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->SetTextColor(108, 117, 125);
+        $pdf->Cell(0, 5, 'Consolidated Hospital Statement & Invoice', 0, 1, 'C');
+        $pdf->Cell(0, 5, 'GSTIN: 24AAACN1234F1Z9 | Emergency Contact: +91 98765 43210', 0, 1, 'C');
+        $pdf->Ln(5);
+        
+        // Horizontal divider
+        $pdf->SetDrawColor(15, 23, 42);
+        $pdf->SetLineWidth(0.5);
+        $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
+        $pdf->Ln(8);
+        
+        // Metadata
+        $pdf->SetFont('Arial', 'B', 11);
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Cell(100, 6, 'Invoice No: ' . $inv['invoice_number'], 0, 0);
+        $pdf->Cell(90, 6, 'Date: ' . date('d M Y, h:i A', strtotime($inv['created_at'] ?? 'now')), 0, 1, 'R');
+        
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->SetTextColor(71, 85, 105);
+        $pdf->Cell(100, 5, 'Patient Name: ' . ($inv['patient_name'] ?? 'Synthetic Patient'), 0, 0);
+        $pdf->Cell(90, 5, 'Payment Method: ' . ($inv['payment_method'] ?? 'SIMULATED'), 0, 1, 'R');
+        
+        $pdf->Cell(100, 5, 'Phone: ' . ($inv['phone'] ?? '98XXXXXXXX'), 0, 0);
+        $pdf->Cell(90, 5, 'Status: PAID (SIMULATED)', 0, 1, 'R');
+        $pdf->Ln(10);
+        
+        // Charges Table
+        $pdf->SetFillColor(241, 245, 249);
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->SetTextColor(15, 23, 42);
+        $pdf->Cell(130, 8, ' Description of Medical Service / Module', 1, 0, 'L', true);
+        $pdf->Cell(60, 8, ' Amount (INR)', 1, 1, 'R', true);
+        
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->SetTextColor(0, 0, 0);
+        
+        $pdf->Cell(130, 8, ' OPD Consultation & Doctor Visits', 1, 0, 'L');
+        $pdf->Cell(60, 8, ' INR ' . number_format($inv['opd_charges'] ?? 0, 2), 1, 1, 'R');
+        
+        $pdf->Cell(130, 8, ' Laboratory Diagnostic Tests', 1, 0, 'L');
+        $pdf->Cell(60, 8, ' INR ' . number_format($inv['lab_charges'] ?? 0, 2), 1, 1, 'R');
+        
+        $pdf->Cell(130, 8, ' Pharmacy & Dispensed Medication', 1, 0, 'L');
+        $pdf->Cell(60, 8, ' INR ' . number_format($inv['pharmacy_charges'] ?? 0, 2), 1, 1, 'R');
+        
+        $pdf->Cell(130, 8, ' IPD Inpatient & Bed Accommodation Charges', 1, 0, 'L');
+        $pdf->Cell(60, 8, ' INR ' . number_format($inv['ipd_charges'] ?? 0, 2), 1, 1, 'R');
+        
+        // Totals
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->SetFillColor(248, 249, 250);
+        $pdf->Cell(130, 8, ' Total Statement Amount', 1, 0, 'R', true);
+        $pdf->SetTextColor(25, 135, 84);
+        $pdf->Cell(60, 8, ' INR ' . number_format($inv['total_amount'] ?? 0, 2), 1, 1, 'R', true);
+        
+        $pdf->Ln(15);
+        $pdf->SetFont('Arial', 'I', 9);
+        $pdf->SetTextColor(108, 117, 125);
+        $pdf->Cell(0, 5, 'Simulated Electronic Statement - Narayan Hospital System', 0, 1, 'C');
+        
+        return $pdf->Output('S');
+    }
 }
+

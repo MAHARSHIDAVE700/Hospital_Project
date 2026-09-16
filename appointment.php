@@ -32,16 +32,57 @@ if (isset($_GET['get_slots']) && isset($_GET['doctor_id'])) {
     $currentDate = date('Y-m-d');
     $cutoffTime = date('H:i:s', strtotime('+1 hour'));
     
-    // Check doctor live status
-    $docStatusQuery = $conn->query("SELECT status FROM doctors WHERE doctor_id = '$docId'");
+    // Check doctor live status and active dashboard time
+    $docStatusQuery = $conn->query("SELECT status, last_active_at FROM doctors WHERE doctor_id = '$docId'");
     $docStatusRow = $docStatusQuery ? $docStatusQuery->fetch_assoc() : null;
     $docStatus = $docStatusRow ? $docStatusRow['status'] : 'Active';
+    $lastActive = $docStatusRow ? $docStatusRow['last_active_at'] : null;
+
+    $isLiveOnline = false;
+    if (!empty($lastActive)) {
+        $lastActiveTs = strtotime($lastActive);
+        if ((time() - $lastActiveTs) <= 300) { // Active within 5 mins
+            $isLiveOnline = true;
+        }
+    }
     
-    // If today, hide slots if doctor is Break, Emergency, Offline, or Leave
+    // If today, hide slots if doctor has not opened live dashboard or is Break/Emergency/Offline/Leave
     if ($date === $currentDate) {
-        if (in_array($docStatus, ['Break', 'Emergency', 'Offline', 'Leave'])) {
+        if (!$isLiveOnline || in_array($docStatus, ['Break', 'Emergency', 'Offline', 'Leave'])) {
             echo json_encode([]);
             exit();
+        }
+    }
+
+    // Check if doctor is on approved leave for selected date
+    if (!empty($date)) {
+        $leaveQuery = $conn->query("
+            SELECT leave_id 
+            FROM doctor_leaves 
+            WHERE doctor_id = '$docId' 
+            AND status = 'Approved' 
+            AND '$date' BETWEEN start_date AND end_date 
+            LIMIT 1
+        ");
+        if ($leaveQuery && $leaveQuery->num_rows > 0) {
+            echo json_encode([]);
+            exit();
+        }
+
+        // Check doctor weekly schedule
+        $dayOfWeek = date('l', strtotime($date));
+        $schedQuery = $conn->query("
+            SELECT is_available 
+            FROM doctor_schedules 
+            WHERE doctor_id = '$docId' 
+            AND day_of_week = '$dayOfWeek' 
+            LIMIT 1
+        ");
+        if ($schedQuery && $schedRow = $schedQuery->fetch_assoc()) {
+            if ((int)$schedRow['is_available'] === 0) {
+                echo json_encode([]);
+                exit();
+            }
         }
     }
     
@@ -116,20 +157,54 @@ if (isset($_POST['book'])) {
     } elseif (empty($time)) {
         $message = "<div class='alert alert-danger'><i class='bi bi-exclamation-triangle'></i> Please select a time slot.</div>";
     } else {
-        // Check slot capacity limit (max 10)
-        $countQuery = $conn->query("
-            SELECT COUNT(*) AS total 
-            FROM appointments 
+        // Check if doctor is on approved leave
+        $leaveCheck = $conn->query("
+            SELECT leave_id, reason 
+            FROM doctor_leaves 
             WHERE doctor_id = '$doctor' 
-            AND appointment_date = '$date' 
-            AND appointment_time = '$time' 
-            AND status != 'Cancelled'
+            AND status = 'Approved' 
+            AND '$date' BETWEEN start_date AND end_date 
+            LIMIT 1
         ");
-        $bookedCount = $countQuery ? $countQuery->fetch_assoc()['total'] : 0;
-        
-        if ($bookedCount >= 10) {
-            $message = "<div class='alert alert-danger'><i class='bi bi-exclamation-triangle'></i> This time slot is fully booked. Please select another time slot.</div>";
+        $dayOfWeek = date('l', strtotime($date));
+        $schedCheck = $conn->query("
+            SELECT is_available 
+            FROM doctor_schedules 
+            WHERE doctor_id = '$doctor' 
+            AND day_of_week = '$dayOfWeek' 
+            LIMIT 1
+        ");
+        $isOffSched = ($schedCheck && ($sRow = $schedCheck->fetch_assoc()) && (int)$sRow['is_available'] === 0);
+
+        // Check if doctor is live online on dashboard for today's booking
+        $docLiveCheck = $conn->query("SELECT status, last_active_at FROM doctors WHERE doctor_id = '$doctor'");
+        $docLiveRow = $docLiveCheck ? $docLiveCheck->fetch_assoc() : null;
+        $docStatus = $docLiveRow ? $docLiveRow['status'] : 'Active';
+        $lastActive = $docLiveRow ? $docLiveRow['last_active_at'] : null;
+        $isLiveOnline = (!empty($lastActive) && (time() - strtotime($lastActive)) <= 300);
+
+        if ($leaveCheck && $leaveCheck->num_rows > 0) {
+            $lRow = $leaveCheck->fetch_assoc();
+            $message = "<div class='alert alert-danger'><i class='bi bi-exclamation-triangle-fill me-2'></i> The selected doctor is on approved leave on $date (" . htmlspecialchars($lRow['reason']) . "). Appointment cannot be booked.</div>";
+        } elseif ($isOffSched) {
+            $message = "<div class='alert alert-danger'><i class='bi bi-exclamation-triangle-fill me-2'></i> The selected doctor is not scheduled to work on {$dayOfWeek}s. Appointment cannot be booked.</div>";
+        } elseif ($date === date('Y-m-d') && (!$isLiveOnline || in_array($docStatus, ['Break', 'Emergency', 'Offline', 'Leave']))) {
+            $message = "<div class='alert alert-danger'><i class='bi bi-exclamation-triangle-fill me-2'></i> The doctor is currently not online on their live dashboard. Today's live appointments can only be booked when the doctor is online on their dashboard.</div>";
         } else {
+            // Check slot capacity limit (max 10)
+            $countQuery = $conn->query("
+                SELECT COUNT(*) AS total 
+                FROM appointments 
+                WHERE doctor_id = '$doctor' 
+                AND appointment_date = '$date' 
+                AND appointment_time = '$time' 
+                AND status != 'Cancelled'
+            ");
+            $bookedCount = $countQuery ? $countQuery->fetch_assoc()['total'] : 0;
+            
+            if ($bookedCount >= 10) {
+                $message = "<div class='alert alert-danger'><i class='bi bi-exclamation-triangle'></i> This time slot is fully booked. Please select another time slot.</div>";
+            } else {
             $status = "Pending";
 
             $stmt = $conn->prepare("
@@ -191,6 +266,7 @@ if (isset($_POST['book'])) {
             $message = "<div class='alert alert-danger'><i class='bi bi-exclamation-triangle'></i> Failed to Book Appointment. Please try again.</div>";
         }
     }
+}
 }
 }
 

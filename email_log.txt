@@ -350,3 +350,33 @@ BODY:
 [2026-07-22 19:24:48] (RESEND SENDING) TO: patient@hospital.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Appointment Reminder - Narayan Hospital
 [2026-07-22 19:24:48] (RESEND FAILED) HTTP Code: 403 | Response: {"statusCode":403,"name":"validation_error","message":"You can only send testing emails to your own email address (dmamu8419@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain."}
 ----------------------------------------
+[2026-08-17 18:22:36] (RESEND SENDING) TO: patient@example.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Appointment Confirmation - Narayan Hospital
+[2026-08-17 18:22:36] (RESEND FAILED) HTTP Code: 422 | Response: {"statusCode":422,"name":"validation_error","message":"Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information."}
+----------------------------------------
+[2026-08-17 18:22:38] (RESEND SENDING) TO: user@example.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Password Reset Request - Narayan Hospital
+[2026-08-17 18:22:38] (RESEND FAILED) HTTP Code: 422 | Response: {"statusCode":422,"name":"validation_error","message":"Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information."}
+----------------------------------------
+[2026-08-17 18:22:39] (RESEND SENDING) TO: user@example.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Password Reset Request
+[2026-08-17 18:22:39] (RESEND FAILED) HTTP Code: 422 | Response: {"statusCode":422,"name":"validation_error","message":"Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information."}
+----------------------------------------
+[2026-08-17 18:22:40] (RESEND SENDING) TO: patient@example.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Your Prescription - Narayan Hospital | ATTACHMENTS: Prescription_99.pdf
+[2026-08-17 18:22:40] (RESEND FAILED) HTTP Code: 422 | Response: {"statusCode":422,"name":"validation_error","message":"Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information."}
+----------------------------------------
+[2026-08-17 18:22:41] (RESEND SENDING) TO: patient@example.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Invoice Receipt - Narayan Hospital
+[2026-08-17 18:22:41] (RESEND FAILED) HTTP Code: 422 | Response: {"statusCode":422,"name":"validation_error","message":"Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information."}
+----------------------------------------
+[2026-08-17 18:23:29] (RESEND SENDING) TO: dmamu8419@gmail.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Appointment Confirmation - Narayan Hospital
+[2026-08-17 18:23:29] (RESEND SUCCESS) ID: 05c143cb-5561-466b-8bb2-dce08db18708
+----------------------------------------
+[2026-08-17 18:23:31] (RESEND SENDING) TO: user@example.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Password Reset Request - Narayan Hospital
+[2026-08-17 18:23:31] (RESEND FAILED) HTTP Code: 422 | Response: {"statusCode":422,"name":"validation_error","message":"Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information."}
+----------------------------------------
+[2026-08-17 18:23:31] (RESEND SENDING) TO: user@example.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Password Reset Request
+[2026-08-17 18:23:31] (RESEND FAILED) HTTP Code: 422 | Response: {"statusCode":422,"name":"validation_error","message":"Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information."}
+----------------------------------------
+[2026-08-17 18:23:34] (RESEND SENDING) TO: patient@example.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Your Prescription - Narayan Hospital | ATTACHMENTS: Prescription_99.pdf
+[2026-08-17 18:23:34] (RESEND FAILED) HTTP Code: 422 | Response: {"statusCode":422,"name":"validation_error","message":"Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information."}
+----------------------------------------
+[2026-08-17 18:23:35] (RESEND SENDING) TO: patient@example.com | FROM: Narayan Hospital <onboarding@resend.dev> | SUBJECT: Invoice Receipt - Narayan Hospital
+[2026-08-17 18:23:35] (RESEND FAILED) HTTP Code: 422 | Response: {"statusCode":422,"name":"validation_error","message":"Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information."}
+----------------------------------------

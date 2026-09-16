@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include "../includes/config.php";
+require_once __DIR__ . '/../includes/config.php';
 
 // 1. JSON API endpoint to fetch detailed dispense items
 if (isset($_GET['fetch_dispense_id'])) {

@@ -127,7 +127,7 @@ if (isset($_POST['allocate_bed'])) {
         </div>";
     } else {
         // Prepare transaction
-        $conn->query("BEGIN");
+        $conn->begin_transaction();
         try {
             $stmt = $conn->prepare("INSERT INTO bed_allocations (bed_id, patient_id, admission_date, status) VALUES (?, ?, ?, 'Active')");
             $stmt->bind_param("iis", $bed_id, $patient_id, $admission_date);
@@ -140,14 +140,14 @@ if (isset($_POST['allocate_bed'])) {
                 throw new Exception("Failed to update bed status to Occupied.");
             }
             
-            $conn->query("COMMIT");
+            $conn->commit();
             ActivityLogger::log($_SESSION['admin_id'], 'admin', 'Allocate Bed', "Allocated bed ID {$bed_id} to patient ID {$patient_id}");
             $message = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
                 <strong>Success:</strong> Bed allocated successfully.
                 <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
             </div>";
         } catch (Exception $e) {
-            $conn->query("ROLLBACK");
+            $conn->rollback();
             $message = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
                 <strong>Error:</strong> " . htmlspecialchars($e->getMessage()) . "
                 <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
@@ -165,7 +165,7 @@ if (isset($_GET['discharge_allocation_id'])) {
     if ($alloc) {
         $bed_id = $alloc['bed_id'];
         
-        $conn->query("BEGIN");
+        $conn->begin_transaction();
         try {
             $updateAlloc = $conn->query("UPDATE bed_allocations SET status = 'Discharged', discharge_date = CURRENT_TIMESTAMP WHERE allocation_id = $allocation_id");
             if (!$updateAlloc) {
@@ -177,14 +177,14 @@ if (isset($_GET['discharge_allocation_id'])) {
                 throw new Exception("Failed to update bed status to Available.");
             }
             
-            $conn->query("COMMIT");
+            $conn->commit();
             ActivityLogger::log($_SESSION['admin_id'], 'admin', 'Discharge Bed', "Discharged patient from bed ID {$bed_id}");
             $message = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
                 <strong>Success:</strong> Patient discharged and bed set to Available.
                 <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
             </div>";
         } catch (Exception $e) {
-            $conn->query("ROLLBACK");
+            $conn->rollback();
             $message = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
                 <strong>Error:</strong> " . htmlspecialchars($e->getMessage()) . "
                 <button type='button' class='btn-close' data-bs-dismiss='alert'></button>

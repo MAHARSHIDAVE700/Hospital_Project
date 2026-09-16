@@ -13,10 +13,16 @@ if (!$id) {
 }
 
 $query = "
-    SELECT p.*, d.full_name AS doctor_name, dep.department_name, u.full_name AS patient_name, pat.phone, pat.age, pat.gender
+    SELECT p.*,
+           COALESCE(d.full_name, d_by_user.full_name, 'Doctor') AS doctor_name,
+           COALESCE(dep.department_name, dep_by_user.department_name, 'General') AS department_name,
+           u.full_name AS patient_name, pat.phone, pat.age, pat.gender
     FROM prescriptions p
-    JOIN doctors d ON p.doctor_id = d.doctor_id
+    LEFT JOIN doctors d ON p.doctor_id = d.doctor_id
+    LEFT JOIN users u_doc ON p.doctor_id = u_doc.id
+    LEFT JOIN doctors d_by_user ON LOWER(u_doc.email) = LOWER(d_by_user.email)
     LEFT JOIN departments dep ON d.department_id = dep.department_id
+    LEFT JOIN departments dep_by_user ON d_by_user.department_id = dep_by_user.department_id
     JOIN patients pat ON p.patient_id = pat.patient_id
     JOIN users u ON pat.user_id = u.id
     WHERE p.prescription_id = $id
@@ -27,6 +33,19 @@ if (!$res || $res->num_rows === 0) {
 }
 
 $p = $res->fetch_assoc();
+
+// Privacy Check: Ensure logged in patient can ONLY view their own prescription
+if (isset($_SESSION['patient_id'])) {
+    $sessionUserId = $_SESSION['patient_id'];
+    $patQuery = $conn->query("SELECT patient_id FROM patients WHERE user_id='$sessionUserId'");
+    $myPatient = $patQuery ? $patQuery->fetch_assoc() : null;
+    $myPatientId = $myPatient ? $myPatient['patient_id'] : 0;
+    
+    if (intval($p['patient_id']) !== intval($myPatientId)) {
+        http_response_code(403);
+        die("<div style='font-family:sans-serif; text-align:center; padding:50px; color:#721c24; background:#f8d7da; border-radius:8px; margin:40px auto; max-width:600px;'><h2>403 Forbidden - Access Denied</h2><p>You are not authorized to view or download this prescription. Prescriptions can only be viewed by the assigned patient.</p><a href='my_prescriptions.php' class='btn btn-primary mt-3'>Return to My Prescriptions</a></div>");
+    }
+}
 ?>
 
 <!DOCTYPE html>

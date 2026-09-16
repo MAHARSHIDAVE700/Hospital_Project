@@ -18,7 +18,7 @@ if ($existingCount == 0) {
 }
 
 // Handle AJAX recording of new evaluation metrics
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'record_metrics') {
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['action']) && $_POST['action'] === 'record_metrics') {
     header('Content-Type: application/json');
     $mId = intval($_POST['model_id'] ?? 0);
     $mae = floatval($_POST['mae'] ?? 2.5);

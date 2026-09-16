@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include "../includes/config.php";
+require_once __DIR__ . '/../includes/config.php';
 
 // Allow pharmacist/admin to fetch raw patient prescriptions
 if (isset($_GET['fetch_raw_patient_id'])) {
@@ -13,9 +13,11 @@ if (isset($_GET['fetch_raw_patient_id'])) {
     
     $pId = intval($_GET['fetch_raw_patient_id']);
     $query = "
-        SELECT p.prescription_id, p.diagnosis, p.medicines, p.created_at, d.full_name
+        SELECT p.prescription_id, p.diagnosis, p.medicines, p.created_at, COALESCE(d.full_name, d_by_user.full_name, 'Doctor') AS full_name
         FROM prescriptions p
-        JOIN doctors d ON p.doctor_id = d.doctor_id
+        LEFT JOIN doctors d ON p.doctor_id = d.doctor_id
+        LEFT JOIN users u ON p.doctor_id = u.id
+        LEFT JOIN doctors d_by_user ON LOWER(u.email) = LOWER(d_by_user.email)
         WHERE p.patient_id = ?
         ORDER BY p.created_at DESC
     ";
@@ -48,12 +50,13 @@ $patientID = $patient['patient_id'];
 $query = "
 SELECT
 p.*,
-d.full_name
+COALESCE(d.full_name, d_by_user.full_name, 'Doctor') AS full_name
 
 FROM prescriptions p
 
-JOIN doctors d
-ON p.doctor_id=d.doctor_id
+LEFT JOIN doctors d ON p.doctor_id = d.doctor_id
+LEFT JOIN users u ON p.doctor_id = u.id
+LEFT JOIN doctors d_by_user ON LOWER(u.email) = LOWER(d_by_user.email)
 
 WHERE p.patient_id='$patientID'
 
@@ -176,7 +179,7 @@ while($row=($result)->fetch_assoc()){
 
 <tr>
 
-<td colspan="6" class="text-center">
+<td colspan="7" class="text-center">
 
 No Prescriptions Available
 

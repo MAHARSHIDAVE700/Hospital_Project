@@ -33,7 +33,8 @@ class WorkloadBalancer {
             $activeStmt->bind_param("i", $doctorId);
             $activeStmt->execute();
             $activeRes = $activeStmt->get_result();
-            $activePatients = ($activeRes && $aRow = $activeRes->fetch_assoc()) ? (int)$aRow['active_count'] : 0;
+            $aRow = $activeRes ? $activeRes->fetch_assoc() : null;
+            $activePatients = $aRow ? (int)$aRow['active_count'] : 0;
 
             // 2. Calculate consultations completed today
             $completedStmt = $conn->prepare("
@@ -41,12 +42,13 @@ class WorkloadBalancer {
                 FROM patient_flow 
                 WHERE assigned_doctor_id = ? 
                   AND current_stage IN ('DISCHARGED', 'LAB_PHARMACY', 'BILLING')
-                  AND DATE(stage_entry_time) = CURRENT_DATE()
+                  AND DATE(stage_entry_time) = CURRENT_DATE
             ");
             $completedStmt->bind_param("i", $doctorId);
             $completedStmt->execute();
             $completedRes = $completedStmt->get_result();
-            $completedToday = ($completedRes && $cRow = $completedRes->fetch_assoc()) ? (int)$cRow['completed_count'] : 0;
+            $cRow = $completedRes ? $completedRes->fetch_assoc() : null;
+            $completedToday = $cRow ? (int)$cRow['completed_count'] : 0;
 
             // 3. Calculate average consultation time in seconds for today's completed patients
             $avgTimeStmt = $conn->prepare("
@@ -55,12 +57,13 @@ class WorkloadBalancer {
                 WHERE assigned_doctor_id = ? 
                   AND current_stage IN ('DISCHARGED', 'LAB_PHARMACY', 'BILLING')
                   AND dwell_time_seconds IS NOT NULL
-                  AND DATE(stage_entry_time) = CURRENT_DATE()
+                  AND DATE(stage_entry_time) = CURRENT_DATE
             ");
             $avgTimeStmt->bind_param("i", $doctorId);
             $avgTimeStmt->execute();
             $avgTimeRes = $avgTimeStmt->get_result();
-            $avgConsultationSec = ($avgTimeRes && $tRow = $avgTimeRes->fetch_assoc() && $tRow['avg_time'] !== null) 
+            $tRow = $avgTimeRes ? $avgTimeRes->fetch_assoc() : null;
+            $avgConsultationSec = ($tRow && isset($tRow['avg_time']) && $tRow['avg_time'] !== null) 
                 ? (int)round($tRow['avg_time']) 
                 : 600; // 10 minutes default fallback
 

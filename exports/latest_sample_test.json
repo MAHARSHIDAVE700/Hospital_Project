@@ -1,0 +1,13 @@
+{
+  "metadata": {
+    "system": "AI-HODE Prediction Microservice",
+    "saved_at": "2026-07-27T23:28:00.547700",
+    "prefix": "sample_test"
+  },
+  "data": {
+    "department": "General OPD",
+    "predicted_wait_minutes": 18.5,
+    "queue_length": 4,
+    "model_version": "v1.2-xgboost-ensemble"
+  }
+}

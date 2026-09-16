@@ -1,0 +1,14 @@
+{
+    "metadata": {
+        "system": "Hospital Operational Decision Engine (AI-HODE)",
+        "export_timestamp": "2026-07-27T19:57:52+02:00",
+        "version": "1.0.0"
+    },
+    "doctors": [],
+    "patients": [],
+    "appointments": [],
+    "ai_recommendations": [],
+    "ai_predictions": [],
+    "doctor_workload": [],
+    "patient_flow": []
+}

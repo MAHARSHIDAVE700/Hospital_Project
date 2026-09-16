@@ -55,9 +55,13 @@ ON doctors.department_id=departments.department_id
 
 <body class="bg-light">
 
-<div class="container mt-4">
-
+<div class="d-flex justify-content-between align-items-center mb-3">
 <h2>Manage Doctors</h2>
+<div>
+    <a href="manage_leaves.php" class="btn btn-warning me-2"><i class="bi bi-calendar2-range"></i> Leave Requests</a>
+    <a href="manage_doctor_schedule.php" class="btn btn-info text-white"><i class="bi bi-calendar3"></i> Doctor Schedules</a>
+</div>
+</div>
 
 <?= $message ?>
 

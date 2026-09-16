@@ -131,7 +131,7 @@ if (isset($_POST['generate_invoice'])) {
     
     $invoice_number = "INV-" . rand(100000, 999999);
     
-    $conn->query("BEGIN");
+    $conn->begin_transaction();
     try {
         // Insert Invoice
         $stmt = $conn->prepare("INSERT INTO invoices (patient_id, invoice_number, opd_charges, ipd_charges, lab_charges, pharmacy_charges, tax_amount, discount, total_amount, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'Unpaid')");
@@ -162,14 +162,14 @@ if (isset($_POST['generate_invoice'])) {
             throw new Exception("Failed to update unbilled medicine dispenses.");
         }
         
-        $conn->query("COMMIT");
+        $conn->commit();
         ActivityLogger::log($_SESSION['admin_id'], 'admin', 'Generate Invoice', "Created invoice {$invoice_number} for patient ID {$patient_id}");
         $message = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
             <strong>Success:</strong> Invoice {$invoice_number} generated successfully.
             <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
         </div>";
     } catch (Exception $e) {
-        $conn->query("ROLLBACK");
+        $conn->rollback();
         $message = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
             <strong>Error:</strong> Failed to generate invoice. " . htmlspecialchars($e->getMessage()) . "
             <button type='button' class='btn-close' data-bs-dismiss='alert'></button>

@@ -96,7 +96,7 @@ if (isset($_POST['dispense_meds'])) {
             <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
         </div>";
     } else {
-        $conn->query("BEGIN");
+        $conn->begin_transaction();
         try {
             $total_price = 0.00;
             
@@ -168,14 +168,14 @@ if (isset($_POST['dispense_meds'])) {
                 }
             }
             
-            $conn->query("COMMIT");
+            $conn->commit();
             ActivityLogger::log($_SESSION['admin_id'], 'admin', 'Dispense Medication', "Dispensed invoice #{$dispense_id} (INR {$total_price}) to patient ID {$patient_id}");
             $message = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
                 <strong>Success:</strong> Medications dispensed successfully. Invoice #{$dispense_id} generated.
                 <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
             </div>";
         } catch (Exception $e) {
-            $conn->query("ROLLBACK");
+            $conn->rollback();
             $message = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
                 <strong>Error:</strong> " . $e->getMessage() . "
                 <button type='button' class='btn-close' data-bs-dismiss='alert'></button>

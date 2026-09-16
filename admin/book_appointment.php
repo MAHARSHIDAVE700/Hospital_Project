@@ -30,6 +30,38 @@ if (isset($_GET['get_slots']) && isset($_GET['doctor_id'])) {
             exit();
         }
     }
+
+    // Check if doctor is on approved leave for selected date
+    if (!empty($date)) {
+        $leaveQuery = $conn->query("
+            SELECT leave_id 
+            FROM doctor_leaves 
+            WHERE doctor_id = '$docId' 
+            AND status = 'Approved' 
+            AND '$date' BETWEEN start_date AND end_date 
+            LIMIT 1
+        ");
+        if ($leaveQuery && $leaveQuery->num_rows > 0) {
+            echo json_encode([]);
+            exit();
+        }
+
+        // Check doctor weekly schedule
+        $dayOfWeek = date('l', strtotime($date));
+        $schedQuery = $conn->query("
+            SELECT is_available 
+            FROM doctor_schedules 
+            WHERE doctor_id = '$docId' 
+            AND day_of_week = '$dayOfWeek' 
+            LIMIT 1
+        ");
+        if ($schedQuery && $schedRow = $schedQuery->fetch_assoc()) {
+            if ((int)$schedRow['is_available'] === 0) {
+                echo json_encode([]);
+                exit();
+            }
+        }
+    }
     
     // Check if slots exist for this doctor
     $checkSlots = $conn->query("SELECT COUNT(*) AS total FROM opd_slots WHERE doctor_id = '$docId'");
@@ -159,20 +191,45 @@ if (isset($_POST['book'])) {
         if (empty($patient_id) || empty($doctor_id) || empty($date) || empty($time)) {
             $message = "Please complete all fields and select a time slot.";
         } else {
-            // Check slot capacity limit (max 10)
-            $countQuery = $conn->query("
-                SELECT COUNT(*) AS total 
-                FROM appointments 
+            // Check if doctor is on approved leave
+            $leaveCheck = $conn->query("
+                SELECT leave_id, reason 
+                FROM doctor_leaves 
                 WHERE doctor_id = '$doctor_id' 
-                AND appointment_date = '$date' 
-                AND appointment_time = '$time' 
-                AND status != 'Cancelled'
+                AND status = 'Approved' 
+                AND '$date' BETWEEN start_date AND end_date 
+                LIMIT 1
             ");
-            $bookedCount = $countQuery ? $countQuery->fetch_assoc()['total'] : 0;
-            
-            if ($bookedCount >= 10) {
-                $message = "This time slot is fully booked. Please select another time slot.";
+            $dayOfWeek = date('l', strtotime($date));
+            $schedCheck = $conn->query("
+                SELECT is_available 
+                FROM doctor_schedules 
+                WHERE doctor_id = '$doctor_id' 
+                AND day_of_week = '$dayOfWeek' 
+                LIMIT 1
+            ");
+            $isOffSched = ($schedCheck && ($sRow = $schedCheck->fetch_assoc()) && (int)$sRow['is_available'] === 0);
+
+            if ($leaveCheck && $leaveCheck->num_rows > 0) {
+                $lRow = $leaveCheck->fetch_assoc();
+                $message = "The selected doctor is on approved leave on $date (" . htmlspecialchars($lRow['reason']) . "). Appointment cannot be booked.";
+            } elseif ($isOffSched) {
+                $message = "The selected doctor is not scheduled to work on {$dayOfWeek}s. Appointment cannot be booked.";
             } else {
+                // Check slot capacity limit (max 10)
+                $countQuery = $conn->query("
+                    SELECT COUNT(*) AS total 
+                    FROM appointments 
+                    WHERE doctor_id = '$doctor_id' 
+                    AND appointment_date = '$date' 
+                    AND appointment_time = '$time' 
+                    AND status != 'Cancelled'
+                ");
+                $bookedCount = $countQuery ? $countQuery->fetch_assoc()['total'] : 0;
+                
+                if ($bookedCount >= 10) {
+                    $message = "This time slot is fully booked. Please select another time slot.";
+                } else {
                 $status = ($appt_status === 'Confirmed') ? 'Confirmed' : 'Pending';
 
                 $stmt = $conn->prepare("

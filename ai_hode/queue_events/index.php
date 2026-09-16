@@ -9,7 +9,7 @@ require_once __DIR__ . '/../patient_flow/patient_flow_engine.php';
 require_once __DIR__ . '/queue_event_tracker.php';
 
 // Handle AJAX actions (Call token, Complete token, Issue token)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['action'])) {
     header('Content-Type: application/json');
     $action = $_POST['action'];
 

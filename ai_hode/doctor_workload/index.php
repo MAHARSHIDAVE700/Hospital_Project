@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../includes/config.php';
 require_once __DIR__ . '/workload_balancer.php';
 
 // Handle recalculation trigger for a doctor via POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'recalculate') {
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['action']) && $_POST['action'] === 'recalculate') {
     header('Content-Type: application/json');
     $doctorId = intval($_POST['doctor_id'] ?? 0);
     if ($doctorId) {

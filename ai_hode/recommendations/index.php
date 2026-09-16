@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../includes/config.php';
 require_once __DIR__ . '/recommendation_engine.php';
 
 // Handle AJAX actions (Generate rules, Update status)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['action'])) {
     header('Content-Type: application/json');
     $action = $_POST['action'];
 

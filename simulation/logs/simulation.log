@@ -1,0 +1,512 @@
+[2026-08-17 18:38:43] Run: SIM-DRY-20260817-183842 | Event: DRY_RUN_INIT | Status: SUCCESS | Details: Dry run test initialized with safety layer active.
+[2026-08-17 18:38:44] Run: SIM-DRY-20260817-183842 | Event: SCHEMA_VERIFICATION | Status: SUCCESS | Details: Verified existing real patients (9) and doctors (2).
+[2026-08-17 18:38:45] Run: SIM-DRY-20260817-183842 | Event: DRY_RUN_FAILED | Status: FAILED | Error: Safety guards check failed during dry run.
+[2026-08-17 18:38:47] Run: SIM-DRY-20260817-183842 | Event: SIMULATION_CLEANUP | Status: SUCCESS | Details: Cleaned up simulation run 'SIM-DRY-20260817-183842'
+[2026-08-17 18:39:50] Run: SIM-DRY-20260817-183949 | Event: DRY_RUN_INIT | Status: SUCCESS | Details: Dry run test initialized with safety layer active.
+[2026-08-17 18:39:50] Run: SIM-DRY-20260817-183949 | Event: SCHEMA_VERIFICATION | Status: SUCCESS | Details: Verified existing real patients (9) and doctors (2).
+[2026-08-17 18:39:51] Run: SIM-DRY-20260817-183949 | Event: SAFETY_GUARDS_VERIFIED | Status: SUCCESS | Details: Email and Razorpay side-effect guards active.
+[2026-08-17 18:39:52] Run: SIM-DRY-20260817-183949 | Event: DRY_RUN_COMPLETE | Status: SUCCESS | Details: Dry run completed successfully with ZERO persistent changes to main tables.
+[2026-08-17 18:39:54] Run: SIM-DRY-20260817-183949 | Event: SIMULATION_CLEANUP | Status: SUCCESS | Details: Cleaned up simulation run 'SIM-DRY-20260817-183949'
+[2026-08-17 18:41:05] Run: SIM-DRY-20260817-184105 | Event: DRY_RUN_INIT | Status: SUCCESS | Details: Dry run test initialized with safety layer active.
+[2026-08-17 18:41:06] Run: SIM-DRY-20260817-184105 | Event: SCHEMA_VERIFICATION | Status: SUCCESS | Details: Verified existing real patients (9) and doctors (2).
+[2026-08-17 18:41:07] Run: SIM-DRY-20260817-184105 | Event: SAFETY_GUARDS_VERIFIED | Status: SUCCESS | Details: Email and Razorpay side-effect guards active.
+[2026-08-17 18:41:07] Run: SIM-DRY-20260817-184105 | Event: DRY_RUN_COMPLETE | Status: SUCCESS | Details: Dry run completed successfully with ZERO persistent changes to main tables.
+[2026-08-17 18:41:08] Run: SIM-DRY-20260817-184105 | Event: SIMULATION_CLEANUP | Status: SUCCESS | Details: Cleaned up simulation run 'SIM-DRY-20260817-184105'
+[2026-08-17 18:45:21] Run: SIM-20260817-001 | Event: PATIENT_GENERATION_STARTED | Status: IN_PROGRESS | Details: Starting synthetic patient generation for count 10
+[2026-08-17 18:45:24] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#14 | Details: Created synthetic patient 'Riya Singh' (User ID: 20)
+[2026-08-17 18:45:27] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#15 | Details: Created synthetic patient 'Riya Shah' (User ID: 21)
+[2026-08-17 18:45:29] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#16 | Details: Created synthetic patient 'Manish Bhatia' (User ID: 22)
+[2026-08-17 18:45:32] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#17 | Details: Created synthetic patient 'Sneha Sharma' (User ID: 23)
+[2026-08-17 18:45:34] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#18 | Details: Created synthetic patient 'Ishita Bhatia' (User ID: 24)
+[2026-08-17 18:45:37] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#19 | Details: Created synthetic patient 'Manish Iyer' (User ID: 25)
+[2026-08-17 18:45:39] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#20 | Details: Created synthetic patient 'Pooja Joshi' (User ID: 26)
+[2026-08-17 18:45:42] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#21 | Details: Created synthetic patient 'Aarav Joshi' (User ID: 27)
+[2026-08-17 18:45:44] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#22 | Details: Created synthetic patient 'Sneha Deshmukh' (User ID: 28)
+[2026-08-17 18:45:46] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#23 | Details: Created synthetic patient 'Siddharth Gupta' (User ID: 29)
+[2026-08-17 18:45:47] Run: SIM-20260817-001 | Event: PATIENT_GENERATION_COMPLETED | Status: SUCCESS | Details: Completed patient generation: Requested=10, Created=10, Failed=0
+[2026-08-17 18:45:49] Run: SIM-20260817-001 | Event: SIMULATION_CLEANUP_INIT | Status: IN_PROGRESS | Details: Starting cleanup for simulation run 'SIM-20260817-001'
+[2026-08-17 18:45:56] Run: SIM-20260817-001 | Event: PATIENT_GENERATION_STARTED | Status: IN_PROGRESS | Details: Starting synthetic patient generation for count 20
+[2026-08-17 18:45:59] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#24 | Details: Created synthetic patient 'Aarav Joshi' (User ID: 30)
+[2026-08-17 18:46:01] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#25 | Details: Created synthetic patient 'Neha Patel' (User ID: 31)
+[2026-08-17 18:46:04] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#26 | Details: Created synthetic patient 'Manish Kulkarni' (User ID: 32)
+[2026-08-17 18:46:06] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#27 | Details: Created synthetic patient 'Karan Bhatia' (User ID: 33)
+[2026-08-17 18:46:09] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#28 | Details: Created synthetic patient 'Amit Dutta' (User ID: 34)
+[2026-08-17 18:46:11] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#29 | Details: Created synthetic patient 'Rahul Kulkarni' (User ID: 35)
+[2026-08-17 18:46:13] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#30 | Details: Created synthetic patient 'Karan Nair' (User ID: 36)
+[2026-08-17 18:46:16] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#31 | Details: Created synthetic patient 'Meera Iyer' (User ID: 37)
+[2026-08-17 18:46:18] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#32 | Details: Created synthetic patient 'Priya Verma' (User ID: 38)
+[2026-08-17 18:46:20] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#33 | Details: Created synthetic patient 'Kavya Deshmukh' (User ID: 39)
+[2026-08-17 18:46:23] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#34 | Details: Created synthetic patient 'Riya Verma' (User ID: 40)
+[2026-08-17 18:46:25] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#35 | Details: Created synthetic patient 'Neha Sharma' (User ID: 41)
+[2026-08-17 18:46:28] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#36 | Details: Created synthetic patient 'Rohan Rao' (User ID: 42)
+[2026-08-17 18:46:30] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#37 | Details: Created synthetic patient 'Amit Rao' (User ID: 43)
+[2026-08-17 18:46:32] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#38 | Details: Created synthetic patient 'Aarav Mehta' (User ID: 44)
+[2026-08-17 18:46:35] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#39 | Details: Created synthetic patient 'Meera Sharma' (User ID: 45)
+[2026-08-17 18:46:37] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#40 | Details: Created synthetic patient 'Neha Chawla' (User ID: 46)
+[2026-08-17 18:46:39] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#41 | Details: Created synthetic patient 'Kavya Kulkarni' (User ID: 47)
+[2026-08-17 18:46:42] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#42 | Details: Created synthetic patient 'Vikram Nair' (User ID: 48)
+[2026-08-17 18:46:44] Run: SIM-20260817-001 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#43 | Details: Created synthetic patient 'Riya Mehta' (User ID: 49)
+[2026-08-17 18:46:44] Run: SIM-20260817-001 | Event: PATIENT_GENERATION_COMPLETED | Status: SUCCESS | Details: Completed patient generation: Requested=20, Created=20, Failed=0
+[2026-08-17 18:50:26] Run: SIM-20260817-001 | Event: OPD_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting OPD workflow simulation for 5 patient(s)
+[2026-08-17 18:50:27] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#24 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:29] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#25 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:30] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#26 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:31] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#27 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:32] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#28 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:33] Run: SIM-20260817-001 | Event: OPD_SIMULATION_COMPLETED | Status: SUCCESS | Details: OPD Simulation finished: Processed=5, Appointments=0, Consultations=0, Prescriptions=0, Failed=5
+[2026-08-17 18:50:34] Run: SIM-20260817-001 | Event: OPD_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting OPD workflow simulation for 20 patient(s)
+[2026-08-17 18:50:35] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#24 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:36] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#25 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:37] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#26 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:38] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#27 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:40] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#28 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:41] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#29 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:42] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#30 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:43] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#31 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:44] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#32 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:45] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#33 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:47] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#34 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:48] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#35 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:49] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#36 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:50] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#37 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:51] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#38 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:53] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#39 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:54] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#40 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:55] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#41 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:57] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#42 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:58] Run: SIM-20260817-001 | Event: OPD_JOURNEY_FAILED | Status: FAILED | Entity: patient#43 | Error: Failed to insert appointment: 
+[2026-08-17 18:50:59] Run: SIM-20260817-001 | Event: OPD_SIMULATION_COMPLETED | Status: SUCCESS | Details: OPD Simulation finished: Processed=20, Appointments=0, Consultations=0, Prescriptions=0, Failed=20
+[2026-08-17 19:00:54] Run: SIM-20260817-001 | Event: OPD_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting OPD workflow simulation for 5 patient(s)
+[2026-08-17 19:01:00] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#25 | Details: OPD journey complete for Patient #24 with Dr. MILAN PATEL
+[2026-08-17 19:01:06] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#26 | Details: OPD journey complete for Patient #25 with Dr. MAITREY MALASNA
+[2026-08-17 19:01:12] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#27 | Details: OPD journey complete for Patient #26 with Dr. MILAN PATEL
+[2026-08-17 19:01:18] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#28 | Details: OPD journey complete for Patient #27 with Dr. MAITREY MALASNA
+[2026-08-17 19:01:25] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#29 | Details: OPD journey complete for Patient #28 with Dr. MILAN PATEL
+[2026-08-17 19:01:25] Run: SIM-20260817-001 | Event: OPD_SIMULATION_COMPLETED | Status: SUCCESS | Details: OPD Simulation finished: Processed=5, Appointments=5, Consultations=5, Prescriptions=5, Failed=0
+[2026-08-17 19:01:26] Run: SIM-20260817-001 | Event: OPD_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting OPD workflow simulation for 20 patient(s)
+[2026-08-17 19:01:32] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#30 | Details: OPD journey complete for Patient #24 with Dr. MILAN PATEL
+[2026-08-17 19:01:38] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#31 | Details: OPD journey complete for Patient #25 with Dr. MAITREY MALASNA
+[2026-08-17 19:01:44] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#32 | Details: OPD journey complete for Patient #26 with Dr. MILAN PATEL
+[2026-08-17 19:01:51] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#33 | Details: OPD journey complete for Patient #27 with Dr. MAITREY MALASNA
+[2026-08-17 19:01:58] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#34 | Details: OPD journey complete for Patient #28 with Dr. MILAN PATEL
+[2026-08-17 19:02:05] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#35 | Details: OPD journey complete for Patient #29 with Dr. MAITREY MALASNA
+[2026-08-17 19:02:12] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#36 | Details: OPD journey complete for Patient #30 with Dr. MILAN PATEL
+[2026-08-17 19:02:19] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#37 | Details: OPD journey complete for Patient #31 with Dr. MAITREY MALASNA
+[2026-08-17 19:02:26] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#38 | Details: OPD journey complete for Patient #32 with Dr. MILAN PATEL
+[2026-08-17 19:02:33] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#39 | Details: OPD journey complete for Patient #33 with Dr. MAITREY MALASNA
+[2026-08-17 19:02:40] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#40 | Details: OPD journey complete for Patient #34 with Dr. MILAN PATEL
+[2026-08-17 19:02:46] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#41 | Details: OPD journey complete for Patient #35 with Dr. MAITREY MALASNA
+[2026-08-17 19:02:53] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#42 | Details: OPD journey complete for Patient #36 with Dr. MILAN PATEL
+[2026-08-17 19:03:00] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#43 | Details: OPD journey complete for Patient #37 with Dr. MAITREY MALASNA
+[2026-08-17 19:03:07] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#44 | Details: OPD journey complete for Patient #38 with Dr. MILAN PATEL
+[2026-08-17 19:03:14] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#45 | Details: OPD journey complete for Patient #39 with Dr. MAITREY MALASNA
+[2026-08-17 19:03:21] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#46 | Details: OPD journey complete for Patient #40 with Dr. MILAN PATEL
+[2026-08-17 19:03:28] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#47 | Details: OPD journey complete for Patient #41 with Dr. MAITREY MALASNA
+[2026-08-17 19:03:34] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#48 | Details: OPD journey complete for Patient #42 with Dr. MILAN PATEL
+[2026-08-17 19:03:42] Run: SIM-20260817-001 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#49 | Details: OPD journey complete for Patient #43 with Dr. MAITREY MALASNA
+[2026-08-17 19:03:42] Run: SIM-20260817-001 | Event: OPD_SIMULATION_COMPLETED | Status: SUCCESS | Details: OPD Simulation finished: Processed=20, Appointments=20, Consultations=20, Prescriptions=20, Failed=0
+[2026-08-17 19:06:20] Run: SIM-20260817-001 | Event: LAB_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Laboratory Workflow simulation for 5 patient(s)
+[2026-08-17 19:06:22] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#25 | Details: Lab test 'Lipid Profile (Cholesterol)' completed for Patient #24
+[2026-08-17 19:06:23] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#26 | Details: Lab test 'Liver Function Test (LFT)' completed for Patient #24
+[2026-08-17 19:06:25] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#27 | Details: Lab test 'Liver Function Test (LFT)' completed for Patient #25
+[2026-08-17 19:06:26] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#28 | Details: Lab test 'Thyroid Profile (T3, T4, TSH)' completed for Patient #26
+[2026-08-17 19:06:27] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#29 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #26
+[2026-08-17 19:06:29] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#30 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #27
+[2026-08-17 19:06:30] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#31 | Details: Lab test 'Urine Routine & Microscopy' completed for Patient #28
+[2026-08-17 19:06:31] Run: SIM-20260817-001 | Event: LAB_SIMULATION_COMPLETED | Status: SUCCESS | Details: Laboratory simulation complete: Patients=5, Requests=7, Completed=7, Results=7, Failed=0
+[2026-08-17 19:06:32] Run: SIM-20260817-001 | Event: LAB_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Laboratory Workflow simulation for 20 patient(s)
+[2026-08-17 19:06:33] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#32 | Details: Lab test 'Lipid Profile (Cholesterol)' completed for Patient #24
+[2026-08-17 19:06:35] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#33 | Details: Lab test 'Liver Function Test (LFT)' completed for Patient #25
+[2026-08-17 19:06:36] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#34 | Details: Lab test 'Thyroid Profile (T3, T4, TSH)' completed for Patient #26
+[2026-08-17 19:06:38] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#35 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #26
+[2026-08-17 19:06:39] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#36 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #27
+[2026-08-17 19:06:41] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#37 | Details: Lab test 'Urine Routine & Microscopy' completed for Patient #28
+[2026-08-17 19:06:42] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#38 | Details: Lab test 'Kidney Function Test (KFT)' completed for Patient #29
+[2026-08-17 19:06:44] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#39 | Details: Lab test 'BLOOD' completed for Patient #29
+[2026-08-17 19:06:46] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#40 | Details: Lab test 'BLOOD' completed for Patient #30
+[2026-08-17 19:06:47] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#41 | Details: Lab test 'Complete Blood Count (CBC)' completed for Patient #31
+[2026-08-17 19:06:49] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#42 | Details: Lab test 'Lipid Profile (Cholesterol)' completed for Patient #32
+[2026-08-17 19:06:50] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#43 | Details: Lab test 'Liver Function Test (LFT)' completed for Patient #32
+[2026-08-17 19:06:52] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#44 | Details: Lab test 'Liver Function Test (LFT)' completed for Patient #33
+[2026-08-17 19:06:53] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#45 | Details: Lab test 'Thyroid Profile (T3, T4, TSH)' completed for Patient #34
+[2026-08-17 19:06:55] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#46 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #34
+[2026-08-17 19:06:56] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#47 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #35
+[2026-08-17 19:06:58] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#48 | Details: Lab test 'Urine Routine & Microscopy' completed for Patient #35
+[2026-08-17 19:06:59] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#49 | Details: Lab test 'Urine Routine & Microscopy' completed for Patient #36
+[2026-08-17 19:07:01] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#50 | Details: Lab test 'Kidney Function Test (KFT)' completed for Patient #37
+[2026-08-17 19:07:03] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#51 | Details: Lab test 'BLOOD' completed for Patient #37
+[2026-08-17 19:07:04] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#52 | Details: Lab test 'BLOOD' completed for Patient #38
+[2026-08-17 19:07:05] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#53 | Details: Lab test 'Complete Blood Count (CBC)' completed for Patient #38
+[2026-08-17 19:07:07] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#54 | Details: Lab test 'Complete Blood Count (CBC)' completed for Patient #39
+[2026-08-17 19:07:08] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#55 | Details: Lab test 'Lipid Profile (Cholesterol)' completed for Patient #40
+[2026-08-17 19:07:10] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#56 | Details: Lab test 'Liver Function Test (LFT)' completed for Patient #41
+[2026-08-17 19:07:11] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#57 | Details: Lab test 'Thyroid Profile (T3, T4, TSH)' completed for Patient #42
+[2026-08-17 19:07:13] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#58 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #42
+[2026-08-17 19:07:14] Run: SIM-20260817-001 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#59 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #43
+[2026-08-17 19:07:15] Run: SIM-20260817-001 | Event: LAB_SIMULATION_COMPLETED | Status: SUCCESS | Details: Laboratory simulation complete: Patients=20, Requests=28, Completed=28, Results=28, Failed=0
+[2026-08-17 19:11:18] Run: SIM-20260817-001 | Event: PHARMACY_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Pharmacy Workflow simulation for 5 patient(s)
+[2026-08-17 19:11:21] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#26 | Details: Pharmacy dispense #26 completed for Patient #24. Total: INR 30
+[2026-08-17 19:11:25] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#27 | Details: Pharmacy dispense #27 completed for Patient #25. Total: INR 37.6
+[2026-08-17 19:11:30] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#28 | Details: Pharmacy dispense #28 completed for Patient #26. Total: INR 53
+[2026-08-17 19:11:34] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#29 | Details: Pharmacy dispense #29 completed for Patient #27. Total: INR 40
+[2026-08-17 19:11:37] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#30 | Details: Pharmacy dispense #30 completed for Patient #28. Total: INR 25
+[2026-08-17 19:11:38] Run: SIM-20260817-001 | Event: PHARMACY_SIMULATION_COMPLETED | Status: SUCCESS | Details: Pharmacy simulation complete: Patients=5, PrescriptionsFound=5, Dispenses=5, Items=8, StockUpdates=8, Failed=0
+[2026-08-17 19:11:38] Run: SIM-20260817-001 | Event: PHARMACY_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Pharmacy Workflow simulation for 20 patient(s)
+[2026-08-17 19:11:41] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#31 | Details: Pharmacy dispense #31 completed for Patient #24. Total: INR 32
+[2026-08-17 19:11:46] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#32 | Details: Pharmacy dispense #32 completed for Patient #25. Total: INR 61.2
+[2026-08-17 19:11:50] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#33 | Details: Pharmacy dispense #33 completed for Patient #26. Total: INR 110
+[2026-08-17 19:11:53] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#34 | Details: Pharmacy dispense #34 completed for Patient #27. Total: INR 10.8
+[2026-08-17 19:11:57] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#35 | Details: Pharmacy dispense #35 completed for Patient #28. Total: INR 39.2
+[2026-08-17 19:12:02] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#36 | Details: Pharmacy dispense #36 completed for Patient #29. Total: INR 84.2
+[2026-08-17 19:12:05] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#37 | Details: Pharmacy dispense #37 completed for Patient #30. Total: INR 68
+[2026-08-17 19:12:08] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#38 | Details: Pharmacy dispense #38 completed for Patient #31. Total: INR 17.5
+[2026-08-17 19:12:11] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#39 | Details: Pharmacy dispense #39 completed for Patient #32. Total: INR 20
+[2026-08-17 19:12:14] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#40 | Details: Pharmacy dispense #40 completed for Patient #33. Total: INR 17.5
+[2026-08-17 19:12:19] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#41 | Details: Pharmacy dispense #41 completed for Patient #34. Total: INR 64.4
+[2026-08-17 19:12:23] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#42 | Details: Pharmacy dispense #42 completed for Patient #35. Total: INR 120
+[2026-08-17 19:12:26] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#43 | Details: Pharmacy dispense #43 completed for Patient #36. Total: INR 76.5
+[2026-08-17 19:12:30] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#44 | Details: Pharmacy dispense #44 completed for Patient #37. Total: INR 53.3
+[2026-08-17 19:12:33] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#45 | Details: Pharmacy dispense #45 completed for Patient #38. Total: INR 24
+[2026-08-17 19:12:37] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#46 | Details: Pharmacy dispense #46 completed for Patient #39. Total: INR 39
+[2026-08-17 19:12:42] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#47 | Details: Pharmacy dispense #47 completed for Patient #40. Total: INR 94
+[2026-08-17 19:12:46] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#48 | Details: Pharmacy dispense #48 completed for Patient #41. Total: INR 54.4
+[2026-08-17 19:12:49] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#49 | Details: Pharmacy dispense #49 completed for Patient #42. Total: INR 40
+[2026-08-17 19:12:53] Run: SIM-20260817-001 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#50 | Details: Pharmacy dispense #50 completed for Patient #43. Total: INR 36.5
+[2026-08-17 19:12:54] Run: SIM-20260817-001 | Event: PHARMACY_SIMULATION_COMPLETED | Status: SUCCESS | Details: Pharmacy simulation complete: Patients=20, PrescriptionsFound=20, Dispenses=20, Items=31, StockUpdates=31, Failed=0
+[2026-08-17 19:48:31] Run: SIM-20260817-001 | Event: IPD_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting IPD Workflow simulation for 5 patient(s)
+[2026-08-17 19:48:36] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#13 | Details: IPD journey complete for Patient #24 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:48:40] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#14 | Details: IPD journey complete for Patient #25 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:48:45] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#15 | Details: IPD journey complete for Patient #26 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:48:49] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#16 | Details: IPD journey complete for Patient #27 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:48:53] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#17 | Details: IPD journey complete for Patient #28 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:48:54] Run: SIM-20260817-001 | Event: IPD_SIMULATION_COMPLETED | Status: SUCCESS | Details: IPD simulation finished: Processed=5, Admissions=5, Allocations=5, ProgressLogs=5, Discharges=5, BedsReleased=5, Failed=0
+[2026-08-17 19:48:55] Run: SIM-20260817-001 | Event: IPD_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting IPD Workflow simulation for 20 patient(s)
+[2026-08-17 19:49:00] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#18 | Details: IPD journey complete for Patient #24 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:49:04] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#19 | Details: IPD journey complete for Patient #25 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:49:08] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#20 | Details: IPD journey complete for Patient #26 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:49:13] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#21 | Details: IPD journey complete for Patient #27 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:49:17] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#22 | Details: IPD journey complete for Patient #28 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:49:21] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#23 | Details: IPD journey complete for Patient #29 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:49:26] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#24 | Details: IPD journey complete for Patient #30 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:49:30] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#25 | Details: IPD journey complete for Patient #31 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:49:34] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#26 | Details: IPD journey complete for Patient #32 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:49:39] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#27 | Details: IPD journey complete for Patient #33 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:49:43] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#28 | Details: IPD journey complete for Patient #34 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:49:48] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#29 | Details: IPD journey complete for Patient #35 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:49:52] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#30 | Details: IPD journey complete for Patient #36 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:49:56] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#31 | Details: IPD journey complete for Patient #37 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:50:00] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#32 | Details: IPD journey complete for Patient #38 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:50:05] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#33 | Details: IPD journey complete for Patient #39 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:50:09] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#34 | Details: IPD journey complete for Patient #40 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:50:13] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#35 | Details: IPD journey complete for Patient #41 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:50:17] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#36 | Details: IPD journey complete for Patient #42 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:50:21] Run: SIM-20260817-001 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#37 | Details: IPD journey complete for Patient #43 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 19:50:22] Run: SIM-20260817-001 | Event: IPD_SIMULATION_COMPLETED | Status: SUCCESS | Details: IPD simulation finished: Processed=20, Admissions=20, Allocations=20, ProgressLogs=20, Discharges=20, BedsReleased=20, Failed=0
+[2026-08-17 19:53:49] Run: SIM-20260817-001 | Event: BILLING_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Billing & Invoice simulation for 5 patient(s)
+[2026-08-17 19:53:53] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#35 | Details: Invoice INV-SIM-20260817-0024-01 created & paid (SIMULATED) for Patient #24. Total: INR 5562
+[2026-08-17 19:53:57] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#36 | Details: Invoice INV-SIM-20260817-0025-02 created & paid (SIMULATED) for Patient #25. Total: INR 5098.8
+[2026-08-17 19:54:01] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#37 | Details: Invoice INV-SIM-20260817-0026-03 created & paid (SIMULATED) for Patient #26. Total: INR 5663
+[2026-08-17 19:54:05] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#38 | Details: Invoice INV-SIM-20260817-0027-04 created & paid (SIMULATED) for Patient #27. Total: INR 3750.8
+[2026-08-17 19:54:08] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#39 | Details: Invoice INV-SIM-20260817-0028-05 created & paid (SIMULATED) for Patient #28. Total: INR 3864.2
+[2026-08-17 19:54:09] Run: SIM-20260817-001 | Event: BILLING_SIMULATION_COMPLETED | Status: SUCCESS | Details: Billing simulation finished: Processed=5, Invoices=5, Revenue=INR 23938.8, PDFs=5, Skipped=0, Failed=0
+[2026-08-17 19:54:09] Run: SIM-20260817-001 | Event: BILLING_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Billing & Invoice simulation for 20 patient(s)
+[2026-08-17 19:54:22] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#40 | Details: Invoice INV-SIM-20260817-0029-01 created & paid (SIMULATED) for Patient #29. Total: INR 2834.2
+[2026-08-17 19:54:25] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#41 | Details: Invoice INV-SIM-20260817-0030-02 created & paid (SIMULATED) for Patient #30. Total: INR 2068
+[2026-08-17 19:54:29] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#42 | Details: Invoice INV-SIM-20260817-0031-03 created & paid (SIMULATED) for Patient #31. Total: INR 2067.5
+[2026-08-17 19:54:32] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#43 | Details: Invoice INV-SIM-20260817-0032-04 created & paid (SIMULATED) for Patient #32. Total: INR 3170
+[2026-08-17 19:54:35] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#44 | Details: Invoice INV-SIM-20260817-0033-05 created & paid (SIMULATED) for Patient #33. Total: INR 2517.5
+[2026-08-17 19:54:39] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#45 | Details: Invoice INV-SIM-20260817-0034-06 created & paid (SIMULATED) for Patient #34. Total: INR 2814.4
+[2026-08-17 19:54:43] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#46 | Details: Invoice INV-SIM-20260817-0035-07 created & paid (SIMULATED) for Patient #35. Total: INR 2170
+[2026-08-17 19:54:46] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#47 | Details: Invoice INV-SIM-20260817-0036-08 created & paid (SIMULATED) for Patient #36. Total: INR 1976.5
+[2026-08-17 19:54:50] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#48 | Details: Invoice INV-SIM-20260817-0037-09 created & paid (SIMULATED) for Patient #37. Total: INR 2803.3
+[2026-08-17 19:54:53] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#49 | Details: Invoice INV-SIM-20260817-0038-10 created & paid (SIMULATED) for Patient #38. Total: INR 2374
+[2026-08-17 19:54:57] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#50 | Details: Invoice INV-SIM-20260817-0039-11 created & paid (SIMULATED) for Patient #39. Total: INR 2089
+[2026-08-17 19:55:01] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#51 | Details: Invoice INV-SIM-20260817-0040-12 created & paid (SIMULATED) for Patient #40. Total: INR 2444
+[2026-08-17 19:55:04] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#52 | Details: Invoice INV-SIM-20260817-0041-13 created & paid (SIMULATED) for Patient #41. Total: INR 2554.4
+[2026-08-17 19:55:08] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#53 | Details: Invoice INV-SIM-20260817-0042-14 created & paid (SIMULATED) for Patient #42. Total: INR 2790
+[2026-08-17 19:55:11] Run: SIM-20260817-001 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#54 | Details: Invoice INV-SIM-20260817-0043-15 created & paid (SIMULATED) for Patient #43. Total: INR 1886.5
+[2026-08-17 19:55:12] Run: SIM-20260817-001 | Event: BILLING_SIMULATION_COMPLETED | Status: SUCCESS | Details: Billing simulation finished: Processed=20, Invoices=15, Revenue=INR 36559.3, PDFs=15, Skipped=5, Failed=0
+[2026-08-17 19:55:12] Run: SIM-20260817-001 | Event: BILLING_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Billing & Invoice simulation for 20 patient(s)
+[2026-08-17 19:55:49] Run: SIM-20260817-001 | Event: BILLING_SIMULATION_COMPLETED | Status: SUCCESS | Details: Billing simulation finished: Processed=20, Invoices=0, Revenue=INR 0, PDFs=0, Skipped=20, Failed=0
+[2026-08-17 19:56:32] Run: SIM-20260817-001 | Event: BILLING_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Billing & Invoice simulation for 5 patient(s)
+[2026-08-17 19:56:42] Run: SIM-20260817-001 | Event: BILLING_SIMULATION_COMPLETED | Status: SUCCESS | Details: Billing simulation finished: Processed=5, Invoices=0, Revenue=INR 0, PDFs=0, Skipped=5, Failed=0
+[2026-08-17 19:56:42] Run: SIM-20260817-001 | Event: BILLING_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Billing & Invoice simulation for 20 patient(s)
+[2026-08-17 19:57:18] Run: SIM-20260817-001 | Event: BILLING_SIMULATION_COMPLETED | Status: SUCCESS | Details: Billing simulation finished: Processed=20, Invoices=0, Revenue=INR 0, PDFs=0, Skipped=20, Failed=0
+[2026-08-17 19:57:18] Run: SIM-20260817-001 | Event: BILLING_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Billing & Invoice simulation for 20 patient(s)
+[2026-08-17 19:57:54] Run: SIM-20260817-001 | Event: BILLING_SIMULATION_COMPLETED | Status: SUCCESS | Details: Billing simulation finished: Processed=20, Invoices=0, Revenue=INR 0, PDFs=0, Skipped=20, Failed=0
+[2026-08-17 20:00:24] Run: SIM-20260817-002 | Event: MASTER_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Master Simulation started with profile 'Custom Master Simulation' for 10 patient(s)
+[2026-08-17 20:00:24] Run: SIM-20260817-002 | Event: PATIENT_GENERATION_STARTED | Status: IN_PROGRESS | Details: Starting synthetic patient generation for count 10
+[2026-08-17 20:00:27] Run: SIM-20260817-002 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#44 | Details: Created synthetic patient 'Sanjay Verma' (User ID: 50)
+[2026-08-17 20:00:29] Run: SIM-20260817-002 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#45 | Details: Created synthetic patient 'Riya Sharma' (User ID: 51)
+[2026-08-17 20:00:32] Run: SIM-20260817-002 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#46 | Details: Created synthetic patient 'Rahul Kulkarni' (User ID: 52)
+[2026-08-17 20:00:34] Run: SIM-20260817-002 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#47 | Details: Created synthetic patient 'Amit Nair' (User ID: 53)
+[2026-08-17 20:00:37] Run: SIM-20260817-002 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#48 | Details: Created synthetic patient 'Siddharth Singh' (User ID: 54)
+[2026-08-17 20:00:39] Run: SIM-20260817-002 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#49 | Details: Created synthetic patient 'Divya Gupta' (User ID: 55)
+[2026-08-17 20:00:42] Run: SIM-20260817-002 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#50 | Details: Created synthetic patient 'Vikram Chawla' (User ID: 56)
+[2026-08-17 20:00:45] Run: SIM-20260817-002 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#51 | Details: Created synthetic patient 'Pooja Joshi' (User ID: 57)
+[2026-08-17 20:00:47] Run: SIM-20260817-002 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#52 | Details: Created synthetic patient 'Siddharth Verma' (User ID: 58)
+[2026-08-17 20:00:50] Run: SIM-20260817-002 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#53 | Details: Created synthetic patient 'Vikram Patel' (User ID: 59)
+[2026-08-17 20:00:50] Run: SIM-20260817-002 | Event: PATIENT_GENERATION_COMPLETED | Status: SUCCESS | Details: Completed patient generation: Requested=10, Created=10, Failed=0
+[2026-08-17 20:00:51] Run: SIM-20260817-002 | Event: OPD_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting OPD workflow simulation for 9 patient(s)
+[2026-08-17 20:00:59] Run: SIM-20260817-002 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#50 | Details: OPD journey complete for Patient #44 with Dr. MILAN PATEL
+[2026-08-17 20:01:06] Run: SIM-20260817-002 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#51 | Details: OPD journey complete for Patient #45 with Dr. MAITREY MALASNA
+[2026-08-17 20:01:13] Run: SIM-20260817-002 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#52 | Details: OPD journey complete for Patient #46 with Dr. MILAN PATEL
+[2026-08-17 20:01:20] Run: SIM-20260817-002 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#53 | Details: OPD journey complete for Patient #47 with Dr. MAITREY MALASNA
+[2026-08-17 20:01:27] Run: SIM-20260817-002 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#54 | Details: OPD journey complete for Patient #48 with Dr. MILAN PATEL
+[2026-08-17 20:01:34] Run: SIM-20260817-002 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#55 | Details: OPD journey complete for Patient #49 with Dr. MAITREY MALASNA
+[2026-08-17 20:01:41] Run: SIM-20260817-002 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#56 | Details: OPD journey complete for Patient #50 with Dr. MILAN PATEL
+[2026-08-17 20:01:48] Run: SIM-20260817-002 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#57 | Details: OPD journey complete for Patient #51 with Dr. MAITREY MALASNA
+[2026-08-17 20:01:55] Run: SIM-20260817-002 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#58 | Details: OPD journey complete for Patient #52 with Dr. MILAN PATEL
+[2026-08-17 20:01:55] Run: SIM-20260817-002 | Event: OPD_SIMULATION_COMPLETED | Status: SUCCESS | Details: OPD Simulation finished: Processed=9, Appointments=9, Consultations=9, Prescriptions=9, Failed=0
+[2026-08-17 20:01:56] Run: SIM-20260817-002 | Event: LAB_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Laboratory Workflow simulation for 4 patient(s)
+[2026-08-17 20:01:58] Run: SIM-20260817-002 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#60 | Details: Lab test 'Lipid Profile (Cholesterol)' completed for Patient #44
+[2026-08-17 20:02:00] Run: SIM-20260817-002 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#61 | Details: Lab test 'Liver Function Test (LFT)' completed for Patient #45
+[2026-08-17 20:02:02] Run: SIM-20260817-002 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#62 | Details: Lab test 'Thyroid Profile (T3, T4, TSH)' completed for Patient #45
+[2026-08-17 20:02:03] Run: SIM-20260817-002 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#63 | Details: Lab test 'Thyroid Profile (T3, T4, TSH)' completed for Patient #46
+[2026-08-17 20:02:05] Run: SIM-20260817-002 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#64 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #47
+[2026-08-17 20:02:06] Run: SIM-20260817-002 | Event: LAB_SIMULATION_COMPLETED | Status: SUCCESS | Details: Laboratory simulation complete: Patients=4, Requests=5, Completed=5, Results=5, Failed=0
+[2026-08-17 20:02:06] Run: SIM-20260817-002 | Event: PHARMACY_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Pharmacy Workflow simulation for 6 patient(s)
+[2026-08-17 20:02:11] Run: SIM-20260817-002 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#51 | Details: Pharmacy dispense #51 completed for Patient #44. Total: INR 67.5
+[2026-08-17 20:02:15] Run: SIM-20260817-002 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#52 | Details: Pharmacy dispense #52 completed for Patient #45. Total: INR 46.2
+[2026-08-17 20:02:19] Run: SIM-20260817-002 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#53 | Details: Pharmacy dispense #53 completed for Patient #46. Total: INR 40
+[2026-08-17 20:02:24] Run: SIM-20260817-002 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#54 | Details: Pharmacy dispense #54 completed for Patient #47. Total: INR 44.4
+[2026-08-17 20:02:28] Run: SIM-20260817-002 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#55 | Details: Pharmacy dispense #55 completed for Patient #48. Total: INR 25.1
+[2026-08-17 20:02:31] Run: SIM-20260817-002 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#56 | Details: Pharmacy dispense #56 completed for Patient #49. Total: INR 25
+[2026-08-17 20:02:32] Run: SIM-20260817-002 | Event: PHARMACY_SIMULATION_COMPLETED | Status: SUCCESS | Details: Pharmacy simulation complete: Patients=6, PrescriptionsFound=6, Dispenses=6, Items=10, StockUpdates=10, Failed=0
+[2026-08-17 20:02:33] Run: SIM-20260817-002 | Event: IPD_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting IPD Workflow simulation for 2 patient(s)
+[2026-08-17 20:02:37] Run: SIM-20260817-002 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#38 | Details: IPD journey complete for Patient #44 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 20:02:42] Run: SIM-20260817-002 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#39 | Details: IPD journey complete for Patient #45 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 20:02:43] Run: SIM-20260817-002 | Event: IPD_SIMULATION_COMPLETED | Status: SUCCESS | Details: IPD simulation finished: Processed=2, Admissions=2, Allocations=2, ProgressLogs=2, Discharges=2, BedsReleased=2, Failed=0
+[2026-08-17 20:02:43] Run: SIM-20260817-002 | Event: BILLING_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Billing & Invoice simulation for 10 patient(s)
+[2026-08-17 20:02:47] Run: SIM-20260817-002 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#57 | Details: Invoice INV-SIM-20260817-0044-01 created & paid (SIMULATED) for Patient #44. Total: INR 2417.5
+[2026-08-17 20:02:51] Run: SIM-20260817-002 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#58 | Details: Invoice INV-SIM-20260817-0045-02 created & paid (SIMULATED) for Patient #45. Total: INR 3446.2
+[2026-08-17 20:02:55] Run: SIM-20260817-002 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#59 | Details: Invoice INV-SIM-20260817-0046-03 created & paid (SIMULATED) for Patient #46. Total: INR 1140
+[2026-08-17 20:02:58] Run: SIM-20260817-002 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#60 | Details: Invoice INV-SIM-20260817-0047-04 created & paid (SIMULATED) for Patient #47. Total: INR 394.4
+[2026-08-17 20:03:03] Run: SIM-20260817-002 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#61 | Details: Invoice INV-SIM-20260817-0048-05 created & paid (SIMULATED) for Patient #48. Total: INR 225.1
+[2026-08-17 20:03:07] Run: SIM-20260817-002 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#62 | Details: Invoice INV-SIM-20260817-0049-06 created & paid (SIMULATED) for Patient #49. Total: INR 225
+[2026-08-17 20:03:10] Run: SIM-20260817-002 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#63 | Details: Invoice INV-SIM-20260817-0050-07 created & paid (SIMULATED) for Patient #50. Total: INR 200
+[2026-08-17 20:03:14] Run: SIM-20260817-002 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#64 | Details: Invoice INV-SIM-20260817-0051-08 created & paid (SIMULATED) for Patient #51. Total: INR 200
+[2026-08-17 20:03:18] Run: SIM-20260817-002 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#65 | Details: Invoice INV-SIM-20260817-0052-09 created & paid (SIMULATED) for Patient #52. Total: INR 200
+[2026-08-17 20:03:20] Run: SIM-20260817-002 | Event: BILLING_SIMULATION_COMPLETED | Status: SUCCESS | Details: Billing simulation finished: Processed=10, Invoices=9, Revenue=INR 8448.2, PDFs=9, Skipped=1, Failed=0
+[2026-08-17 20:03:20] Run: SIM-20260817-002 | Event: MASTER_SIMULATION_COMPLETED | Status: SUCCESS | Details: Master simulation run SIM-20260817-002 finished successfully. Patients=10, OPD=9, Lab=0, Pharmacy=6, IPD=2, Invoices=9, Revenue=INR 8448.2
+[2026-08-17 20:03:22] Run: SIM-20260817-003 | Event: MASTER_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Master Simulation started with profile 'Custom Master Simulation' for 50 patient(s)
+[2026-08-17 20:03:22] Run: SIM-20260817-003 | Event: PATIENT_GENERATION_STARTED | Status: IN_PROGRESS | Details: Starting synthetic patient generation for count 50
+[2026-08-17 20:03:24] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#54 | Details: Created synthetic patient 'Sanjay Singh' (User ID: 60)
+[2026-08-17 20:03:27] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#55 | Details: Created synthetic patient 'Neha Verma' (User ID: 61)
+[2026-08-17 20:03:30] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#56 | Details: Created synthetic patient 'Vikram Chawla' (User ID: 62)
+[2026-08-17 20:03:36] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#57 | Details: Created synthetic patient 'Aditya Verma' (User ID: 63)
+[2026-08-17 20:03:40] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#58 | Details: Created synthetic patient 'Pooja Shah' (User ID: 64)
+[2026-08-17 20:03:45] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#59 | Details: Created synthetic patient 'Siddharth Dutta' (User ID: 65)
+[2026-08-17 20:03:48] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#60 | Details: Created synthetic patient 'Amit Gupta' (User ID: 66)
+[2026-08-17 20:03:54] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#61 | Details: Created synthetic patient 'Rahul Rao' (User ID: 67)
+[2026-08-17 20:03:58] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#62 | Details: Created synthetic patient 'Manish Patel' (User ID: 68)
+[2026-08-17 20:04:03] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#63 | Details: Created synthetic patient 'Aarav Joshi' (User ID: 69)
+[2026-08-17 20:04:08] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#64 | Details: Created synthetic patient 'Pooja Iyer' (User ID: 70)
+[2026-08-17 20:04:20] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#65 | Details: Created synthetic patient 'Rohan Shah' (User ID: 71)
+[2026-08-17 20:04:28] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#66 | Details: Created synthetic patient 'Aarav Shah' (User ID: 72)
+[2026-08-17 20:04:31] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#67 | Details: Created synthetic patient 'Ananya Nair' (User ID: 73)
+[2026-08-17 20:04:34] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#68 | Details: Created synthetic patient 'Siddharth Rao' (User ID: 74)
+[2026-08-17 20:04:37] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#69 | Details: Created synthetic patient 'Neha Deshmukh' (User ID: 75)
+[2026-08-17 20:04:40] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#70 | Details: Created synthetic patient 'Sanjay Rao' (User ID: 76)
+[2026-08-17 20:04:44] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#71 | Details: Created synthetic patient 'Priya Dutta' (User ID: 77)
+[2026-08-17 20:04:46] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#72 | Details: Created synthetic patient 'Pooja Deshmukh' (User ID: 78)
+[2026-08-17 20:04:49] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#73 | Details: Created synthetic patient 'Neha Rao' (User ID: 79)
+[2026-08-17 20:04:52] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#74 | Details: Created synthetic patient 'Neha Joshi' (User ID: 80)
+[2026-08-17 20:04:55] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#75 | Details: Created synthetic patient 'Kavya Deshmukh' (User ID: 81)
+[2026-08-17 20:04:58] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#76 | Details: Created synthetic patient 'Meera Deshmukh' (User ID: 82)
+[2026-08-17 20:05:01] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#77 | Details: Created synthetic patient 'Rahul Singh' (User ID: 83)
+[2026-08-17 20:05:03] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#78 | Details: Created synthetic patient 'Sanjay Sharma' (User ID: 84)
+[2026-08-17 20:05:06] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#79 | Details: Created synthetic patient 'Siddharth Sharma' (User ID: 85)
+[2026-08-17 20:05:08] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#80 | Details: Created synthetic patient 'Kavya Rao' (User ID: 86)
+[2026-08-17 20:05:11] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#81 | Details: Created synthetic patient 'Divya Singh' (User ID: 87)
+[2026-08-17 20:05:14] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#82 | Details: Created synthetic patient 'Sneha Joshi' (User ID: 88)
+[2026-08-17 20:05:16] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#83 | Details: Created synthetic patient 'Neha Kulkarni' (User ID: 89)
+[2026-08-17 20:05:20] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#84 | Details: Created synthetic patient 'Karan Mehta' (User ID: 90)
+[2026-08-17 20:05:22] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#85 | Details: Created synthetic patient 'Sanjay Joshi' (User ID: 91)
+[2026-08-17 20:05:27] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#86 | Details: Created synthetic patient 'Neha Mehta' (User ID: 92)
+[2026-08-17 20:05:30] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#87 | Details: Created synthetic patient 'Kavya Gupta' (User ID: 93)
+[2026-08-17 20:05:33] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#88 | Details: Created synthetic patient 'Sanjay Rao' (User ID: 94)
+[2026-08-17 20:05:36] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#89 | Details: Created synthetic patient 'Rahul Nair' (User ID: 95)
+[2026-08-17 20:05:38] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#90 | Details: Created synthetic patient 'Siddharth Sharma' (User ID: 96)
+[2026-08-17 20:05:41] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#91 | Details: Created synthetic patient 'Divya Mehta' (User ID: 97)
+[2026-08-17 20:05:44] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#92 | Details: Created synthetic patient 'Kavya Deshmukh' (User ID: 98)
+[2026-08-17 20:05:48] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#93 | Details: Created synthetic patient 'Riya Iyer' (User ID: 99)
+[2026-08-17 20:05:51] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#94 | Details: Created synthetic patient 'Divya Iyer' (User ID: 100)
+[2026-08-17 20:05:54] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#95 | Details: Created synthetic patient 'Pooja Patel' (User ID: 101)
+[2026-08-17 20:05:56] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#96 | Details: Created synthetic patient 'Divya Bhatia' (User ID: 102)
+[2026-08-17 20:05:59] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#97 | Details: Created synthetic patient 'Meera Nair' (User ID: 103)
+[2026-08-17 20:06:01] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#98 | Details: Created synthetic patient 'Meera Iyer' (User ID: 104)
+[2026-08-17 20:06:04] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#99 | Details: Created synthetic patient 'Ananya Verma' (User ID: 105)
+[2026-08-17 20:06:07] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#100 | Details: Created synthetic patient 'Karan Joshi' (User ID: 106)
+[2026-08-17 20:06:11] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#101 | Details: Created synthetic patient 'Riya Joshi' (User ID: 107)
+[2026-08-17 20:06:15] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#102 | Details: Created synthetic patient 'Aditya Chawla' (User ID: 108)
+[2026-08-17 20:06:17] Run: SIM-20260817-003 | Event: PATIENT_CREATED | Status: SUCCESS | Entity: patient#103 | Details: Created synthetic patient 'Siddharth Rao' (User ID: 109)
+[2026-08-17 20:06:18] Run: SIM-20260817-003 | Event: PATIENT_GENERATION_COMPLETED | Status: SUCCESS | Details: Completed patient generation: Requested=50, Created=50, Failed=0
+[2026-08-17 20:06:19] Run: SIM-20260817-003 | Event: OPD_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting OPD workflow simulation for 43 patient(s)
+[2026-08-17 20:06:27] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#59 | Details: OPD journey complete for Patient #54 with Dr. MILAN PATEL
+[2026-08-17 20:06:33] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#60 | Details: OPD journey complete for Patient #55 with Dr. MAITREY MALASNA
+[2026-08-17 20:06:39] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#61 | Details: OPD journey complete for Patient #56 with Dr. MILAN PATEL
+[2026-08-17 20:06:46] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#62 | Details: OPD journey complete for Patient #57 with Dr. MAITREY MALASNA
+[2026-08-17 20:06:52] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#63 | Details: OPD journey complete for Patient #58 with Dr. MILAN PATEL
+[2026-08-17 20:06:59] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#64 | Details: OPD journey complete for Patient #59 with Dr. MAITREY MALASNA
+[2026-08-17 20:07:06] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#65 | Details: OPD journey complete for Patient #60 with Dr. MILAN PATEL
+[2026-08-17 20:07:12] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#66 | Details: OPD journey complete for Patient #61 with Dr. MAITREY MALASNA
+[2026-08-17 20:07:19] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#67 | Details: OPD journey complete for Patient #62 with Dr. MILAN PATEL
+[2026-08-17 20:07:25] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#68 | Details: OPD journey complete for Patient #63 with Dr. MAITREY MALASNA
+[2026-08-17 20:07:32] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#69 | Details: OPD journey complete for Patient #64 with Dr. MILAN PATEL
+[2026-08-17 20:07:39] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#70 | Details: OPD journey complete for Patient #65 with Dr. MAITREY MALASNA
+[2026-08-17 20:07:45] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#71 | Details: OPD journey complete for Patient #66 with Dr. MILAN PATEL
+[2026-08-17 20:07:52] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#72 | Details: OPD journey complete for Patient #67 with Dr. MAITREY MALASNA
+[2026-08-17 20:07:59] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#73 | Details: OPD journey complete for Patient #68 with Dr. MILAN PATEL
+[2026-08-17 20:08:05] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#74 | Details: OPD journey complete for Patient #69 with Dr. MAITREY MALASNA
+[2026-08-17 20:08:12] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#75 | Details: OPD journey complete for Patient #70 with Dr. MILAN PATEL
+[2026-08-17 20:08:19] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#76 | Details: OPD journey complete for Patient #71 with Dr. MAITREY MALASNA
+[2026-08-17 20:08:26] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#77 | Details: OPD journey complete for Patient #72 with Dr. MILAN PATEL
+[2026-08-17 20:08:32] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#78 | Details: OPD journey complete for Patient #73 with Dr. MAITREY MALASNA
+[2026-08-17 20:08:39] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#79 | Details: OPD journey complete for Patient #74 with Dr. MILAN PATEL
+[2026-08-17 20:08:45] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#80 | Details: OPD journey complete for Patient #75 with Dr. MAITREY MALASNA
+[2026-08-17 20:08:52] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#81 | Details: OPD journey complete for Patient #76 with Dr. MILAN PATEL
+[2026-08-17 20:08:59] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#82 | Details: OPD journey complete for Patient #77 with Dr. MAITREY MALASNA
+[2026-08-17 20:09:06] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#83 | Details: OPD journey complete for Patient #78 with Dr. MILAN PATEL
+[2026-08-17 20:09:12] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#84 | Details: OPD journey complete for Patient #79 with Dr. MAITREY MALASNA
+[2026-08-17 20:09:19] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#85 | Details: OPD journey complete for Patient #80 with Dr. MILAN PATEL
+[2026-08-17 20:09:25] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#86 | Details: OPD journey complete for Patient #81 with Dr. MAITREY MALASNA
+[2026-08-17 20:09:32] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#87 | Details: OPD journey complete for Patient #82 with Dr. MILAN PATEL
+[2026-08-17 20:09:39] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#88 | Details: OPD journey complete for Patient #83 with Dr. MAITREY MALASNA
+[2026-08-17 20:09:45] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#89 | Details: OPD journey complete for Patient #84 with Dr. MILAN PATEL
+[2026-08-17 20:09:52] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#90 | Details: OPD journey complete for Patient #85 with Dr. MAITREY MALASNA
+[2026-08-17 20:09:59] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#91 | Details: OPD journey complete for Patient #86 with Dr. MILAN PATEL
+[2026-08-17 20:10:06] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#92 | Details: OPD journey complete for Patient #87 with Dr. MAITREY MALASNA
+[2026-08-17 20:10:12] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#93 | Details: OPD journey complete for Patient #88 with Dr. MILAN PATEL
+[2026-08-17 20:10:19] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#94 | Details: OPD journey complete for Patient #89 with Dr. MAITREY MALASNA
+[2026-08-17 20:10:25] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#95 | Details: OPD journey complete for Patient #90 with Dr. MILAN PATEL
+[2026-08-17 20:10:31] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#96 | Details: OPD journey complete for Patient #91 with Dr. MAITREY MALASNA
+[2026-08-17 20:10:38] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#97 | Details: OPD journey complete for Patient #92 with Dr. MILAN PATEL
+[2026-08-17 20:10:44] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#98 | Details: OPD journey complete for Patient #93 with Dr. MAITREY MALASNA
+[2026-08-17 20:10:51] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#99 | Details: OPD journey complete for Patient #94 with Dr. MILAN PATEL
+[2026-08-17 20:10:58] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#100 | Details: OPD journey complete for Patient #95 with Dr. MAITREY MALASNA
+[2026-08-17 20:11:05] Run: SIM-20260817-003 | Event: OPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: appointment#101 | Details: OPD journey complete for Patient #96 with Dr. MILAN PATEL
+[2026-08-17 20:11:05] Run: SIM-20260817-003 | Event: OPD_SIMULATION_COMPLETED | Status: SUCCESS | Details: OPD Simulation finished: Processed=43, Appointments=43, Consultations=43, Prescriptions=43, Failed=0
+[2026-08-17 20:11:06] Run: SIM-20260817-003 | Event: LAB_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Laboratory Workflow simulation for 20 patient(s)
+[2026-08-17 20:11:08] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#65 | Details: Lab test 'Lipid Profile (Cholesterol)' completed for Patient #54
+[2026-08-17 20:11:09] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#66 | Details: Lab test 'Liver Function Test (LFT)' completed for Patient #54
+[2026-08-17 20:11:11] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#67 | Details: Lab test 'Liver Function Test (LFT)' completed for Patient #55
+[2026-08-17 20:11:12] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#68 | Details: Lab test 'Thyroid Profile (T3, T4, TSH)' completed for Patient #56
+[2026-08-17 20:11:14] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#69 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #57
+[2026-08-17 20:11:15] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#70 | Details: Lab test 'Urine Routine & Microscopy' completed for Patient #57
+[2026-08-17 20:11:17] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#71 | Details: Lab test 'Urine Routine & Microscopy' completed for Patient #58
+[2026-08-17 20:11:18] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#72 | Details: Lab test 'Kidney Function Test (KFT)' completed for Patient #58
+[2026-08-17 20:11:20] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#73 | Details: Lab test 'Kidney Function Test (KFT)' completed for Patient #59
+[2026-08-17 20:11:21] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#74 | Details: Lab test 'BLOOD' completed for Patient #60
+[2026-08-17 20:11:23] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#75 | Details: Lab test 'Complete Blood Count (CBC)' completed for Patient #61
+[2026-08-17 20:11:24] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#76 | Details: Lab test 'Lipid Profile (Cholesterol)' completed for Patient #61
+[2026-08-17 20:11:26] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#77 | Details: Lab test 'Lipid Profile (Cholesterol)' completed for Patient #62
+[2026-08-17 20:11:28] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#78 | Details: Lab test 'Liver Function Test (LFT)' completed for Patient #63
+[2026-08-17 20:11:29] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#79 | Details: Lab test 'Thyroid Profile (T3, T4, TSH)' completed for Patient #63
+[2026-08-17 20:11:30] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#80 | Details: Lab test 'Thyroid Profile (T3, T4, TSH)' completed for Patient #64
+[2026-08-17 20:11:32] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#81 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #64
+[2026-08-17 20:11:33] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#82 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #65
+[2026-08-17 20:11:35] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#83 | Details: Lab test 'Urine Routine & Microscopy' completed for Patient #65
+[2026-08-17 20:11:36] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#84 | Details: Lab test 'Urine Routine & Microscopy' completed for Patient #66
+[2026-08-17 20:11:38] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#85 | Details: Lab test 'Kidney Function Test (KFT)' completed for Patient #66
+[2026-08-17 20:11:39] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#86 | Details: Lab test 'Kidney Function Test (KFT)' completed for Patient #67
+[2026-08-17 20:11:41] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#87 | Details: Lab test 'BLOOD' completed for Patient #67
+[2026-08-17 20:11:42] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#88 | Details: Lab test 'BLOOD' completed for Patient #68
+[2026-08-17 20:11:44] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#89 | Details: Lab test 'Complete Blood Count (CBC)' completed for Patient #69
+[2026-08-17 20:11:45] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#90 | Details: Lab test 'Lipid Profile (Cholesterol)' completed for Patient #70
+[2026-08-17 20:11:47] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#91 | Details: Lab test 'Liver Function Test (LFT)' completed for Patient #71
+[2026-08-17 20:11:48] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#92 | Details: Lab test 'Thyroid Profile (T3, T4, TSH)' completed for Patient #71
+[2026-08-17 20:11:50] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#93 | Details: Lab test 'Thyroid Profile (T3, T4, TSH)' completed for Patient #72
+[2026-08-17 20:11:51] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#94 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #72
+[2026-08-17 20:11:53] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#95 | Details: Lab test 'Random Blood Sugar (RBS)' completed for Patient #73
+[2026-08-17 20:11:54] Run: SIM-20260817-003 | Event: LAB_REQUEST_COMPLETED | Status: SUCCESS | Entity: lab_request#96 | Details: Lab test 'Urine Routine & Microscopy' completed for Patient #73
+[2026-08-17 20:11:55] Run: SIM-20260817-003 | Event: LAB_SIMULATION_COMPLETED | Status: SUCCESS | Details: Laboratory simulation complete: Patients=20, Requests=32, Completed=32, Results=32, Failed=0
+[2026-08-17 20:11:55] Run: SIM-20260817-003 | Event: PHARMACY_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Pharmacy Workflow simulation for 30 patient(s)
+[2026-08-17 20:12:00] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#57 | Details: Pharmacy dispense #57 completed for Patient #54. Total: INR 41.5
+[2026-08-17 20:12:03] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#58 | Details: Pharmacy dispense #58 completed for Patient #55. Total: INR 28
+[2026-08-17 20:12:06] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#59 | Details: Pharmacy dispense #59 completed for Patient #56. Total: INR 12.5
+[2026-08-17 20:12:08] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#60 | Details: Pharmacy dispense #60 completed for Patient #57. Total: INR 85
+[2026-08-17 20:12:11] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#61 | Details: Pharmacy dispense #61 completed for Patient #58. Total: INR 14.4
+[2026-08-17 20:12:14] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#62 | Details: Pharmacy dispense #62 completed for Patient #59. Total: INR 12.6
+[2026-08-17 20:12:17] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#63 | Details: Pharmacy dispense #63 completed for Patient #60. Total: INR 28
+[2026-08-17 20:12:20] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#64 | Details: Pharmacy dispense #64 completed for Patient #61. Total: INR 20
+[2026-08-17 20:12:23] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#65 | Details: Pharmacy dispense #65 completed for Patient #62. Total: INR 14.4
+[2026-08-17 20:12:26] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#66 | Details: Pharmacy dispense #66 completed for Patient #63. Total: INR 18
+[2026-08-17 20:12:30] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#67 | Details: Pharmacy dispense #67 completed for Patient #64. Total: INR 88
+[2026-08-17 20:12:33] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#68 | Details: Pharmacy dispense #68 completed for Patient #65. Total: INR 22.5
+[2026-08-17 20:12:38] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#69 | Details: Pharmacy dispense #69 completed for Patient #66. Total: INR 43
+[2026-08-17 20:12:41] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#70 | Details: Pharmacy dispense #70 completed for Patient #67. Total: INR 17.5
+[2026-08-17 20:12:44] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#71 | Details: Pharmacy dispense #71 completed for Patient #68. Total: INR 12.5
+[2026-08-17 20:12:49] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#72 | Details: Pharmacy dispense #72 completed for Patient #69. Total: INR 104.5
+[2026-08-17 20:12:52] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#73 | Details: Pharmacy dispense #73 completed for Patient #70. Total: INR 14.4
+[2026-08-17 20:12:56] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#74 | Details: Pharmacy dispense #74 completed for Patient #71. Total: INR 48.6
+[2026-08-17 20:12:59] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#75 | Details: Pharmacy dispense #75 completed for Patient #72. Total: INR 85
+[2026-08-17 20:13:02] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#76 | Details: Pharmacy dispense #76 completed for Patient #73. Total: INR 9
+[2026-08-17 20:13:05] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#77 | Details: Pharmacy dispense #77 completed for Patient #74. Total: INR 16.2
+[2026-08-17 20:13:08] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#78 | Details: Pharmacy dispense #78 completed for Patient #75. Total: INR 42.5
+[2026-08-17 20:13:11] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#79 | Details: Pharmacy dispense #79 completed for Patient #76. Total: INR 12.6
+[2026-08-17 20:13:14] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#80 | Details: Pharmacy dispense #80 completed for Patient #77. Total: INR 51
+[2026-08-17 20:13:17] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#81 | Details: Pharmacy dispense #81 completed for Patient #78. Total: INR 59.5
+[2026-08-17 20:13:21] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#82 | Details: Pharmacy dispense #82 completed for Patient #79. Total: INR 97.6
+[2026-08-17 20:13:25] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#83 | Details: Pharmacy dispense #83 completed for Patient #80. Total: INR 51
+[2026-08-17 20:13:29] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#84 | Details: Pharmacy dispense #84 completed for Patient #81. Total: INR 94
+[2026-08-17 20:13:32] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#85 | Details: Pharmacy dispense #85 completed for Patient #82. Total: INR 18
+[2026-08-17 20:13:37] Run: SIM-20260817-003 | Event: PHARMACY_DISPENSE_COMPLETED | Status: SUCCESS | Entity: medicine_dispense#86 | Details: Pharmacy dispense #86 completed for Patient #83. Total: INR 60.5
+[2026-08-17 20:13:37] Run: SIM-20260817-003 | Event: PHARMACY_SIMULATION_COMPLETED | Status: SUCCESS | Details: Pharmacy simulation complete: Patients=30, PrescriptionsFound=30, Dispenses=30, Items=38, StockUpdates=38, Failed=0
+[2026-08-17 20:13:38] Run: SIM-20260817-003 | Event: IPD_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting IPD Workflow simulation for 8 patient(s)
+[2026-08-17 20:13:42] Run: SIM-20260817-003 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#40 | Details: IPD journey complete for Patient #54 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 20:13:47] Run: SIM-20260817-003 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#41 | Details: IPD journey complete for Patient #55 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 20:13:51] Run: SIM-20260817-003 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#42 | Details: IPD journey complete for Patient #56 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 20:13:56] Run: SIM-20260817-003 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#43 | Details: IPD journey complete for Patient #57 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 20:14:00] Run: SIM-20260817-003 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#44 | Details: IPD journey complete for Patient #58 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 20:14:04] Run: SIM-20260817-003 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#45 | Details: IPD journey complete for Patient #59 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 20:14:09] Run: SIM-20260817-003 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#46 | Details: IPD journey complete for Patient #60 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 20:14:13] Run: SIM-20260817-003 | Event: IPD_JOURNEY_COMPLETED | Status: SUCCESS | Entity: ipd_admission#47 | Details: IPD journey complete for Patient #61 on Bed ICU-101. Status: Discharged/Released.
+[2026-08-17 20:14:14] Run: SIM-20260817-003 | Event: IPD_SIMULATION_COMPLETED | Status: SUCCESS | Details: IPD simulation finished: Processed=8, Admissions=8, Allocations=8, ProgressLogs=8, Discharges=8, BedsReleased=8, Failed=0
+[2026-08-17 20:14:14] Run: SIM-20260817-003 | Event: BILLING_SIMULATION_STARTED | Status: IN_PROGRESS | Details: Starting Billing & Invoice simulation for 50 patient(s)
+[2026-08-17 20:14:18] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#66 | Details: Invoice INV-SIM-20260817-0054-01 created & paid (SIMULATED) for Patient #54. Total: INR 3191.5
+[2026-08-17 20:14:21] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#67 | Details: Invoice INV-SIM-20260817-0055-02 created & paid (SIMULATED) for Patient #55. Total: INR 2528
+[2026-08-17 20:14:25] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#68 | Details: Invoice INV-SIM-20260817-0056-03 created & paid (SIMULATED) for Patient #56. Total: INR 2612.5
+[2026-08-17 20:14:29] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#69 | Details: Invoice INV-SIM-20260817-0057-04 created & paid (SIMULATED) for Patient #57. Total: INR 2135
+[2026-08-17 20:14:32] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#70 | Details: Invoice INV-SIM-20260817-0058-05 created & paid (SIMULATED) for Patient #58. Total: INR 2664.4
+[2026-08-17 20:14:35] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#71 | Details: Invoice INV-SIM-20260817-0059-06 created & paid (SIMULATED) for Patient #59. Total: INR 2462.6
+[2026-08-17 20:14:39] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#72 | Details: Invoice INV-SIM-20260817-0060-07 created & paid (SIMULATED) for Patient #60. Total: INR 2028
+[2026-08-17 20:14:42] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#73 | Details: Invoice INV-SIM-20260817-0061-08 created & paid (SIMULATED) for Patient #61. Total: INR 2720
+[2026-08-17 20:14:46] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#74 | Details: Invoice INV-SIM-20260817-0062-09 created & paid (SIMULATED) for Patient #62. Total: INR 864.4
+[2026-08-17 20:14:49] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#75 | Details: Invoice INV-SIM-20260817-0063-10 created & paid (SIMULATED) for Patient #63. Total: INR 1918
+[2026-08-17 20:14:53] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#76 | Details: Invoice INV-SIM-20260817-0064-11 created & paid (SIMULATED) for Patient #64. Total: INR 1338
+[2026-08-17 20:14:56] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#77 | Details: Invoice INV-SIM-20260817-0065-12 created & paid (SIMULATED) for Patient #65. Total: INR 572.5
+[2026-08-17 20:15:00] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#78 | Details: Invoice INV-SIM-20260817-0066-13 created & paid (SIMULATED) for Patient #66. Total: INR 1193
+[2026-08-17 20:15:03] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#79 | Details: Invoice INV-SIM-20260817-0067-14 created & paid (SIMULATED) for Patient #67. Total: INR 1267.5
+[2026-08-17 20:15:07] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#80 | Details: Invoice INV-SIM-20260817-0068-15 created & paid (SIMULATED) for Patient #68. Total: INR 512.5
+[2026-08-17 20:15:10] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#81 | Details: Invoice INV-SIM-20260817-0069-16 created & paid (SIMULATED) for Patient #69. Total: INR 654.5
+[2026-08-17 20:15:14] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#82 | Details: Invoice INV-SIM-20260817-0070-17 created & paid (SIMULATED) for Patient #70. Total: INR 864.4
+[2026-08-17 20:15:17] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#83 | Details: Invoice INV-SIM-20260817-0071-18 created & paid (SIMULATED) for Patient #71. Total: INR 1948.6
+[2026-08-17 20:15:20] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#84 | Details: Invoice INV-SIM-20260817-0072-19 created & paid (SIMULATED) for Patient #72. Total: INR 1335
+[2026-08-17 20:15:24] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#85 | Details: Invoice INV-SIM-20260817-0073-20 created & paid (SIMULATED) for Patient #73. Total: INR 559
+[2026-08-17 20:15:27] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#86 | Details: Invoice INV-SIM-20260817-0074-21 created & paid (SIMULATED) for Patient #74. Total: INR 216.2
+[2026-08-17 20:15:31] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#87 | Details: Invoice INV-SIM-20260817-0075-22 created & paid (SIMULATED) for Patient #75. Total: INR 242.5
+[2026-08-17 20:15:34] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#88 | Details: Invoice INV-SIM-20260817-0076-23 created & paid (SIMULATED) for Patient #76. Total: INR 212.6
+[2026-08-17 20:15:38] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#89 | Details: Invoice INV-SIM-20260817-0077-24 created & paid (SIMULATED) for Patient #77. Total: INR 251
+[2026-08-17 20:15:41] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#90 | Details: Invoice INV-SIM-20260817-0078-25 created & paid (SIMULATED) for Patient #78. Total: INR 259.5
+[2026-08-17 20:15:45] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#91 | Details: Invoice INV-SIM-20260817-0079-26 created & paid (SIMULATED) for Patient #79. Total: INR 297.6
+[2026-08-17 20:15:48] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#92 | Details: Invoice INV-SIM-20260817-0080-27 created & paid (SIMULATED) for Patient #80. Total: INR 251
+[2026-08-17 20:15:52] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#93 | Details: Invoice INV-SIM-20260817-0081-28 created & paid (SIMULATED) for Patient #81. Total: INR 294
+[2026-08-17 20:15:55] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#94 | Details: Invoice INV-SIM-20260817-0082-29 created & paid (SIMULATED) for Patient #82. Total: INR 218
+[2026-08-17 20:15:59] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#95 | Details: Invoice INV-SIM-20260817-0083-30 created & paid (SIMULATED) for Patient #83. Total: INR 260.5
+[2026-08-17 20:16:02] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#96 | Details: Invoice INV-SIM-20260817-0084-31 created & paid (SIMULATED) for Patient #84. Total: INR 200
+[2026-08-17 20:16:06] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#97 | Details: Invoice INV-SIM-20260817-0085-32 created & paid (SIMULATED) for Patient #85. Total: INR 200
+[2026-08-17 20:16:09] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#98 | Details: Invoice INV-SIM-20260817-0086-33 created & paid (SIMULATED) for Patient #86. Total: INR 200
+[2026-08-17 20:16:13] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#99 | Details: Invoice INV-SIM-20260817-0087-34 created & paid (SIMULATED) for Patient #87. Total: INR 200
+[2026-08-17 20:16:16] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#100 | Details: Invoice INV-SIM-20260817-0088-35 created & paid (SIMULATED) for Patient #88. Total: INR 200
+[2026-08-17 20:16:20] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#101 | Details: Invoice INV-SIM-20260817-0089-36 created & paid (SIMULATED) for Patient #89. Total: INR 200
+[2026-08-17 20:16:23] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#102 | Details: Invoice INV-SIM-20260817-0090-37 created & paid (SIMULATED) for Patient #90. Total: INR 200
+[2026-08-17 20:16:27] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#103 | Details: Invoice INV-SIM-20260817-0091-38 created & paid (SIMULATED) for Patient #91. Total: INR 200
+[2026-08-17 20:16:31] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#104 | Details: Invoice INV-SIM-20260817-0092-39 created & paid (SIMULATED) for Patient #92. Total: INR 200
+[2026-08-17 20:16:34] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#105 | Details: Invoice INV-SIM-20260817-0093-40 created & paid (SIMULATED) for Patient #93. Total: INR 200
+[2026-08-17 20:16:38] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#106 | Details: Invoice INV-SIM-20260817-0094-41 created & paid (SIMULATED) for Patient #94. Total: INR 200
+[2026-08-17 20:16:42] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#107 | Details: Invoice INV-SIM-20260817-0095-42 created & paid (SIMULATED) for Patient #95. Total: INR 200
+[2026-08-17 20:16:45] Run: SIM-20260817-003 | Event: BILLING_INVOICE_CREATED | Status: SUCCESS | Entity: invoice#108 | Details: Invoice INV-SIM-20260817-0096-43 created & paid (SIMULATED) for Patient #96. Total: INR 200
+[2026-08-17 20:16:58] Run: SIM-20260817-003 | Event: BILLING_SIMULATION_COMPLETED | Status: SUCCESS | Details: Billing simulation finished: Processed=50, Invoices=43, Revenue=INR 38472.3, PDFs=43, Skipped=7, Failed=0
+[2026-08-17 20:16:59] Run: SIM-20260817-003 | Event: MASTER_SIMULATION_COMPLETED | Status: SUCCESS | Details: Master simulation run SIM-20260817-003 finished successfully. Patients=50, OPD=43, Lab=0, Pharmacy=30, IPD=8, Invoices=43, Revenue=INR 38472.3
+[2026-08-17 20:17:01] Run: SIM-20260817-003 | Event: SIMULATION_CLEANUP_INIT | Status: IN_PROGRESS | Details: Starting cleanup for simulation run 'SIM-20260817-003'

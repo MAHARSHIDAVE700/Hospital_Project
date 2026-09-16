@@ -256,12 +256,23 @@
                 $img = "assets/images/doctor" . $imgIdx . ".jpg";
                 $imgIdx = ($imgIdx % 3) + 1;
         ?>
+                <?php 
+                    $lastActive = $doc['last_active_at'] ?? null;
+                    $isLiveOnline = (!empty($lastActive) && (time() - strtotime($lastActive)) <= 300 && in_array($doc['status'] ?? 'Available', ['Available', 'Busy']));
+                ?>
                 <div class="col-md-4 col-sm-6">
                     <div class="card-modern h-100">
                         <img src="<?= $img ?>" class="card-img-top w-100" style="height: 280px; object-fit: cover;" alt="Dr. <?= htmlspecialchars($doc['full_name']) ?>">
                         <div class="p-4 text-center">
                             <h5 class="fw-bold mb-1">Dr. <?= htmlspecialchars($doc['full_name']) ?></h5>
-                            <span class="badge bg-primary-subtle text-primary mb-3"><?= htmlspecialchars($doc['specialization'] ?: 'General Practice') ?></span>
+                            <div class="mb-2">
+                                <span class="badge bg-primary-subtle text-primary me-1"><?= htmlspecialchars($doc['specialization'] ?: 'General Practice') ?></span>
+                                <?php if ($isLiveOnline): ?>
+                                    <span class="badge bg-success text-white"><i class="bi bi-broadcast"></i> Live Online</span>
+                                <?php else: ?>
+                                    <span class="badge bg-secondary-subtle text-secondary"><i class="bi bi-circle"></i> Dashboard Inactive</span>
+                                <?php endif; ?>
+                            </div>
                             <p class="text-secondary small mb-3"><?= htmlspecialchars($doc['qualification'] ?: 'MD') ?> · <?= htmlspecialchars($doc['experience'] ?: '5') ?>+ Years Experience</p>
                             <a href="patient/login.php" class="btn btn-outline-primary btn-sm w-100 py-2" style="border-radius: 8px;">Book Appointment</a>
                         </div>

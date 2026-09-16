@@ -25,7 +25,7 @@ if (isset($_GET['rec_id']) && isset($_GET['action'])) {
 }
 
 // Handle AJAX POST decision logging
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'log_decision') {
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['action']) && $_POST['action'] === 'log_decision') {
     header('Content-Type: application/json');
     $recId = intval($_POST['recommendation_id'] ?? 0);
     $actionTaken = trim($_POST['action_taken'] ?? 'ACCEPTED');

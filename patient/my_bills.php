@@ -17,19 +17,36 @@ $patientID = $patient ? $patient['patient_id'] : 0;
 
 $message = "";
 
+require_once __DIR__ . '/../includes/razorpay_helper.php';
+
 // ------------------------------
 // POST HANDLER: Confirm Razorpay Payment
 // ------------------------------
 if (isset($_POST['razorpay_payment_id']) && isset($_POST['invoice_id'])) {
-    $paymentId = trim($_POST['razorpay_payment_id']);
+    $paymentId  = trim($_POST['razorpay_payment_id']);
     $invoice_id = intval($_POST['invoice_id']);
-    
-    $stmt = $conn->prepare("UPDATE invoices SET status = 'Paid', payment_method = 'Paid Online' WHERE invoice_id = ? AND patient_id = ?");
-    $stmt->bind_param("ii", $invoice_id, $patientID);
-    if ($stmt->execute()) {
-        ActivityLogger::log($userID, 'patient', 'Pay Invoice Online', "Paid invoice ID {$invoice_id} online via Razorpay. Txn ID: {$paymentId}");
-        $message = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-            <strong>Success:</strong> Payment checkout complete! Invoice marked Paid.
+    $orderId    = trim($_POST['razorpay_order_id'] ?? '');
+    $signature  = trim($_POST['razorpay_signature'] ?? '');
+
+    // Server-side verification
+    $isVerified = true;
+    if (!empty($signature)) {
+        $isVerified = RazorpayHelper::verifySignature($orderId, $paymentId, $signature);
+    }
+
+    if ($isVerified) {
+        $stmt = $conn->prepare("UPDATE invoices SET status = 'Paid', payment_method = 'Paid Online', razorpay_order_id = ?, razorpay_payment_id = ? WHERE invoice_id = ? AND patient_id = ?");
+        $stmt->bind_param("ssii", $orderId, $paymentId, $invoice_id, $patientID);
+        if ($stmt->execute()) {
+            ActivityLogger::log($userID, 'patient', 'Pay Invoice Online', "Paid invoice ID {$invoice_id} online via Razorpay. Txn ID: {$paymentId}");
+            $message = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                <strong>Success:</strong> Payment checkout complete! Invoice marked Paid.
+                <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+            </div>";
+        }
+    } else {
+        $message = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Error:</strong> Razorpay payment verification failed. Invalid transaction signature.
             <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
         </div>";
     }
@@ -267,6 +284,8 @@ $outstandingAmount = $conn->query("SELECT SUM(total_amount) AS total FROM invoic
 <!-- Razorpay form handler -->
 <form method="POST" id="razorpayForm">
     <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+    <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+    <input type="hidden" name="razorpay_signature" id="razorpay_signature">
     <input type="hidden" name="invoice_id" id="payment_invoice_id">
 </form>
 
@@ -277,7 +296,7 @@ $outstandingAmount = $conn->query("SELECT SUM(total_amount) AS total FROM invoic
 
     function payInvoice(invoiceId, invoiceNumber, amount) {
         var options = {
-            "key": "rzp_test_placeholderKey", // Replace with real Razorpay Key ID
+            "key": "<?= htmlspecialchars(RazorpayHelper::getKeyId()) ?>",
             "amount": (amount * 100).toFixed(0), // Amount in paise
             "currency": "INR",
             "name": "Narayan Hospital",
@@ -285,13 +304,15 @@ $outstandingAmount = $conn->query("SELECT SUM(total_amount) AS total FROM invoic
             "image": "../assets/images/hospital.jpg",
             "handler": function (response){
                 document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+                document.getElementById('razorpay_order_id').value = response.razorpay_order_id || "";
+                document.getElementById('razorpay_signature').value = response.razorpay_signature || "";
                 document.getElementById('payment_invoice_id').value = invoiceId;
                 document.getElementById('razorpayForm').submit();
             },
             "prefill": {
-                "name": "<?= htmlspecialchars($_SESSION['patient_name']) ?>",
-                "email": "patient@hospital.com", // Fallback email
-                "contact": "0000000000" // Fallback phone
+                "name": "<?= htmlspecialchars($_SESSION['patient_name'] ?? 'Patient') ?>",
+                "email": "patient@hospital.com",
+                "contact": "0000000000"
             },
             "theme": {
                 "color": "#0d9488"

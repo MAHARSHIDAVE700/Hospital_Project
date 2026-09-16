@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['admin_id'])) {
+if (!isset($_SESSION['admin_id']) && !isset($_SESSION['doctor_id'])) {
     header("Location: login.php");
     exit();
 }
@@ -20,8 +20,16 @@ $status = trim($_GET['status']);
 // Allowed status values
 $allowedStatus = ["Pending", "Confirmed", "Completed", "Cancelled"];
 
-if (!in_array($status, $allowedStatus)) {
-    die("Invalid Status");
+if ($status === 'Completed') {
+    $rxCheck = $conn->query("SELECT prescription_id FROM prescriptions WHERE appointment_id = $id");
+    if (!$rxCheck || $rxCheck->num_rows == 0) {
+        if (isset($_SESSION['doctor_id'])) {
+            header("Location: ../doctor/write_prescription.php?id=$id&error=rx_required");
+            exit();
+        } else {
+            die("<div style='font-family:sans-serif; text-align:center; margin-top:50px;'><h2>Prescription Required</h2><p>An appointment cannot be marked as Completed until the doctor writes a mandatory prescription for it.</p><a href='manage_appointments.php'>Back to Appointments</a></div>");
+        }
+    }
 }
 
 $stmt = $conn->prepare("UPDATE appointments SET status=? WHERE appointment_id=?");

@@ -66,6 +66,40 @@ class NeonDB {
         return null;
     }
 
+    public function begin_transaction() {
+        try {
+            if ($this->pdo->inTransaction()) {
+                return true;
+            }
+            return $this->pdo->beginTransaction();
+        } catch (Exception $e) {
+            try { $this->pdo->exec("BEGIN"); } catch (Exception $e2) {}
+            return true;
+        }
+    }
+
+    public function commit() {
+        try {
+            if ($this->pdo->inTransaction()) {
+                return $this->pdo->commit();
+            }
+            return true;
+        } catch (Exception $e) {
+            try { $this->pdo->exec("COMMIT"); } catch (Exception $e2) {}
+            return true;
+        }
+    }
+
+    public function rollback() {
+        try {
+            $this->pdo->rollBack();
+        } catch (Throwable $e) {}
+        try {
+            $this->pdo->exec("ROLLBACK");
+        } catch (Throwable $e2) {}
+        return true;
+    }
+
     public static function connect_error() {
         return "Neon PostgreSQL connection error.";
     }
@@ -76,6 +110,7 @@ class NeonDBStmt {
     private $params = [];
     private $result = null;
     public $num_rows = 0;
+    public $error = '';
     
     public function __construct($stmt) {
         $this->stmt = $stmt;
@@ -91,6 +126,7 @@ class NeonDBStmt {
     
     public function execute() {
         try {
+            $this->error = '';
             for ($i = 0; $i < count($this->params); $i++) {
                 $this->stmt->bindParam($i + 1, $this->params[$i]);
             }
@@ -100,6 +136,7 @@ class NeonDBStmt {
             $this->num_rows = $this->result->num_rows;
             return $success;
         } catch (PDOException $e) {
+            $this->error = $e->getMessage();
             error_log("Postgres Execute failed: " . $e->getMessage());
             return false;
         }

@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../includes/config.php';
 require_once __DIR__ . '/patient_flow_engine.php';
 
 // Handle AJAX stage update request
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_stage') {
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_stage') {
     header('Content-Type: application/json');
     $flowId = intval($_POST['flow_id'] ?? 0);
     $newStage = trim($_POST['new_stage'] ?? '');

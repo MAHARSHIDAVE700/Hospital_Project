@@ -34,7 +34,7 @@ if (isset($_POST['admit_patient'])) {
             <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
         </div>";
     } else {
-        $conn->query("BEGIN");
+        $conn->begin_transaction();
         try {
             // Insert Admission
             $stmt = $conn->prepare("INSERT INTO ipd_admissions (patient_id, doctor_id, bed_id, admission_reason, initial_bp, initial_temp, initial_pulse, initial_weight, admission_date, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'Admitted')");
@@ -57,14 +57,14 @@ if (isset($_POST['admit_patient'])) {
                 throw new Exception("Failed to log Bed Allocation transaction.");
             }
 
-            $conn->query("COMMIT");
+            $conn->commit();
             ActivityLogger::log($_SESSION['admin_id'], 'admin', 'Admit IPD Patient', "Admitted patient ID {$patient_id} to Bed ID {$bed_id}");
             $message = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
                 <strong>Success:</strong> Patient admitted and Bed locked successfully.
                 <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
             </div>";
         } catch (Exception $e) {
-            $conn->query("ROLLBACK");
+            $conn->rollback();
             $message = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
                 <strong>Error:</strong> Failed to admit patient. " . htmlspecialchars($e->getMessage()) . "
                 <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
@@ -111,7 +111,7 @@ if (isset($_POST['discharge_patient'])) {
         $bed_id = $query['bed_id'];
         $patient_id = $query['patient_id'];
 
-        $conn->query("BEGIN");
+        $conn->begin_transaction();
         try {
             // Update Admission status
             $stmt = $conn->prepare("UPDATE ipd_admissions SET status = 'Discharged', discharge_date = ?, discharge_summary = ?, discharge_status = ? WHERE ipd_id = ?");
@@ -132,14 +132,14 @@ if (isset($_POST['discharge_patient'])) {
                 throw new Exception("Failed to close active Bed Allocation link.");
             }
 
-            $conn->query("COMMIT");
+            $conn->commit();
             ActivityLogger::log($_SESSION['admin_id'], 'admin', 'Discharge IPD Patient', "Discharged patient ID {$patient_id} from Bed ID {$bed_id}");
             $message = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
                 <strong>Success:</strong> Patient discharged successfully. Bed released.
                 <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
             </div>";
         } catch (Exception $e) {
-            $conn->query("ROLLBACK");
+            $conn->rollback();
             $message = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
                 <strong>Error:</strong> Failed to discharge patient. " . htmlspecialchars($e->getMessage()) . "
                 <button type='button' class='btn-close' data-bs-dismiss='alert'></button>

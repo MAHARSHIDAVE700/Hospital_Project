@@ -28,7 +28,7 @@ require_once __DIR__ . '/../ai_hode/model_metrics/metrics_collector.php';
 $activeTab = isset($_GET['tab']) ? trim($_GET['tab']) : 'dashboard';
 
 // Handle POST actions within the Admin Panel
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
 
     if ($action === 'update_flow_stage') {

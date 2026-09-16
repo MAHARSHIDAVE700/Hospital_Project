@@ -89,6 +89,12 @@ $notifications = $conn->query("
             <a href="manage_doctors.php" class="hms-sidebar-item">
                 <i class="bi bi-person-badge"></i> Doctors
             </a>
+            <a href="manage_leaves.php" class="hms-sidebar-item">
+                <i class="bi bi-calendar2-range"></i> Doctor Leaves
+            </a>
+            <a href="manage_doctor_schedule.php" class="hms-sidebar-item">
+                <i class="bi bi-calendar3"></i> Doctor Schedules
+            </a>
             <a href="manage_patients.php" class="hms-sidebar-item">
                 <i class="bi bi-people"></i> Patients
             </a>
@@ -112,6 +118,12 @@ $notifications = $conn->query("
             </a>
             <a href="manage_billing.php" class="hms-sidebar-item">
                 <i class="bi bi-wallet2"></i> Billing Center
+            </a>
+            <a href="blood_bank.php" class="hms-sidebar-item">
+                <i class="bi bi-droplet-fill text-danger"></i> Blood Bank
+            </a>
+            <a href="ambulance_requests.php" class="hms-sidebar-item">
+                <i class="bi bi-truck text-warning"></i> Ambulance Control
             </a>
             <div class="hms-sidebar-group-title">Analytics & AI</div>
             <a href="analytics.php" class="hms-sidebar-item">

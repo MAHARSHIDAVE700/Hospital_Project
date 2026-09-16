@@ -34,11 +34,22 @@ $appointment = $stmt->get_result()->fetch_assoc();
 
 if(isset($_POST['save'])){
 
-    $diagnosis = $_POST['diagnosis'];
-    $medicines = $_POST['medicines'];
-    $notes = $_POST['notes'];
+    $diagnosis = trim($_POST['diagnosis'] ?? '');
+    $medicines = trim($_POST['medicines'] ?? '');
+    $notes = trim($_POST['notes'] ?? '');
 
-    $doctor_id = $_SESSION['doctor_id'];
+    if (empty($diagnosis) || empty($medicines)) {
+        $error_msg = "Diagnosis and Prescribed Medicines are mandatory to complete the consultation.";
+    } else {
+
+    $doctor_id = $appointment['doctor_id'] ?? 0;
+    if (!$doctor_id) {
+        $userID = $_SESSION['doctor_id'];
+        $user = $conn->query("SELECT email FROM users WHERE id='$userID'")->fetch_assoc();
+        $email = $user ? $user['email'] : '';
+        $docRow = $conn->query("SELECT doctor_id FROM doctors WHERE LOWER(email)=LOWER('$email')")->fetch_assoc();
+        $doctor_id = $docRow ? $docRow['doctor_id'] : 0;
+    }
     $patient_id = $appointment['patient_id'];
 
     $stmt = $conn->prepare("
@@ -169,6 +180,10 @@ if(isset($_POST['save'])){
         }
         exit();
     }
+    }
+}
+if (isset($_GET['error']) && $_GET['error'] === 'rx_required') {
+    $error_msg = "Prescription is mandatory before completing the appointment!";
 }
 ?>
 
@@ -187,6 +202,13 @@ if(isset($_POST['save'])){
 <body class="bg-light">
 
 <div class="container mt-5">
+
+<?php if (!empty($error_msg)): ?>
+    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        <strong>Mandatory Requirement:</strong> <?= htmlspecialchars($error_msg); ?>
+    </div>
+<?php endif; ?>
 
 <div class="card shadow">
 

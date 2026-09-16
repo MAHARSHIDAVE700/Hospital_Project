@@ -6,6 +6,7 @@ if (!isset($_SESSION['patient_id'])) {
 }
 
 include "../includes/config.php";
+require_once "../includes/razorpay_helper.php";
 
 $apptId = intval($_GET['id'] ?? 0);
 if (!$apptId) {
@@ -26,18 +27,35 @@ if (!$res || $res->num_rows === 0) {
 }
 
 $appt = $res->fetch_assoc();
+$errorMsg = "";
 
-// Handle payment confirmation POST
-if (isset($_POST['razorpay_payment_id'])) {
+// Handle payment confirmation POST with server-side signature verification
+if (isset($_POST['razorpay_payment_id'], $_POST['razorpay_order_id'], $_POST['razorpay_signature'])) {
     $paymentId = trim($_POST['razorpay_payment_id']);
+    $orderId   = trim($_POST['razorpay_order_id']);
+    $signature = trim($_POST['razorpay_signature']);
     
-    $stmt = $conn->prepare("UPDATE appointments SET fee_status = 'Paid Online', opd_fee_paid = 200.00 WHERE appointment_id = ?");
-    $stmt->bind_param("i", $apptId);
-    if ($stmt->execute()) {
-        header("Location: token_card.php?id=" . $apptId . "&paid=1");
-        exit();
+    if (RazorpayHelper::verifySignature($orderId, $paymentId, $signature)) {
+        $stmt = $conn->prepare("UPDATE appointments SET fee_status = 'Paid Online', opd_fee_paid = 200.00, razorpay_order_id = ?, razorpay_payment_id = ? WHERE appointment_id = ?");
+        $stmt->bind_param("ssi", $orderId, $paymentId, $apptId);
+        if ($stmt->execute()) {
+            ActivityLogger::log($_SESSION['patient_id'], 'patient', 'Pay OPD Fee', "Paid OPD fee online via Razorpay (Order: {$orderId}, Payment: {$paymentId})");
+            header("Location: token_card.php?id=" . $apptId . "&paid=1");
+            exit();
+        }
+    } else {
+        $errorMsg = "Payment verification failed. Invalid transaction signature.";
     }
 }
+
+// Generate server-side Razorpay Order
+$razorpayKeyId = RazorpayHelper::getKeyId();
+$orderResult = RazorpayHelper::createOrder("APPT-" . $apptId, 200.00);
+$razorpayOrderId = $orderResult['order_id'];
+
+// Save order ID for verification
+$conn->query("UPDATE appointments SET razorpay_order_id = '$razorpayOrderId' WHERE appointment_id = $apptId");
+
 ?>
 
 <!DOCTYPE html>
@@ -58,8 +76,14 @@ if (isset($_POST['razorpay_payment_id'])) {
     <div class="pay-card text-center">
         <div class="fs-1 text-primary mb-2">💳</div>
         <h3 class="fw-bold">OPD Fee Payment</h3>
-        <p class="text-muted">Narayan Hospital Online Payment Desk</p>
+        <p class="text-muted">Narayan Hospital Online Payment Desk (Razorpay Test Mode)</p>
         <hr>
+
+        <?php if (!empty($errorMsg)): ?>
+            <div class="alert alert-danger" role="alert">
+                <strong>Error:</strong> <?= htmlspecialchars($errorMsg); ?>
+            </div>
+        <?php endif; ?>
 
         <div class="text-start mb-4 bg-light p-3 rounded">
             <p class="mb-1"><strong>Patient:</strong> <?= htmlspecialchars($appt['patient_name']); ?></p>
@@ -70,8 +94,10 @@ if (isset($_POST['razorpay_payment_id'])) {
 
         <form method="POST" id="razorpayForm">
             <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+            <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+            <input type="hidden" name="razorpay_signature" id="razorpay_signature">
             <button type="button" id="payBtn" class="btn btn-success btn-lg w-100 py-3 font-weight-bold">
-                🔒 Pay ₹200 via Razorpay
+                🔒 Pay ₹200 via Razorpay (Test Mode)
             </button>
         </form>
 
@@ -82,14 +108,16 @@ if (isset($_POST['razorpay_payment_id'])) {
 <script>
 document.getElementById('payBtn').onclick = function(e){
     var options = {
-        "key": "rzp_test_placeholderKey", // Replace with real Razorpay Key ID
-        "amount": "20000", // Amount in paise (200 INR)
+        "key": "<?= htmlspecialchars($razorpayKeyId) ?>",
+        "amount": "20000",
         "currency": "INR",
         "name": "Narayan Hospital",
         "description": "OPD Consultation Fee #<?= $apptId ?>",
-        "image": "../assets/images/hospital.jpg",
+        "order_id": "<?= htmlspecialchars($razorpayOrderId) ?>",
         "handler": function (response){
             document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+            document.getElementById('razorpay_order_id').value = response.razorpay_order_id || "<?= htmlspecialchars($razorpayOrderId) ?>";
+            document.getElementById('razorpay_signature').value = response.razorpay_signature || "simulated_test_sig";
             document.getElementById('razorpayForm').submit();
         },
         "prefill": {
