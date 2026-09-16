@@ -167,41 +167,12 @@ $leaves = $conn->query("
                                             </td>
                                             <td>
                                                 <?php if ($row['status'] === 'Pending'): ?>
-                                                    <button type="button" class="btn btn-sm btn-success me-1" data-bs-toggle="modal" data-bs-target="#actionModal<?= $row['leave_id']; ?>" onclick="setModalStatus(<?= $row['leave_id']; ?>, 'Approved')">
+                                                    <button type="button" class="btn btn-sm btn-success me-1" onclick="openActionModal(<?= $row['leave_id']; ?>, '<?= htmlspecialchars(addslashes($row['doctor_name'])); ?>', '<?= date('d M Y', strtotime($row['start_date'])); ?> to <?= date('d M Y', strtotime($row['end_date'])); ?>', 'Approved')">
                                                         <i class="bi bi-check-lg"></i> Approve
                                                     </button>
-                                                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#actionModal<?= $row['leave_id']; ?>" onclick="setModalStatus(<?= $row['leave_id']; ?>, 'Rejected')">
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="openActionModal(<?= $row['leave_id']; ?>, '<?= htmlspecialchars(addslashes($row['doctor_name'])); ?>', '<?= date('d M Y', strtotime($row['start_date'])); ?> to <?= date('d M Y', strtotime($row['end_date'])); ?>', 'Rejected')">
                                                         <i class="bi bi-x-lg"></i> Reject
                                                     </button>
-
-                                                    <!-- Action Modal -->
-                                                    <div class="modal fade" id="actionModal<?= $row['leave_id']; ?>" tabindex="-1" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <form method="POST">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title">Review Leave Request #<?= $row['leave_id']; ?></h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <input type="hidden" name="leave_id" value="<?= $row['leave_id']; ?>">
-                                                                        <input type="hidden" name="status" id="statusInput<?= $row['leave_id']; ?>" value="Approved">
-                                                                        
-                                                                        <p>You are about to <strong id="statusText<?= $row['leave_id']; ?>">Approve</strong> leave for <strong>Dr. <?= htmlspecialchars($row['doctor_name']); ?></strong> (<?= date('d M Y', strtotime($row['start_date'])); ?> to <?= date('d M Y', strtotime($row['end_date'])); ?>).</p>
-                                                                        
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label font-weight-bold">Admin Remarks (Optional)</label>
-                                                                            <textarea name="admin_remarks" class="form-control" rows="3" placeholder="Enter any notes or remarks..."></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                                        <button type="submit" name="action_leave" class="btn btn-primary">Confirm Action</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 <?php else: ?>
                                                     <span class="text-muted small">Completed</span>
                                                 <?php endif; ?>
@@ -222,11 +193,62 @@ $leaves = $conn->query("
     </main>
 </div>
 
+<!-- Single Action Modal outside table container to prevent screen blinking -->
+<div class="modal fade" id="actionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <form method="POST">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title fw-bold">Review Leave Request #<span id="modalLeaveIdDisplay"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <input type="hidden" name="leave_id" id="modalLeaveIdInput" value="">
+                    <input type="hidden" name="status" id="modalStatusInput" value="">
+                    
+                    <p class="fs-6">You are about to <strong id="modalStatusText" class="text-primary">Approve</strong> leave for <strong id="modalDoctorName"></strong> (<span id="modalLeaveDates"></span>).</p>
+                    
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">Admin Remarks (Optional)</label>
+                        <textarea name="admin_remarks" class="form-control" rows="3" placeholder="Enter any notes or remarks..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" name="action_leave" id="modalSubmitBtn" class="btn btn-primary">Confirm Action</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-function setModalStatus(leaveId, status) {
-    document.getElementById('statusInput' + leaveId).value = status;
-    document.getElementById('statusText' + leaveId).innerText = status;
+let leaveActionModalInstance = null;
+
+function openActionModal(leaveId, docName, dates, status) {
+    document.getElementById('modalLeaveIdInput').value = leaveId;
+    document.getElementById('modalLeaveIdDisplay').innerText = leaveId;
+    document.getElementById('modalStatusInput').value = status;
+    document.getElementById('modalStatusText').innerText = status;
+    document.getElementById('modalDoctorName').innerText = 'Dr. ' + docName;
+    document.getElementById('modalLeaveDates').innerText = dates;
+    
+    const btn = document.getElementById('modalSubmitBtn');
+    if (status === 'Approved') {
+        btn.className = 'btn btn-success px-4';
+        btn.innerText = 'Approve Leave';
+        document.getElementById('modalStatusText').className = 'text-success';
+    } else {
+        btn.className = 'btn btn-danger px-4';
+        btn.innerText = 'Reject Leave';
+        document.getElementById('modalStatusText').className = 'text-danger';
+    }
+    
+    if (!leaveActionModalInstance) {
+        leaveActionModalInstance = new bootstrap.Modal(document.getElementById('actionModal'));
+    }
+    leaveActionModalInstance.show();
 }
 </script>
 </body>
