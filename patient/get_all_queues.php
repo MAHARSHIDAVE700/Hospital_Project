@@ -35,7 +35,7 @@ while ($doc = $query->fetch_assoc()) {
     $liveAppt = $liveQuery ? $liveQuery->fetch_assoc() : null;
     $liveToken = '-';
     if ($liveAppt && !empty($liveAppt['token_number'])) {
-        $liveToken = $liveAppt['token_number'];
+        $liveToken = is_numeric($liveAppt['token_number']) ? 'Token #' . $liveAppt['token_number'] : $liveAppt['token_number'];
     } else {
         // Fallback to next waiting
         $waitingQuery = $conn->query("
@@ -48,7 +48,7 @@ while ($doc = $query->fetch_assoc()) {
         ");
         $waitAppt = $waitingQuery ? $waitingQuery->fetch_assoc() : null;
         if ($waitAppt && !empty($waitAppt['token_number'])) {
-            $liveToken = $waitAppt['token_number'];
+            $liveToken = is_numeric($waitAppt['token_number']) ? 'Token #' . $waitAppt['token_number'] : $waitAppt['token_number'];
         } else {
             // Get last completed today
             $lastCompletedQuery = $conn->query("
@@ -60,7 +60,7 @@ while ($doc = $query->fetch_assoc()) {
                 ORDER BY queue_position DESC LIMIT 1
             ");
             $lastComp = $lastCompletedQuery ? $lastCompletedQuery->fetch_assoc() : null;
-            $liveToken = ($lastComp && !empty($lastComp['token_number'])) ? $lastComp['token_number'] : '-';
+            $liveToken = ($lastComp && !empty($lastComp['token_number'])) ? (is_numeric($lastComp['token_number']) ? 'Token #' . $lastComp['token_number'] : $lastComp['token_number']) : '-';
         }
     }
     

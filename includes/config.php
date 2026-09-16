@@ -46,4 +46,26 @@ try {
 }
 
 require_once __DIR__ . '/activity_logger.php';
+
+if (!function_exists('getNextContinuousToken')) {
+    function getNextContinuousToken($conn) {
+        $res = $conn->query("
+            SELECT token_number 
+            FROM appointments 
+            WHERE token_number IS NOT NULL AND token_number != ''
+        ");
+        $maxNum = 0;
+        if ($res) {
+            while ($row = $res->fetch_assoc()) {
+                $val = trim($row['token_number']);
+                $num = (int)preg_replace('/[^0-9]/', '', $val);
+                if ($num > $maxNum) {
+                    $maxNum = $num;
+                }
+            }
+        }
+        $nextNum = $maxNum + 1;
+        return (string)$nextNum;
+    }
+}
 ?>

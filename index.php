@@ -157,6 +157,65 @@
     </div>
 </section>
 
+<!-- Live OPD Queue Token Monitor Section -->
+<section id="live-queue-monitor" class="container py-3 my-2">
+    <div class="card-modern shadow-lg border-0 p-4" style="background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%); color: white; border-radius: 16px;">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <span class="badge bg-white text-primary fw-bold px-3 py-2 rounded-pill"><i class="bi bi-broadcast me-1"></i> Live OPD Queue Display</span>
+                <h3 class="fw-bold mt-2 text-white mb-0">🏥 Doctor Live OPD Serving Tokens</h3>
+            </div>
+            <div>
+                <span class="badge bg-danger text-white px-3 py-2 rounded-pill shadow-sm"><i class="bi bi-record-fill text-warning me-1"></i> Live Token System</span>
+            </div>
+        </div>
+        <div class="row g-3">
+            <?php 
+                $liveDocs = $conn->query("
+                    SELECT d.doctor_id, d.full_name, dep.department_name, d.status, d.last_active_at 
+                    FROM doctors d 
+                    LEFT JOIN departments dep ON d.department_id = dep.department_id 
+                    ORDER BY d.full_name ASC LIMIT 4
+                ");
+                if ($liveDocs && $liveDocs->num_rows > 0) {
+                    while ($ld = $liveDocs->fetch_assoc()) {
+                        $docId = $ld['doctor_id'];
+                        $isLive = (!empty($ld['last_active_at']) && (time() - strtotime($ld['last_active_at'])) <= 300);
+                        
+                        // Current serving token today
+                        $servingQuery = $conn->query("SELECT token_number FROM appointments WHERE doctor_id='$docId' AND appointment_date=CURRENT_DATE AND queue_status='Called' LIMIT 1");
+                        $servingAppt = $servingQuery ? $servingQuery->fetch_assoc() : null;
+                        
+                        if ($servingAppt && !empty($servingAppt['token_number'])) {
+                            $liveTokenDisp = "Token #" . $servingAppt['token_number'];
+                        } else {
+                            $waitQuery = $conn->query("SELECT token_number FROM appointments WHERE doctor_id='$docId' AND appointment_date=CURRENT_DATE AND queue_status='Waiting' ORDER BY queue_position ASC LIMIT 1");
+                            $waitAppt = $waitQuery ? $waitQuery->fetch_assoc() : null;
+                            $liveTokenDisp = ($waitAppt && !empty($waitAppt['token_number'])) ? "Token #" . $waitAppt['token_number'] : "No Queue";
+                        }
+            ?>
+                <div class="col-md-3 col-sm-6">
+                    <div class="bg-white text-dark rounded-4 p-3 shadow-sm h-100 border">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-primary-subtle text-primary fw-bold"><?= htmlspecialchars($ld['department_name'] ?? 'General') ?></span>
+                            <?php if ($isLive && $ld['status'] === 'Available'): ?>
+                                <span class="badge bg-success-subtle text-success fw-bold">🟢 Serving Now</span>
+                            <?php else: ?>
+                                <span class="badge bg-secondary-subtle text-secondary fw-bold">⚫ Offline</span>
+                            <?php endif; ?>
+                        </div>
+                        <h6 class="fw-bold text-dark mb-1">Dr. <?= htmlspecialchars($ld['full_name']) ?></h6>
+                        <small class="text-secondary d-block mb-2">OPD Token Currently Serving:</small>
+                        <div class="fs-4 fw-bold text-primary text-center py-2 bg-light rounded-3 border">
+                            <?= htmlspecialchars($liveTokenDisp) ?>
+                        </div>
+                    </div>
+                </div>
+            <?php } } ?>
+        </div>
+    </div>
+</section>
+
 <!-- Departments Section -->
 <section id="departments" class="container py-5 my-3">
     <div class="text-center mb-5">

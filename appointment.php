@@ -205,14 +205,15 @@ if (isset($_POST['book'])) {
             if ($bookedCount >= 10) {
                 $message = "<div class='alert alert-danger'><i class='bi bi-exclamation-triangle'></i> This time slot is fully booked. Please select another time slot.</div>";
             } else {
+            $tokenNumber = getNextContinuousToken($conn);
             $status = "Pending";
 
             $stmt = $conn->prepare("
                 INSERT INTO appointments
-                (patient_id, doctor_id, appointment_date, appointment_time, status, opd_fee_paid, fee_status)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                (patient_id, doctor_id, appointment_date, appointment_time, status, opd_fee_paid, fee_status, token_number, queue_position, queue_status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'Waiting')
             ");
-            $stmt->bind_param("iisssds", $patientID, $doctor, $date, $time, $status, $fee_paid, $fee_status);
+            $stmt->bind_param("iisssdsss", $patientID, $doctor, $date, $time, $status, $fee_paid, $fee_status, $tokenNumber, $tokenNumber);
 
         if ($stmt->execute()) {
             $newApptQuery = $conn->query("

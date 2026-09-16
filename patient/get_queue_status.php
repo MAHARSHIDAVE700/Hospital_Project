@@ -43,10 +43,10 @@ if ($patientID) {
     if ($apptQuery && $appt = $apptQuery->fetch_assoc()) {
         $response['has_appointment'] = true;
         
-        $myToken = $appt['token_number'] ?: 'Pending Confirmation';
+        $myTokenVal = $appt['token_number'] ? (is_numeric($appt['token_number']) ? 'Token #' . $appt['token_number'] : $appt['token_number']) : 'Pending Confirmation';
         $myPosition = $appt['queue_position'] ?: '-';
         
-        $response['my_token'] = $myToken;
+        $response['my_token'] = $myTokenVal;
         $response['queue_position'] = $myPosition;
         $response['doctor_name'] = $appt['doctor_name'];
         $docStatus = $appt['doctor_status'];
@@ -63,8 +63,8 @@ if ($patientID) {
         ");
         $liveAppt = $liveQuery ? $liveQuery->fetch_assoc() : null;
         
-        if ($liveAppt) {
-            $response['live_token'] = $liveAppt['token_number'];
+        if ($liveAppt && !empty($liveAppt['token_number'])) {
+            $response['live_token'] = is_numeric($liveAppt['token_number']) ? 'Token #' . $liveAppt['token_number'] : $liveAppt['token_number'];
         } else {
             // Find first waiting
             $waitingQuery = $conn->query("
@@ -76,8 +76,8 @@ if ($patientID) {
                 ORDER BY queue_position ASC LIMIT 1
             ");
             $waitAppt = $waitingQuery ? $waitingQuery->fetch_assoc() : null;
-            if ($waitAppt) {
-                $response['live_token'] = $waitAppt['token_number'];
+            if ($waitAppt && !empty($waitAppt['token_number'])) {
+                $response['live_token'] = is_numeric($waitAppt['token_number']) ? 'Token #' . $waitAppt['token_number'] : $waitAppt['token_number'];
             } else {
                 // Last completed today
                 $lastCompletedQuery = $conn->query("
@@ -89,7 +89,7 @@ if ($patientID) {
                     ORDER BY queue_position DESC LIMIT 1
                 ");
                 $lastComp = $lastCompletedQuery ? $lastCompletedQuery->fetch_assoc() : null;
-                $response['live_token'] = $lastComp ? $lastComp['token_number'] : '-';
+                $response['live_token'] = ($lastComp && !empty($lastComp['token_number'])) ? (is_numeric($lastComp['token_number']) ? 'Token #' . $lastComp['token_number'] : $lastComp['token_number']) : '-';
             }
         }
         

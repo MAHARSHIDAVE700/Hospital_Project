@@ -230,43 +230,20 @@ if (isset($_POST['book'])) {
                 if ($bookedCount >= 10) {
                     $message = "This time slot is fully booked. Please select another time slot.";
                 } else {
+                $tokenNumber = getNextContinuousToken($conn);
                 $status = ($appt_status === 'Confirmed') ? 'Confirmed' : 'Pending';
 
                 $stmt = $conn->prepare("
                     INSERT INTO appointments
-                    (patient_id, doctor_id, appointment_date, appointment_time, status, opd_fee_paid, fee_status)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    (patient_id, doctor_id, appointment_date, appointment_time, status, opd_fee_paid, fee_status, token_number, queue_position, queue_status, est_consultation_time, check_in_status)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'Waiting', ?, 1)
                     RETURNING appointment_id
                 ");
-                $stmt->bind_param("iisssds", $patient_id, $doctor_id, $date, $time, $status, $fee_paid, $fee_status);
+                $stmt->bind_param("iisssdssss", $patient_id, $doctor_id, $date, $time, $status, $fee_paid, $fee_status, $tokenNumber, $tokenNumber, $time);
 
             if ($stmt->execute()) {
                 $row = $stmt->get_result()->fetch_assoc();
                 $newApptId = $row['appointment_id'];
-
-                if ($status === 'Confirmed') {
-                    // Generate daily token
-                    $countQuery = $conn->query("
-                        SELECT COUNT(*) AS count 
-                        FROM appointments 
-                        WHERE doctor_id = '$doctor_id' 
-                        AND appointment_date = '$date' 
-                        AND token_number IS NOT NULL
-                    ");
-                    $count = $countQuery ? $countQuery->fetch_assoc()['count'] : 0;
-                    $nextSequence = $count + 1;
-                    $tokenNumber = 'A' . sprintf('%03d', $nextSequence);
-
-                    $conn->query("
-                        UPDATE appointments 
-                        SET token_number = '$tokenNumber', 
-                            queue_position = '$nextSequence', 
-                            queue_status = 'Waiting',
-                            est_consultation_time = '$time',
-                            check_in_status = 1
-                        WHERE appointment_id = $newApptId
-                    ");
-                }
                 
                 header("Location: manage_appointments.php?updated=1&appt_id=" . $newApptId);
                 exit();
@@ -275,6 +252,7 @@ if (isset($_POST['book'])) {
             }
         }
     }
+}
 }
 }
 
