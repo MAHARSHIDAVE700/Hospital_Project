@@ -10,7 +10,7 @@ if (!isset($_SESSION['patient_id'])) {
 include "../includes/config.php";
 
 $query = $conn->query("
-    SELECT d.doctor_id, d.full_name, dep.department_name, d.status
+    SELECT d.doctor_id, d.full_name, dep.department_name, d.status, d.last_active_at
     FROM doctors d
     LEFT JOIN departments dep ON d.department_id = dep.department_id
     ORDER BY d.full_name ASC
@@ -20,6 +20,11 @@ $queues = [];
 while ($doc = $query->fetch_assoc()) {
     $doctorID = $doc['doctor_id'];
     
+    // Evaluate if doctor is actively online on live dashboard (active within 5 minutes)
+    $lastActive = $doc['last_active_at'] ?? null;
+    $isOnline = (!empty($lastActive) && (time() - strtotime($lastActive)) <= 300);
+    $effectiveStatus = ($isOnline && in_array($doc['status'] ?? 'Available', ['Available', 'Busy'])) ? $doc['status'] : 'Offline';
+
     // Count waiting patients today
     $pendingQuery = $conn->query("SELECT COUNT(*) AS total FROM appointments WHERE doctor_id='$doctorID' AND appointment_date=CURRENT_DATE AND queue_status='Waiting'")->fetch_assoc()['total'];
     
@@ -67,7 +72,7 @@ while ($doc = $query->fetch_assoc()) {
     $queues[] = [
         'doctor_name' => $doc['full_name'],
         'department' => $doc['department_name'] ?: 'General',
-        'status' => $doc['status'],
+        'status' => $effectiveStatus,
         'live_token' => $liveToken,
         'waiting_count' => $pendingQuery
     ];

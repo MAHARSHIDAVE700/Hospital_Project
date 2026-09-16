@@ -31,7 +31,7 @@ $response = [
 if ($patientID) {
     // Get patient's earliest pending/confirmed appointment today
     $apptQuery = $conn->query("
-        SELECT a.appointment_id, a.doctor_id, d.full_name AS doctor_name, d.status AS doctor_status, a.token_number, a.queue_position
+        SELECT a.appointment_id, a.doctor_id, d.full_name AS doctor_name, d.status AS doctor_status, d.last_active_at, a.token_number, a.queue_position
         FROM appointments a
         JOIN doctors d ON a.doctor_id = d.doctor_id
         WHERE a.patient_id='$patientID' 
@@ -46,11 +46,14 @@ if ($patientID) {
         $myTokenVal = $appt['token_number'] ? (is_numeric($appt['token_number']) ? 'Token #' . $appt['token_number'] : $appt['token_number']) : 'Pending Confirmation';
         $myPosition = $appt['queue_position'] ?: '-';
         
+        $lastActive = $appt['last_active_at'] ?? null;
+        $isOnline = (!empty($lastActive) && (time() - strtotime($lastActive)) <= 300);
+        $effectiveStatus = ($isOnline && in_array($appt['doctor_status'] ?? 'Available', ['Available', 'Busy'])) ? $appt['doctor_status'] : 'Offline';
+
         $response['my_token'] = $myTokenVal;
         $response['queue_position'] = $myPosition;
         $response['doctor_name'] = $appt['doctor_name'];
-        $docStatus = $appt['doctor_status'];
-        $response['doctor_status'] = $docStatus;
+        $response['doctor_status'] = $effectiveStatus;
         
         // Find current live serving token number (queue_status = 'Called' today)
         $liveQuery = $conn->query("
